@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="GAT_Produkcja.ViewModel.ZamowienieOdKlienta.Szczegoly.ZamowienieOdKlientaEwidencjaSzczegolyUCView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GAT_Produkcja.ViewModel.ZamowienieOdKlienta.Szczegoly"
+             
+        xmlns:converters ="clr-namespace:GAT_Produkcja.UI.Converters"
+             
+             mc:Ignorable="d" 
+                     xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+        startUp:ViewModelLocator.AutoWireViewModel="True"
+
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+        xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="12"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Language="pl-PL"
+        d:DesignHeight="450" d:DesignWidth="800"
+             >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding LoadCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding CloseWindowCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+
+    </i:Interaction.Triggers>
+
+
+    <Grid>
+        <!--#region TxtBlckHelper - DG -->
+        <TextBlock 
+            x:Name="NaPotrzebyDG"
+            Text=""
+            Visibility="Collapsed"/>
+        <!--#endregion-->
+        <!--#region DataGrid -->
+        <DataGrid
+            x:Name="test"
+            ItemsSource="{Binding ListaZamowienOdKlientow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding WybraneZamowienieOdKlienta}"
+            Grid.Row="1"
+            Margin="0 20 0 0"
+            dgx:DataGridFilter.IsAutoFilterEnabled="True"
+            
+            >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nr dok." Width="auto" Binding="{Binding NrPelny}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                <DataGridTextColumn Header="Przyjęto" Width="auto" Binding="{Binding DataWyst, StringFormat=d}" ElementStyle="{StaticResource CenterAlignStyle}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource FilterDatesWithPopup}"
+                                    />
+                <materialDesign:MaterialDataGridTextColumn Header="Termin &#x0a; realizacji" Width="100" Binding="{Binding TerminRealizacji, StringFormat=d}" ElementStyle="{StaticResource CenterAlignStyle}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource FilterDatesWithPopup}">
+                </materialDesign:MaterialDataGridTextColumn>
+                <DataGridTextColumn Header="Kontrahent" Width="150" Binding="{Binding KontrahentNazwa}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                <DataGridTextColumn Header="Towar" Binding="{Binding TowarNazwa}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                <DataGridTextColumn Header="Grupa" Binding="{Binding Grupa}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+
+                <DataGridTextColumn Header="Ilość" Binding="{Binding Ilosc, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource FilterValuesWithPopup}"
+                                    />
+                <DataGridTextColumn Header="Jm" Binding="{Binding Jm}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                <DataGridTextColumn Header="Cena &#x0a; netto" Binding="{Binding CenaNetto, StringFormat=C2}" ElementStyle="{StaticResource RightAlignStyle}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource FilterValuesWithPopup}"
+                                    Visibility="{Binding Source={x:Reference NaPotrzebyDG},Converter={converters:DostepDyrektorVisibilityConverter}}"
+                                    />
+                <!--WAZNE!!! x:Reference Handlowiec -> odnosimy do obojetnie jakiej kontrolki jako jej x:Name -> patrz TextBlock powyzej-->
+
+                <DataGridTextColumn Header="Wartość &#x0a; netto" Binding="{Binding WartNetto, StringFormat=C2}" ElementStyle="{StaticResource RightAlignStyle}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource FilterValuesWithPopup}"
+                                    Visibility="{Binding Source={x:Reference NaPotrzebyDG},Converter={converters:DostepDyrektorVisibilityConverter}}"
+                                    />
+                <DataGridTextColumn Header="Wystawił(a)" Binding="{Binding Wystawil}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                <DataGridTextColumn Header="Uwagi" MinWidth="200" MaxWidth="400" Binding="{Binding Uwagi}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <!--#endregion-->
+
+    </Grid>
+</UserControl>

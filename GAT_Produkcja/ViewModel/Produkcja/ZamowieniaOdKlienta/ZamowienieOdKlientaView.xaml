@@ -1,0 +1,600 @@
+﻿<Window x:Class="GAT_Produkcja.ViewModel.Produkcja.ZamowieniaOdKlienta.ZamowienieOdKlientaView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.ZamowieniaOdKlienta"
+        mc:Ignorable="d"
+        xmlns:converters="clr-namespace:GAT_Produkcja.UI.Converters"
+
+        xmlns:ucGeowlokniny="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.ZamowieniaOdKlienta.TowarGeowloknina"
+        xmlns:ucGeokomorki="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.ZamowieniaOdKlienta.TowarGeokomorka"
+        xmlns:ucPakowanie="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.ZamowieniaOdKlienta.Pakowanie"
+        xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+        startUp:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+        xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
+
+         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+         TextElement.FontWeight="Regular"
+         TextElement.FontSize="13"
+         TextOptions.TextFormattingMode="Ideal"
+         TextOptions.TextRenderingMode="Auto"
+         Background="{DynamicResource MaterialDesignPaper}"
+         FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        Title="Zamówienie od Klienta" Height="650" Width="1200" MinWidth="500"
+            WindowStartupLocation="CenterScreen"
+            Language="pl-PL"
+
+        >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding ZamknijOknoCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding ZaladujPodczasUruchomieniaCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--#region Naglowek-->
+        <Grid 
+            Grid.ColumnSpan="3"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock 
+                Grid.Column="0"
+                Grid.Row="0"
+                Text="{Binding Tytul}"
+                FontSize="14"
+                Foreground="CadetBlue"
+                FontWeight="Bold"
+                Margin="5"
+                       />
+            <StackPanel Orientation="Horizontal" 
+                        Margin="5"
+                        Grid.Row="1">
+                <ComboBox 
+                    ItemsSource="{Binding ListaPracownikowGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    SelectedItem="{Binding WybranyPracownikGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                    DisplayMemberPath="ImieINazwiskoGAT"
+                    SelectedValuePath="ID_PracownikGAT"
+                    SelectedValue="{Binding Zamowienie.IDPracownikGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                            ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                    materialDesign:HintAssist.Hint="Handlowiec" materialDesign:HintAssist.IsFloating="True"
+                    Margin="5"
+                    Width="200"
+                          />
+                <TextBox Text="{Binding Zamowienie.NrZamowienia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                        ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}"
+                         materialDesign:HintAssist.Hint="Nr zamówienia" materialDesign:HintAssist.IsFloating="True"
+                         Margin="5"
+                         Width="150"/>
+                <DatePicker SelectedDate="{Binding Zamowienie.DataZamowienia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                                ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                            materialDesign:HintAssist.Hint="Data zamówienia" materialDesign:HintAssist.IsFloating="True"
+                            VerticalAlignment="Bottom"
+                            Margin="5"/>
+            </StackPanel>
+            <StackPanel 
+                Grid.Column="3"
+                Grid.RowSpan="2"
+                Orientation="Horizontal"
+                Margin="9.6,10"        
+                        >
+
+                <Button 
+                    Content="Usuń"
+                    Command="{Binding UsunCommand}"
+                    Margin="5"/>
+                <Button 
+                    Content="Zapisz"
+                    Command="{Binding ZapiszCommand}"
+                    Margin="5"/>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+
+        <!--<StackPanel
+            Grid.Row="1"
+            Margin="10"
+            >
+
+            <ComboBox 
+                    ItemsSource="{Binding ListaPracownikowGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    SelectedItem="{Binding WybranyPracownikGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                    DisplayMemberPath="ImieINazwiskoGAT"
+                    SelectedValuePath="ID_PracownikGAT"
+                    SelectedValue="{Binding Zamowienie.IDPracownikGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                            ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                    materialDesign:HintAssist.Hint="Handlowiec" materialDesign:HintAssist.IsFloating="True"
+                    Margin="5"
+                    VerticalAlignment="Bottom"
+                          />
+            <TextBox Text="{Binding Zamowienie.NrZamowienia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}"
+                 materialDesign:HintAssist.Hint="Nr zamówienia" materialDesign:HintAssist.IsFloating="True"
+                     Margin="5"/>
+            <DatePicker SelectedDate="{Binding Zamowienie.DataZamowienia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                            materialDesign:HintAssist.Hint="Data zamówienia" materialDesign:HintAssist.IsFloating="True"
+                            VerticalAlignment="Bottom"
+                            Margin="5"/>
+        </StackPanel>-->
+
+
+
+        <ScrollViewer 
+            Grid.Row="1"
+            Grid.ColumnSpan="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="290"/>
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="150"/>
+                </Grid.RowDefinitions>
+
+
+
+                <!--#region Odbiorca-->
+                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                                     Margin="10"
+                                     Grid.Row="0"
+                                     Grid.Column="0"
+                                     VerticalAlignment="Stretch"
+                                     >
+                    <StackPanel 
+                                VerticalAlignment="Stretch"
+                                >
+                        <TextBlock Text="Odbiorca"
+                                   FontSize="14"
+                                   Foreground="CadetBlue"
+                                   Margin="10"/>
+
+                        <Grid
+                            Margin="10 0 10 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock 
+                                Grid.Column="0"
+                                Text="Odbiorca: "
+                                       VerticalAlignment="Center"/>
+                            <dotNetKitControls:AutoCompleteComboBox
+                                Grid.Column="1"
+                                ItemsSource="{Binding ListaOdboiorcow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                SelectedItem="{Binding WybranyOdbiorca, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                SelectedValuePath="ID_Kontrahent"
+                                SelectedValue="{Binding Zamowienie.IDOdbiorca, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                        ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                materialDesign:HintAssist.Hint="Data zamówienia" materialDesign:HintAssist.IsFloating="True"
+                                TextSearch.TextPath="Nazwa"
+                                Margin="10"
+                                >
+
+                                <dotNetKitControls:AutoCompleteComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Nazwa}"
+                                                       Margin="0 0 5 0"
+                                                       FontWeight="Bold"/>
+                                            <StackPanel Orientation="Horizontal">
+
+                                                <TextBlock Text="NIP: "/>
+                                                <TextBlock Text="{Binding NIP}"
+                                                           Margin="0 0 5 0"
+                                                            />
+                                            </StackPanel>
+
+                                            <TextBlock Text="{Binding Miasto}"
+                                                       Margin="0 0 5 0"
+                                                       />
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="ul."/>
+                                                <TextBlock Text="{Binding Ulica}"/>
+
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </dotNetKitControls:AutoCompleteComboBox.ItemTemplate>
+
+                            </dotNetKitControls:AutoCompleteComboBox>
+                        </Grid>
+
+                        <TextBox Text="{Binding WybranyOdbiorca.Nazwa}"
+                                IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Nazwa" materialDesign:HintAssist.IsFloating="True"
+                                Margin="10 0 10 5"
+                                     />
+                        <TextBox Text="{Binding WybranyOdbiorca.Ulica}"
+                                IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Ulica" materialDesign:HintAssist.IsFloating="True"
+                                Margin="10 0 10 0"
+                                     />
+
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="5 0 5 0">
+                            <TextBox Text="{Binding WybranyOdbiorca.KodPocztowy}"
+                                IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Kod pocztowy" materialDesign:HintAssist.IsFloating="True"
+                                Margin="5"/>
+                            <TextBox Text="{Binding WybranyOdbiorca.Miasto}"
+                                IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="Miasto" materialDesign:HintAssist.IsFloating="True"
+                                Margin="5"
+                                Width="150"/>
+
+                        </StackPanel>
+                        <TextBox Text="{Binding WybranyOdbiorca.NIP}"
+                                IsReadOnly="True"
+                                materialDesign:HintAssist.Hint="NIP" materialDesign:HintAssist.IsFloating="True"
+                                Margin="10 0 10 0"/>
+                    </StackPanel>
+
+                </materialDesign:Card>
+                <!--#endregion-->
+
+                <!--#region Adres dostawy-->
+                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                                     Margin="10"
+                                     Grid.Row="0"
+                                     Grid.Column="1"
+                                     VerticalAlignment="Stretch"
+                                     >
+                    <StackPanel 
+                                VerticalAlignment="Stretch"
+                                >
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Adres dostawy"
+                                   FontSize="14"
+                                   Foreground="CadetBlue"
+                                   Margin="10"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   />
+                            <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    Margin="10"
+                                    Grid.Column="1"
+                                    >
+
+                                <TextBlock Text="Jak odbiorcy?" 
+                                       VerticalAlignment="Center"
+                                       Margin="10"
+                                       />
+                                <ToggleButton
+                                IsChecked="{Binding CzyAdresDostawyJakOdbiorcy}"
+                                Style="{StaticResource MaterialDesignActionToggleButton}"
+                                ToolTip="Czy adres dostawy jest taki sam jak adres Odbiorcy?">
+                                    <ToggleButton.Content>
+                                        <TextBlock Text="Nie" FontSize="12"/>
+                                    </ToggleButton.Content>
+
+                                    <materialDesign:ToggleButtonAssist.OnContent>
+                                        <TextBlock Text="Tak" FontSize="12"/>
+                                    </materialDesign:ToggleButtonAssist.OnContent>
+                                </ToggleButton>
+
+                            </StackPanel>
+                        </Grid>
+
+                        <TextBox Text="{Binding Zamowienie.UlicaDostawy, 
+                                            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                            ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                 materialDesign:HintAssist.Hint="Ulica" materialDesign:HintAssist.IsFloating="True"
+                                 Margin="10 0 10 0"
+                                 />
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10 5 10 0"
+                                    >
+
+                            <TextBox Text="{Binding Zamowienie.KodPocztowyDostawy,
+                                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+
+                                     materialDesign:HintAssist.Hint="Kod pocztowy" materialDesign:HintAssist.IsFloating="True"
+                                     Width="100"
+                                     Margin="0 0 10 0"
+                                     />
+                            <TextBox Text="{Binding Zamowienie.MiastoDostawy, 
+                                                Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                     materialDesign:HintAssist.Hint="Miasto" materialDesign:HintAssist.IsFloating="True"
+                                     Width="240"
+                                     />
+
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10 5 10 0"
+                                    >
+                            <TextBox Text="{Binding Zamowienie.OsobaKontaktowa}"
+                                     materialDesign:HintAssist.Hint="Osoba kontaktowa" materialDesign:HintAssist.IsFloating="True"
+                                     Margin="0 0 10 0"
+                                     />
+                            <TextBox Text="{Binding Zamowienie.TelefonDoKontaktu}"
+                                     materialDesign:HintAssist.Hint="Telefon kontaktowy" materialDesign:HintAssist.IsFloating="True"
+                                     />
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </materialDesign:Card>
+                <!--#endregion-->
+
+                <!--#region Szczegoly wysylki-->
+                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                                     Margin="10"
+                                     Grid.Row="0"
+                                     Grid.Column="2"
+                                     VerticalAlignment="Stretch"
+                                     >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Szczegóły wysyłki"
+                               FontSize="14"
+                               Foreground="CadetBlue"
+                               Margin="10"
+                                   Grid.Row="0"/>
+                        <Grid
+                            Grid.Row="1"
+                            Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock 
+                                Grid.Column="0"
+                                Text="Przewoźnik: "
+                                       VerticalAlignment="Center"/>
+                            <dotNetKitControls:AutoCompleteComboBox
+                                Grid.Column="1"
+                                ItemsSource="{Binding ListaPrzewoznikow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                SelectedItem="{Binding WybranyPrzewoznik, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                SelectedValuePath="ID_Kontrahent"
+                                SelectedValue="{Binding Zamowienie.IDPrzewoznik, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                        ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                materialDesign:HintAssist.Hint="Data zamówienia" materialDesign:HintAssist.IsFloating="True"
+                                TextSearch.TextPath="Nazwa"
+                                Margin="10"
+                                >
+
+                                <dotNetKitControls:AutoCompleteComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Nazwa}"
+                                                       Margin="0 0 5 0"
+                                                       FontWeight="Bold"/>
+                                            <StackPanel Orientation="Horizontal">
+
+                                                <TextBlock Text="NIP: "/>
+                                                <TextBlock Text="{Binding NIP}"
+                                                           Margin="0 0 5 0"
+                                                            />
+                                            </StackPanel>
+
+                                            <TextBlock Text="{Binding Miasto}"
+                                                       Margin="0 0 5 0"
+                                                       />
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="ul."/>
+                                                <TextBlock Text="{Binding Ulica}"/>
+
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </dotNetKitControls:AutoCompleteComboBox.ItemTemplate>
+
+                            </dotNetKitControls:AutoCompleteComboBox>
+                        </Grid>
+
+                        <StackPanel
+                            Grid.Row="2"
+                            Margin="10 0 10 0"
+                            >
+
+                            <TextBox 
+                            Text="{Binding WybranyPrzewoznik.Nazwa, 
+                                            ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                 TextWrapping="WrapWithOverflow"
+                                 Margin="5"
+                                 materialDesign:HintAssist.Hint="Przewoźnik nazwa pełna" materialDesign:HintAssist.IsFloating="True"
+                         
+                                 />
+                        </StackPanel>
+
+
+                        <StackPanel Orientation="Horizontal"
+                                Grid.Row="3"
+                                    Margin="10 0 10 0">
+
+                            <DatePicker SelectedDate="{Binding Zamowienie.DataWysylki, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Data wysyłki" materialDesign:HintAssist.IsFloating="True"
+                                    VerticalAlignment="Bottom"
+                                    Margin="5"
+                                    Width="120"/>
+                            <ComboBox 
+                            ItemsSource="{Binding ListaKosztowPrzesylek, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            SelectedItem="{Binding WybranyKosztPrzesylki, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                            DisplayMemberPath="PrzesylkaKoszt"
+                            SelectedValuePath="IDZamowieniaPrzesylkaKoszt"
+                            SelectedValue="{Binding Zamowienie.IDZamowieniaPrzesylkaKoszt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                    ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                            materialDesign:HintAssist.Hint="Koszt pokrywa" materialDesign:HintAssist.IsFloating="True"
+                            Margin="5"
+                                Width="120"
+                       
+                                  />
+
+
+
+                        </StackPanel>
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Grid.Row="4"
+                            Margin="10 0 10 0">
+
+                            <ComboBox 
+                            ItemsSource="{Binding ListaWarunkowPlatnosci, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            SelectedItem="{Binding WyrbanyWarunekPlatnosci, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                            DisplayMemberPath="WarunkiPlatnosci"
+                            SelectedValuePath="IDZamowieniaWarunkiPlatnosci"
+                            SelectedValue="{Binding Zamowienie.IDZamowieniaWarunkiPlatnosci, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                    ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                            materialDesign:HintAssist.Hint="Warunki płatności" materialDesign:HintAssist.IsFloating="True"
+                            Margin="5"
+                                Width="120"
+                                  />
+                            <ComboBox 
+                            ItemsSource="{Binding ListaTerminowPlatnosci, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            SelectedItem="{Binding WybranyTerminPlatnosci, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                            DisplayMemberPath="TerminPlatnosci"
+                            SelectedValuePath="IDZamowieniaTerminPlatnosci"
+                            SelectedValue="{Binding Zamowienie.IDZamowieniaTerminPlatnosci, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                    ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                            materialDesign:HintAssist.Hint="Termin płatności" materialDesign:HintAssist.IsFloating="True"
+                            Margin="5"
+                                Width="120"
+                                  />
+
+                        </StackPanel>
+
+                    </Grid>
+                </materialDesign:Card>
+
+                <!--#endregion-->
+
+
+
+                <!--#region Towar Zamowiony TabControls-->
+                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                                     Margin="10"
+                                     Grid.Row="1"
+                                     Grid.ColumnSpan="2"
+                                     VerticalAlignment="Stretch"
+                                     >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Zamawiany Towar"
+                               Foreground="CadetBlue"
+                               Margin="5"
+                                   Grid.Row="0"
+                                   />
+                        <TabControl Grid.Row="1">
+                            <TabItem>
+                                <TabItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Geowłókniny"
+                                                   Foreground="CadetBlue"
+                                                   Margin="5 0 10 0"/>
+                                        <materialDesign:PackIcon Kind="done"
+                                                                 Visibility="{Binding CzyListaGeowlokninNieJestPusta, Converter={converters:BooleanToVisibilityConverter}}"/>
+                                    </StackPanel>
+                                </TabItem.Header>
+                                
+                                <ucGeowlokniny:TowarGeowlokninaView/>
+                            
+                            </TabItem>
+                            
+                            <TabItem>
+                                <TabItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Geokomórki"
+                                                   Foreground="CadetBlue"
+                                                   Margin="5 0 10 0"/>
+                                        <TextBlock Text="{Binding LiczbaPozycjiGeokomorek, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                   Margin="10 0 0 5"
+                                                   FontWeight="Bold"/>
+                                    </StackPanel>
+                                </TabItem.Header>
+
+                                <ucGeokomorki:TowarGeokomorkaView/>
+                            
+                            </TabItem>
+
+
+                            <TabItem Header="Inne">
+
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+
+                </materialDesign:Card>
+                <!--#endregion-->
+
+                <!--#region Pakowanie-->
+                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                                     Margin="10"
+                                     Grid.Row="3"
+                                     Grid.ColumnSpan="3"
+                                     VerticalAlignment="Stretch"
+                                     >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Pakowanie"
+                                   Foreground="CadetBlue"
+                                   Grid.Row="0"
+                                   Margin="5"
+                                   />
+                        <ucPakowanie:PakowanieView
+                                   Grid.Row="1"
+                            Margin="5"
+                            DataContext="{Binding PakowanieViewModel}"
+                            />
+                    </Grid>
+
+                </materialDesign:Card>
+
+
+                <!--#endregion-->
+            </Grid>
+
+        </ScrollViewer>
+    </Grid>
+</Window>

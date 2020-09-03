@@ -1,0 +1,146 @@
+﻿<Window x:Class="GAT_Produkcja.ViewModel.Kontrahent.Ewidencja.EwidencjaKontrahentowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+        xmlns:converters="clr-namespace:GAT_Produkcja.UI.Converters"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+        startUp:ViewModelLocator.AutoWireViewModel="True"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="{Binding Title, Mode=OneWay}"
+        Height="650"
+        Width="1200"
+        MinWidth="600"
+        MinHeight="350"
+        WindowStartupLocation="CenterScreen">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding CloseCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding LoadCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    Margin="5"
+                    VerticalAlignment="Bottom">
+            <TextBox Text="{Binding KontrahentSzukaj.Nazwa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="Nazwa Kontrahenta"
+                     Margin="5" />
+            <TextBox Text="{Binding KontrahentSzukaj.Miasto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="Miasto Kontrahenta"
+                     Margin="5" />
+            <TextBox Text="{Binding KontrahentSzukaj.NIP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="NIP Kontrahenta"
+                     Margin="5" />
+
+            <Button Content="Szukaj"
+                    Margin="5"
+                    Command="{Binding SzukajCommand}"
+                    IsDefault="True" 
+                    />
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Margin="5">
+            <Button Width="60"
+                    ToolTip="Dodaj Kontrahenta"
+                    Command="{Binding AddCommand}"
+                    Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Add"
+                                             Width="30"
+                                             Height="30"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left" />
+                    <!--<TextBlock Text="Dodaj" VerticalAlignment="Center" FontSize="16"/>-->
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                             Margin="10"
+                             Grid.Row="1"
+                             VerticalAlignment="Stretch">
+
+            <DataGrid Margin="5"
+                      ItemsSource="{Binding ListOfVMEntities, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedVMEntity}"
+                      IsReadOnly="True"
+                      AutoGenerateColumns="False"
+                      CanUserResizeColumns="True"
+                      CanUserReorderColumns="True"
+                      CanUserAddRows="False"
+                      VerticalScrollBarVisibility="Visible"
+                      HorizontalScrollBarVisibility="Auto"
+                      ClipboardCopyMode="None"
+                      FontSize="11"
+                      dgx:DataGridFilter.IsAutoFilterEnabled="True">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <cmd:EventToCommand Command="{Binding EditCommand}"
+                                            PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <!--<MenuItem Command="Copy" />-->
+                        <MenuItem Header="Pokaż szczegóły"
+                                  Command="{Binding EditCommand }" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Firma"
+                                        Width="450"
+                                        Binding="{Binding Nazwa}"
+                                        ElementStyle="{StaticResource LeftAlignStyle}" />
+                    <DataGridTextColumn Header="NIP"
+                                        Width="auto"
+                                        Binding="{Binding NIP}"
+                                        ElementStyle="{StaticResource LeftAlignStyle}" />
+                    <DataGridTextColumn Header="Ulica"
+                                        Width="150"
+                                        Binding="{Binding Ulica}"
+                                        ElementStyle="{StaticResource LeftAlignStyle}" />
+                    <DataGridTextColumn Header="Miasto"
+                                        Width="150"
+                                        Binding="{Binding Miasto}"
+                                        ElementStyle="{StaticResource LeftAlignStyle}" />
+                    <DataGridTextColumn Header="Kod pocztowy"
+                                        Width="auto"
+                                        Binding="{Binding KodPocztowy}"
+                                        ElementStyle="{StaticResource CenterAlignStyle}" />
+                    <DataGridTextColumn Header="Województwo"
+                                        Width="auto"
+                                        Binding="{Binding Wojewodztwo}"
+                                        ElementStyle="{StaticResource CenterAlignStyle}" />
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </materialDesign:Card>
+
+    </Grid>
+</Window>

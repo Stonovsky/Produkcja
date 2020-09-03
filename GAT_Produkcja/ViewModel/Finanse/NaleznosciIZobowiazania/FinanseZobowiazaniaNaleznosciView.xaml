@@ -1,0 +1,183 @@
+﻿<Window x:Class="GAT_Produkcja.ViewModel.Finanse.FinanseZobowiazaniaNaleznosciView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GAT_Produkcja.ViewModel.Finanse"
+             mc:Ignorable="d" 
+             
+            xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+            startUp:ViewModelLocator.AutoWireViewModel="True"
+            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+            xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            TextElement.FontWeight="Regular"
+            TextElement.FontSize="13"
+            TextOptions.TextFormattingMode="Ideal"
+            TextOptions.TextRenderingMode="Auto"
+            Background="{DynamicResource MaterialDesignPaper}"
+            FontFamily="{DynamicResource MaterialDesignFont}"
+            Title="{Binding Tytul}"
+            MinHeight="200"
+            MinWidth="500"
+            Width="1200"
+             d:DesignHeight="450" d:DesignWidth="800"
+             Language="pl-PL"
+             >
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding LoadCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding CloseWindowCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--#region Naglowek -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel
+            Orientation="Horizontal"
+            >
+                <DatePicker
+                    SelectedDate="{Binding DataWymagalnosci, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                    MinWidth="80"
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    materialDesign:HintAssist.Hint="Data wymagalności"
+                    >
+
+                </DatePicker>
+                <ComboBox 
+                ItemsSource="{Binding ListaFirm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding WybranaFirma, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                DisplayMemberPath="Nazwa"
+                SelectedValuePath="IDTowarGeowlokninaParametryGramatura"
+                materialDesign:HintAssist.Hint="Firma"
+                MinWidth="90"
+                    VerticalAlignment="Center"
+                />
+                <TextBox Text="{Binding Kontrahent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="Kontrahent"
+                         Margin="5"
+                         VerticalAlignment="Center"
+                         MinWidth="150"/>
+                <Button 
+                        Grid.Column="2"
+                        Width="40"
+                        Height="30"
+                        Padding="0"
+                        ToolTip="Pobierz towary wg zadanych kryterów"
+                        Command="{Binding SzukajCommand}"
+                        IsDefault="True"
+                        Margin="10">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Magnify"
+                                             Width="20"
+                                             Height="20"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left" />
+                        <!--<TextBlock Text="Dodaj" VerticalAlignment="Center" FontSize="16"/>-->
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+
+            <StackPanel
+                Grid.Column="2"
+                Orientation="Horizontal"
+                >
+
+                <TextBlock Text="Podsumowanie: "
+                           VerticalAlignment="Bottom"
+                           Margin="10"
+                           />
+                <TextBox Text="{Binding NaleznosciSuma, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=c2}"
+                         materialDesign:HintAssist.Hint="Należności"
+                         VerticalAlignment="Center"
+                         MinWidth="80"
+                         />
+                <TextBox Text="{Binding ZobowiazaniaSuma, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=c2}"
+                         materialDesign:HintAssist.Hint="Zobowiązania"
+                         VerticalAlignment="Center"
+                         MinWidth="80"
+                         />
+
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+
+        <Grid
+            Grid.Row="1"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--#region Naleznosci -->
+            <GroupBox
+                Header="Należności"
+                Margin="5 0"
+                >
+                <DataGrid
+                ItemsSource="{Binding ListaNaleznosci, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Kontrahent" Binding="{Binding Kontrahent}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                        <DataGridTextColumn Header="Należność" Binding="{Binding Naleznosc, StringFormat=c2 }" ElementStyle="{StaticResource RightAlignStyle}"/>
+                        <DataGridTextColumn Header="Nr dok." Binding="{Binding NrDok}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                        <DataGridTextColumn Header="Data powstania" Binding="{Binding DataPowstania, StringFormat=d }" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                        <DataGridTextColumn Header="Termin płatności" Binding="{Binding TerminPlatnosci, StringFormat= d }" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                        <DataGridTextColumn Header="Dni spóźnienia" Binding="{Binding DniSpoznienia }" ElementStyle="{StaticResource RightAlignStyle}"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </GroupBox>
+            <!--#endregion-->
+            <GridSplitter Grid.Column="1"
+                          Width="4"
+                          HorizontalAlignment="Stretch"/>
+            <!--#region Zobowiazania -->
+            <GroupBox
+                Grid.Column="2"
+                Header="Zobowiązania"
+                Margin="5 0"
+                >
+
+                <DataGrid
+                ItemsSource="{Binding ListaZobowiazan, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Kontrahent" Binding="{Binding Kontrahent}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                        <DataGridTextColumn Header="Zobowiązanie" Binding="{Binding Zobowiazanie, StringFormat=c2 }" ElementStyle="{StaticResource RightAlignStyle}"/>
+                        <DataGridTextColumn Header="Nr dok." Binding="{Binding NrDok}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                        <DataGridTextColumn Header="Data powstania" Binding="{Binding DataPowstania, StringFormat=d }" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                        <DataGridTextColumn Header="Termin płatności" Binding="{Binding TerminPlatnosci, StringFormat= d }" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                        <DataGridTextColumn Header="Dni spóźnienia" Binding="{Binding DniSpoznienia }" ElementStyle="{StaticResource RightAlignStyle}"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </GroupBox>
+            <!--#endregion-->
+        </Grid>
+
+    </Grid>
+</Window>

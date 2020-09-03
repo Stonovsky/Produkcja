@@ -1,0 +1,632 @@
+﻿<Window x:Class="GAT_Produkcja.ViewModel.Produkcja.RozliczenieMsAccess.RozliczenieMsAccessView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.RozliczenieMsAccess"
+        xmlns:converters="clr-namespace:GAT_Produkcja.UI.Converters"
+        mc:Ignorable="d"
+        xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+        startUp:ViewModelLocator.AutoWireViewModel="True"
+
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+        xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="12"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        MinHeight="450"
+        MinWidth="900"
+        Title="{Binding Tytul}"
+        Height="800"
+        Width="700"
+        WindowStartupLocation="CenterScreen"
+        Language="pl-PL"
+        >
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding LoadCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding CloseWindowCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="110" />
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid 
+              >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <ProgressBar
+                Grid.Column="1"
+                IsIndeterminate="True"
+                Style="{StaticResource MaterialDesignCircularProgressBar}"
+                Height="35"
+                Width="35"
+                HorizontalAlignment="Right"
+                Visibility="{Binding CzyProgressBarAtywny, Converter={converters:BooleanToVisibilityConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                >
+
+            </ProgressBar>
+            <StackPanel
+                Grid.Column="2"
+                Orientation="Horizontal"
+                >
+                <Button Width="40"
+                    ToolTip="Exportuj do Excela"
+                    Padding="0"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Command="{Binding ExportPlikowCommand}"
+                    Margin="10">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FileExcel"
+                                             Width="30"
+                                             Height="30"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left" />
+                        <!--<TextBlock Text="Dodaj" VerticalAlignment="Center" FontSize="16"/>-->
+                    </StackPanel>
+                </Button>
+                <Button Content="Anuluj"
+                        Command="{Binding AnulujCommand}"
+                        Margin="5"
+                        />
+                <Button Content="Zapisz"
+                        Command="{Binding SaveCommand}"
+                        Margin="5"/>
+            </StackPanel>
+
+        </Grid>
+
+        <!--#region Dane -->
+        <GroupBox 
+            Header="Dane"
+            Grid.Row="1"
+            Margin="5" 
+            >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                    
+                <!--#region DaneDoWprowadzenia -->
+                <StackPanel Orientation="Horizontal"
+                            Visibility="Collapsed"
+                            >
+
+                    <ComboBox 
+                            ItemsSource="{Binding ListaProduktow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedItem="{Binding WybranyProdukt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            DisplayMemberPath="NazwaArtykulu"    
+                            materialDesign:HintAssist.Hint="Produkt"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Bottom"
+                            MinWidth="120"
+                        />
+
+                    <TextBox 
+                            Text="{Binding WybranaSzerokosc, StringFormat=N2, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"
+                            materialDesign:HintAssist.Hint="Szerokość [m]"
+                            VerticalAlignment="Center"
+                             />
+
+                    <TextBox 
+                            Text="{Binding WybranaDlugosc, StringFormat=N2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            materialDesign:HintAssist.Hint="Długość [m]"
+                            VerticalAlignment="Center"
+                             />
+                    <Button
+                        Command="{Binding SprawdzZleceniaCommand}"
+                        Style="{StaticResource MaterialDesignFlatAccentBgButton }"
+                        ToolTip="Wyszukaj liste dostepnych rolek dla wybranych kryteriów"
+                        VerticalAlignment="Center"
+                        IsDefault="False"
+                        Margin="5"
+                        Width="40"
+                        Padding="0"
+                        >
+
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Magnify" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <!--<TextBlock Text="Dodaj" VerticalAlignment="Center" FontSize="16"/>-->
+                        </StackPanel>
+                    </Button>
+
+
+                </StackPanel>
+                <!--#endregion-->
+
+                <!--#region Filtrowanie -->
+                <StackPanel
+                    Grid.Column="0"
+                    >
+                    
+                <TextBlock Text="Filtrowanie"
+                           Grid.Column="2"/>
+                <materialDesign:Card
+                    Grid.Column="2"
+                    >
+                    
+                <StackPanel Orientation="Horizontal"
+                            
+                            >
+                    <TextBox 
+                            Text="{Binding Filtr.IdZlecenie, StringFormat=N0, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"
+                            materialDesign:HintAssist.Hint="Id Zlecenia"
+                            ToolTip="Wpisz id zlecenia"
+                            MinWidth="80"
+                             />
+                        <TextBox 
+                            Text="{Binding Filtr.TowarNazwa, StringFormat=N2, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"
+                            materialDesign:HintAssist.Hint="Towar"
+                            ToolTip="Wpisz fragment nazwy lub symbolu towaru"
+                            MinWidth="80"
+                             />
+
+                            <ComboBox
+                                ItemsSource="{Binding ListaPrzychodow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding WybranyPrzychod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedValue="{Binding Filtr.Przychod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                materialDesign:HintAssist.Hint="Przychód"
+                                IsEditable="True"
+                                />
+                            <!--<TextBox 
+                            Text="{Binding Filtr.Przychod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            materialDesign:HintAssist.Hint="Przychód"
+                            VerticalAlignment="Center"
+                            MinWidth="80"
+                             />-->
+                    <Button
+                        Command="{Binding FiltrujCommand}"
+                        Style="{StaticResource MaterialDesignFlatAccentBgButton }"
+                        ToolTip="Sprawdź liste dostepnych rolek dla wybranych parametrów filtrowania"
+                        VerticalAlignment="Top"
+                        IsDefault="True"
+                        Margin="5"
+                        Width="40"
+                        Padding="0"
+                        >
+
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Magnify" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <!--<TextBlock Text="Dodaj" VerticalAlignment="Center" FontSize="16"/>-->
+                        </StackPanel>
+                    </Button>
+
+
+                </StackPanel>
+                </materialDesign:Card>
+                </StackPanel>
+                <!--#endregion-->
+
+                <!--#region Buttony -->
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="2"
+                            >
+
+
+                    <!--<Button
+                        Width="80"
+                        Content="Rozlicz"
+                        Command="{Binding RozliczCommand}"
+                        Style="{StaticResource MaterialDesignFlatAccentBgButton }"
+                        VerticalAlignment="Top"
+                        Margin="5"
+                    />-->
+                </StackPanel>
+                <!--#endregion-->
+
+
+
+            </Grid>
+        </GroupBox>
+
+        <!--#endregion-->
+
+        <!--#region Lista pozycji konfekcji -->
+        <GroupBox
+            Grid.Row="2"
+            >
+            <GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Lista pozycji konfekcji"
+                               Grid.Column="0"/>
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Column="2">
+                        <TextBlock Text="Ilość pozycji: "/>
+                        <TextBlock Text="{Binding PodsumowanieListyPozycjiKonfekcji.IloscPozycji, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="50"
+                                   Margin="5 0"/>
+
+                        <TextBlock Text="Waga [kg]: "/>
+                        <TextBlock Text="{Binding PodsumowanieListyPozycjiKonfekcji.WagaKg, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+
+                        <TextBlock Text="Odpad [kg]: "/>
+                        <TextBlock Text="{Binding PodsumowanieListyPozycjiKonfekcji.OdpadKg, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+
+                        <TextBlock Text="Ilość [m2]: "/>
+                        <TextBlock Text="{Binding PodsumowanieListyPozycjiKonfekcji.IloscM2, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+
+                        <TextBlock Text="Wartość [zł]: "/>
+                        <TextBlock Text="{Binding PodsumowanieListyPozycjiKonfekcji.Wartosc, StringFormat=c2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+                    </StackPanel>
+                </Grid>
+            </GroupBox.Header>
+
+            <DockPanel>
+                <Expander
+                    ExpandDirection="Right"
+                    IsExpanded="False"
+                    HorizontalAlignment="Stretch"
+                    
+                    >
+                    <Expander.Header>
+                        <TextBlock
+                                Text="Lista pozycji niezaksięgowanych"
+                                TextWrapping="Wrap"
+                                RenderTransformOrigin=".5,.5">
+                            <TextBlock.LayoutTransform>
+                                <RotateTransform Angle="90" />
+                            </TextBlock.LayoutTransform>
+                        </TextBlock>
+                    </Expander.Header>
+
+                    <!--Podsumowanie PW-->
+                    <DataGrid
+                        Grid.Row="1"
+                        ItemsSource="{Binding ListaKonfekcjiDlaZadanychParametrow}"
+                        ClipboardCopyMode="IncludeHeader"
+                        FontSize="11"
+                        HorizontalScrollBarVisibility="Visible"
+                        VerticalScrollBarVisibility="Auto"
+                        dgx:DataGridFilter.IsAutoFilterEnabled="True"
+                    >
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <!--<cmd:EventToCommand Command="{Binding PokazSzczegolyBadaniaCommand}" PassEventArgsToCommand="True" />-->
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="Copy" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id Zlec." Width="auto" Binding="{Binding IDProdukcjaZlecenieProdukcyjne}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                            <!--<DataGridTextColumn Header="Nr Zlec." Width="auto" Binding="{Binding Zlecenie}" ElementStyle="{StaticResource CenterAlignStyle}"/>-->
+                            <DataGridTextColumn Header="Data" Width="auto" Binding="{Binding DataDodania}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                            <DataGridTextColumn Header="Nr" Width="auto" Binding="{Binding NrRolkiPelny }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                            <DataGridTextColumn Header="Symbol" Width="auto" Binding="{Binding TowarSymbolSubiekt }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                            <DataGridTextColumn Header="Towar" Width="auto" Binding="{Binding TowarNazwaSubiekt }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                            <!--<DataGridTextColumn Header="Nr WZ" Width="auto" Binding="{Binding NrWz }" ElementStyle="{StaticResource LeftAlignStyle}"/>-->
+                            <!--<DataGridTextColumn Header="Szerokość [m]" Width="auto" Binding="{Binding Szerokosc_m, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />-->
+                            <!--<DataGridTextColumn Header="Długość [m]" Width="auto" Binding="{Binding Dlugosc_m, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />-->
+                            <DataGridTextColumn Header="Ilość [m2]" Width="auto" Binding="{Binding Ilosc_m2, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Waga [kg]" Width="auto" Binding="{Binding Waga_kg, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Odpadu [kg]" Width="auto" Binding="{Binding WagaOdpad_kg, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Kierunek" Width="auto" Binding="{Binding KierunekPrzychodu}" ElementStyle="{StaticResource LeftAlignStyle}" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Expander>
+
+                <DataGrid
+                ItemsSource="{Binding ListaPozycjiKonfekcjiDoRozliczenia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding WybranaPozycjiaKonfekcjiDoRozliczenia}"
+                ClipboardCopyMode="IncludeHeader"
+                dgx:DataGridFilter.IsAutoFilterEnabled="True"
+                >
+
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Rozlicz zaznaczone zlecenie" Command="{Binding RozliczCommand}" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn  Width="auto" Binding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False"/>
+                    <DataGridTextColumn Header="ID Zlec." Width="auto" Binding="{Binding IDZlecenie}" ElementStyle="{StaticResource CenterAlignStyle}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Nr Zlec." Width="auto" Binding="{Binding NrZlecenia}" ElementStyle="{StaticResource CenterAlignStyle}" IsReadOnly="True"/>
+                        <!--<DataGridTextColumn Header="Nr WZ" Width="120" Binding="{Binding NrWz }" ElementStyle="{StaticResource LeftAlignStyle}"/>-->
+                        <DataGridTextColumn Header="Symbol R.B." Width="110" Binding="{Binding SymbolRolkiBazowej }" ElementStyle="{StaticResource LeftAlignStyle}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Symbol" Width="110" Binding="{Binding SymbolTowaruSubiekt }" ElementStyle="{StaticResource LeftAlignStyle}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Towar" Width="auto" Binding="{Binding NazwaTowaruSubiekt }" ElementStyle="{StaticResource LeftAlignStyle}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Ilość [m2]" Width="auto" Binding="{Binding Ilosc, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Waga [kg]" Width="auto" Binding="{Binding Ilosc_kg, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Odpadu [kg]" Width="auto" Binding="{Binding Odpad_kg, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Cena bez narzutu [kg]" Width="120" Binding="{Binding CenaProduktuBezNarzutow_kg, StringFormat=C2}" ElementStyle="{StaticResource RightAlignStyle}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Cena bez narzutu [m2]" Width="120" Binding="{Binding CenaProduktuBezNarzutow_m2, StringFormat=C2}" ElementStyle="{StaticResource RightAlignStyle}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Cena sprzedaży [m2]" Width="120" Binding="{Binding CenaSprzedazyGtex_m2, StringFormat=C2}" ElementStyle="{StaticResource RightAlignStyle}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Wartość" Width="120" Binding="{Binding Wartosc, StringFormat=C2 }" ElementStyle="{StaticResource RightAlignStyle}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Kierunek" Width="120" Binding="{Binding Przychod }" ElementStyle="{StaticResource RightAlignStyle}" IsReadOnly="True"/>
+
+                    </DataGrid.Columns>
+
+
+                <!--<DataGrid.Columns>
+                    <DataGridTextColumn Header="ID Zlecenia" Width="auto" Binding="{Binding ZlecenieID}" ElementStyle="{StaticResource CenterAlignStyle}"
+                                        />
+                    <DataGridTextColumn Header="Nr Zlecenia" Width="auto" Binding="{Binding Zlecenie}" ElementStyle="{StaticResource CenterAlignStyle}"
+                                        />
+                    <DataGridTextColumn Header="Nr Sztuki" Width="auto" Binding="{Binding NrSztuki}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                    <DataGridTextColumn Header="Towar" Width="auto" Binding="{Binding Artykul}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                    <DataGridTextColumn Header="Szerokość [m]" Width="auto" Binding="{Binding Szerokosc, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}"/>
+                    <DataGridTextColumn Header="Długość [m]" Width="auto" Binding="{Binding Dlugosc, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}"/>
+                    <DataGridTextColumn Header="Waga [kg]" Width="auto" Binding="{Binding Waga, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}"/>
+                    <DataGridTextColumn Header="Odpad [kg]" Width="auto" Binding="{Binding WagaOdpadu, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}"/>
+                    <DataGridTextColumn Header="NrWZ" Width="auto" Binding="{Binding NrWz}" ElementStyle="{StaticResource RightAlignStyle}"/>
+                    <DataGridTextColumn Header="PW kierunek" Width="auto" Binding="{Binding Przychody}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                    <DataGridCheckBoxColumn Header="Czy poz. roliczona?" Width="auto" Binding="{Binding CzyZaksiegowano}" />
+                </DataGrid.Columns>-->
+            </DataGrid>
+            </DockPanel>
+
+        </GroupBox>
+
+        <!--#endregion-->
+
+        <!--#region RW -->
+        <GroupBox
+                Grid.Row="3"
+                Grid.Column="0"
+                >
+            <GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Rozchód (RW)"
+                               Grid.Column="0"/>
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Column="2">
+                        <TextBlock Text="Ilość pozycji: "/>
+                        <TextBlock Text="{Binding PodsumowanieRW.IloscPozycji, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="20"
+                                   Margin="5 0"/>
+                        <TextBlock Text="Suma udziału %: "/>
+                        <TextBlock Text="{Binding PodsumowanieRW.UdzialSurowca, StringFormat=p2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="50"
+                                   Margin="5 0"
+                                   Foreground="{Binding PodsumowanieRW.UdzialSurowca, Converter={converters:NotHunderetPercentRedRGBConverter}}"/>
+
+                        <TextBlock Text="Waga [kg]: "/>
+                        <TextBlock Text="{Binding PodsumowanieRW.IloscKg, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+
+
+                        <TextBlock Text="Koszt [zł]: "/>
+                        <TextBlock Text="{Binding PodsumowanieRW.Koszt, StringFormat=c2,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+                    </StackPanel>
+                </Grid>
+            </GroupBox.Header>
+            <!--TODO Podsumowanie-->
+            <DataGrid
+                        Grid.Row="1"
+                        ItemsSource="{Binding ListaRW}"
+                        SelectedItem="{Binding WybraneRW}"
+                        IsReadOnly="True"
+                        ClipboardCopyMode="IncludeHeader"
+                        dgx:DataGridFilter.IsAutoFilterEnabled="True"
+                    >
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <cmd:EventToCommand Command="{Binding PokazSzczegolyBadaniaCommand}" PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="Copy" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID Zlecenia" Width="auto" Binding="{Binding IDZlecenie}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                    <DataGridTextColumn Header="Nr Zlecenia" Width="auto" Binding="{Binding NrZlecenia}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                    <DataGridTextColumn Header="Symbol" Width="auto" Binding="{Binding SymbolTowaruSubiekt }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                    <DataGridTextColumn Header="Towar" Width="auto" Binding="{Binding NazwaTowaruSubiekt }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                    <DataGridTextColumn Header="Udział" Width="auto" Binding="{Binding Udzial, StringFormat=p2 }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                    <DataGridTextColumn Header="Ilość [kg]" Width="auto" Binding="{Binding Ilosc, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                    <DataGridTextColumn Header="Cena jedn" Width="120" Binding="{Binding CenaJednostkowa, StringFormat=C2}" ElementStyle="{StaticResource RightAlignStyle}"/>
+                    <DataGridTextColumn Header="Wartość" Width="120" Binding="{Binding Wartosc, StringFormat=C2 }" ElementStyle="{StaticResource RightAlignStyle}"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </GroupBox>
+        <!--#endregion-->
+
+        <!--#region PW -->
+        <GroupBox
+                Grid.Row="4"
+                Grid.Column="0"
+                >
+            <GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Przychód (PW)"
+                               Grid.Column="0"/>
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Column="2">
+                        <TextBlock Text="Ilość pozycji: "/>
+                        <TextBlock Text="{Binding PodsumowaniePW.IloscPozycji, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="50"
+                                   Margin="5 0"/>
+                        
+                        <TextBlock Text="Ilość [m2]: "/>
+                        <TextBlock Text="{Binding PodsumowaniePW.IloscM2, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+
+                        <TextBlock Text="Waga [kg]: "/>
+                        <TextBlock Text="{Binding PodsumowaniePW.WagaKg, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+
+                        <TextBlock Text="Odpad [kg]: "/>
+                        <TextBlock Text="{Binding PodsumowaniePW.OdpadKg, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+
+                        <TextBlock Text="Wartość [zł]: "/>
+                        <TextBlock Text="{Binding PodsumowaniePW.Wartosc, StringFormat=c2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+                    </StackPanel>
+                </Grid>
+            </GroupBox.Header>
+
+            <DockPanel 
+                >
+
+                <Expander
+                        ExpandDirection="Right"
+                    IsExpanded="False"
+                    >
+                    <Expander.Header>
+                        <TextBlock
+                                Text="Lista pozycji"
+                                RenderTransformOrigin=".5,.5">
+                            <TextBlock.LayoutTransform>
+                                <RotateTransform Angle="90" />
+                            </TextBlock.LayoutTransform>
+                        </TextBlock>
+                    </Expander.Header>
+
+                    <!--Podsumowanie PW-->
+                    <DataGrid
+                        Grid.Row="1"
+                        ItemsSource="{Binding ListaPW}"
+                        SelectedItem="{Binding WybranePW}"
+                        ClipboardCopyMode="IncludeHeader"
+                        FontSize="11"
+                        HorizontalScrollBarVisibility="Visible"
+                        VerticalScrollBarVisibility="Auto"
+                        dgx:DataGridFilter.IsAutoFilterEnabled="True"
+                    >
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <cmd:EventToCommand Command="{Binding PokazSzczegolyBadaniaCommand}" PassEventArgsToCommand="True" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="Copy" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nr Zlecenia" Width="auto" Binding="{Binding NrZlecenia}" ElementStyle="{StaticResource CenterAlignStyle}"
+                                        />
+                            <DataGridTextColumn Header="Nr WZ" Width="120" Binding="{Binding NrWz }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                            <DataGridTextColumn Header="Symbol" Width="auto" Binding="{Binding SymbolTowaruSubiekt }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                            <DataGridTextColumn Header="Towar" Width="auto" Binding="{Binding NazwaTowaruSubiekt }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                            <DataGridTextColumn Header="Waga [kg]" Width="auto" Binding="{Binding Ilosc_kg, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Odpadu [kg]" Width="auto" Binding="{Binding Odpad_kg, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Ilość [m2]" Width="auto" Binding="{Binding Ilosc, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Cena bez narzutu [kg]" Width="120" Binding="{Binding CenaProduktuBezNarzutow_kg, StringFormat=C2}" ElementStyle="{StaticResource RightAlignStyle}"/>
+                            <DataGridTextColumn Header="Cena bez narzutu [m2]" Width="120" Binding="{Binding CenaProduktuBezNarzutow_m2, StringFormat=C2}" ElementStyle="{StaticResource RightAlignStyle}"/>
+                            <DataGridTextColumn Header="Cena sprzedaży [m2]" Width="120" Binding="{Binding CenaSprzedazyGtex_m2, StringFormat=C2}" ElementStyle="{StaticResource RightAlignStyle}"/>
+                            <DataGridTextColumn Header="Wartość" Width="120" Binding="{Binding Wartosc, StringFormat=C2 }" ElementStyle="{StaticResource RightAlignStyle}"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Expander>
+
+                <!--#endregion-->
+
+                <!--Podsumowanie PW ze wzgl na Towar-->
+                <DataGrid
+                        Grid.Row="1"
+                        ItemsSource="{Binding PodsumowaniePW_Towar}"
+                        SelectedItem="{Binding WybranePodumowaniePW_Towar}"
+                        ClipboardCopyMode="IncludeHeader"
+                        FontSize="11"
+                        dgx:DataGridFilter.IsAutoFilterEnabled="True"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto"
+                    >
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <cmd:EventToCommand Command="{Binding PokazSzczegolyBadaniaCommand}" PassEventArgsToCommand="True" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="Copy" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID Zlecenia" Width="auto" Binding="{Binding IDZlecenie}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                        <DataGridTextColumn Header="Nr Zlecenia" Width="auto" Binding="{Binding NrZlecenia}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                        <DataGridTextColumn Header="Symbol" Width="auto" Binding="{Binding SymbolTowaruSubiekt }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                        <DataGridTextColumn Header="Towar" Width="auto" Binding="{Binding NazwaTowaruSubiekt }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                        <DataGridTextColumn Header="Waga [kg]" Width="auto" Binding="{Binding Ilosc_kg, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                        <DataGridTextColumn Header="Ilość [m2]" Width="auto" Binding="{Binding Ilosc, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                        <DataGridTextColumn Header="Cena bez narzutu [kg]" Width="120" Binding="{Binding CenaProduktuBezNarzutow_kg, StringFormat=C2}" ElementStyle="{StaticResource RightAlignStyle}"/>
+                        <DataGridTextColumn Header="Cena bez narzutu [m2]" Width="120" Binding="{Binding CenaProduktuBezNarzutow_m2, StringFormat=C2}" ElementStyle="{StaticResource RightAlignStyle}"/>
+                        <DataGridTextColumn Header="Cena sprzedaży [m2]" Width="120" Binding="{Binding CenaSprzedazyGtex_m2, StringFormat=C2}" ElementStyle="{StaticResource RightAlignStyle}"/>
+                        <DataGridTextColumn Header="Wartość" Width="120" Binding="{Binding Wartosc, StringFormat=C2 }" ElementStyle="{StaticResource RightAlignStyle}"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!--#endregion-->
+            </DockPanel>
+        </GroupBox>
+    </Grid>
+</Window>

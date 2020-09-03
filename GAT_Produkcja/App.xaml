@@ -1,0 +1,160 @@
+﻿<Application x:Class="GAT_Produkcja.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:GAT_Produkcja"
+             xmlns:dict="clr-namespace:GAT_Produkcja.UI.ResourceDictionaries.DataGridExtension"
+             xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+             xmlns:vm="clr-namespace:GAT_Produkcja.Startup"
+    >
+    
+    <!--#region OLD -->
+
+    <!--StartupUri="ViewModel/Produkcja/RozliczenieMsAccess/RozliczenieMsAccessView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/GniazdaProdukcyjne/ProdukcjaRuch/RuchTowar/Naglowek/GPRuchNaglowekView.xaml"-->
+    <!--StartupUri="ViewModel/Login/LoginView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/GniazdaProdukcyjne/ProdukcjaRuch/RuchTowar/Naglowek/GPRuchNaglowekView.xaml"-->
+    <!--StartupUri="ViewModel/Login/LoginView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/GniazdaProdukcyjne/ProdukcjaRuch/RuchTowar/Naglowek/GPRuchNaglowekView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/GniazdaProdukcyjne/ProdukcjaRuch/RuchTowar/Ewidencja/ProdukcjaRuchEwidencjaView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/GniazdaProdukcyjne/ProdukcjaRuch/RuchTowar/Ewidencja/ProdukcjaRuchEwidencjaView.xaml"-->
+    <!--StartupUri="ViewModel/Zapotrzebowanie/RozliczenieFV/Ewidencja/ZapotrzebowanieRozliczenieFVEwidencjaView.xaml"-->
+
+    <!--StartupUri="ViewModel/Login/LoginView.xaml"-->
+
+    <!--StartupUri="ViewModel/Produkcja/Zlecenia/ZlecenieProdukcyjne/Ewidencja/ZlecenieProdukcyjneEwidencjaView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/Zlecenia/ZlecenieProdukcyjne/Dodaj/Naglowek/ZlecenieProdukcyjneNaglowekView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/Zlecenia/ZlecenieProdukcyjne/Ewidencja/ZlecenieProdukcyjneEwidencjaView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/Zlecenia/ZlecenieProdukcyjne/Dodaj/Naglowek/ZlecenieProdukcyjneNaglowekView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZlecenieProdukcyjne/Ewidencja/ZlecenieProdukcyjneEwidencjaView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZlecenieCiecia/Dodaj/Naglowek/ZlecenieCieciaNaglowekView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZlecenieCiecia/Ewidencja/ZlecenieCieciaEwidencjaView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZlecenieCiecia/Ewidencja/ZlecenieCieciaEwidencjaView.xaml"-->
+
+    <!--StartupUri="ViewModel/Login/LoginView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZlecenieCiecia/Dodaj/TowarDodaj/ZlecenieCieciaDodajTowarView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZlecenieCiecia/Dodaj/Naglowek/ZlecenieCieciaNaglowekView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZlecenieCiecia/Ewidencja/ZlecenieCieciaEwidencjaView.xaml"-->
+    <!--StartupUri="ViewModel/Login/LoginView.xaml"-->
+
+    <!--StartupUri="ViewModel/Produkcja/GniazdaProdukcyjne/ProdukcjaRuch/GPRuchNaglowekView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZlecenieCiecia/Dodaj/Naglowek/ZlecenieCieciaNaglowekView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZlecenieCiecia/Dodaj/TowarDodaj/ZlecenieCieciaDodajTowarView.xaml"-->
+
+    <!--StartupUri="ViewModel/Produkcja/RozliczenieMsAccess/RozliczenieMsAccessView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ProdukcjaWlasciwa/RuchTowar/RW/Dodaj/ProdukcjaWlasciwaRuchTowarRWDodajView.xaml"-->
+    <!--StartupUri="ViewModel/Login/LoginView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/GniazdaProdukcyjne/LiniaWloknin/LiniaWlokninView.xaml"-->
+
+    <!--StartupUri="ViewModel/Produkcja/GniazdaProdukcyjne/LiniaWloknin/LiniaWlokninView.xaml"-->
+
+    <!--StartupUri="ViewModel/Produkcja/GniazdaProdukcyjne/LiniaWloknin/LiniaWlokninView.xaml"-->
+    <!--StartupUri="ViewModel/Login/LoginView.xaml"-->
+    <!--StartupUri="ViewModel/Badania/Geowlokniny/BadaniaGeowlokninView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/GniazdaProdukcyjne/LiniaWloknin/LiniaWlokninView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZlecenieProdukcyjne/ZlecenieProdukcyjneMainView.xaml"-->
+
+    <!--StartupUri="ViewModel/Magazyn/Ewidencje/StanTowaru/MagazynStanTowaruView.xaml"-->
+    <!--StartupUri="ViewModel/Login/LoginView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/GniazdaProdukcyjne/Dodaj/GniazdaProdukcyjneDodajView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/GniazdaProdukcyjne/Ewidencja/GniazdaProdukcyjneEwidencjaView.xaml"-->
+
+    <!--StartupUri="ViewModel/Login/LoginView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/GniazdaProdukcyjne/Konfekcja/DrukEtykiet/DrukEtykietView.xaml"-->
+    <!--StartupUri="ViewModel/Magazyn/RuchTowaru/RuchTowaruView.xaml"-->
+    <!--StartupUri="ViewModel/Magazyn/RuchTowaru/KodKreskowy/RuchTowaruKodKreskowyDodajView.xaml"-->
+
+    <!--StartupUri="ViewModel/Produkcja/ZlecenieProdukcyjne/Mieszanka/Ewidencja/MieszankaEwidencjaView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZlecenieProdukcyjne/Mieszanka/Dodaj/MieszankaDodajView.xaml"-->
+    <!--StartupUri="ViewModel/Magazyn/RuchTowaru/RuchTowaruView.xaml"-->
+    <!--StartupUri="ViewModel/Login/LoginView.xaml"-->
+
+    <!--StartupUri="ViewModel/Produkcja/ZlecenieProdukcyjne/Mieszanka/Dodaj/MieszankaDodajView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZamowieniaOdKlienta/TowarGeokomorka/Dodaj/TowarGeokomorkaDodajView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZamowieniaOdKlienta/ZamowienieOdKlientaView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZamowieniaOdKlienta/TowarGeokomorka/Dodaj/TowarGeokomorkaDodajView.xaml"-->
+    <!--StartupUri="ViewModel/Produkcja/ZamowieniaOdKlienta/Pakowanie/PakowanieView.xaml"-->
+    <!--StartupUri="ViewModel/Badania/Geowlokniny/BadaniaGeowlokninView.xaml"-->
+    <!--StartupUri="ViewModel/Magazyn/PrzyjecieZewnetrzne/PrzyjecieZewnetrzneView.xaml"-->
+    <!--StartupUri="ViewModel/Magazyn/PrzyjecieZewnetrzne/PrzyjecieZewnetrzneView.xaml"-->
+
+    <!--StartupUri="ViewModel/Zapotrzebowanie/Analiza/AnalizaZapotrzebowanView.xaml"-->
+    <!--StartupUri="ViewModel/Badania/Geowlokniny/ImportBadanZRaportuXls/ImportBadanZRaportuXlsView.xaml"-->
+    <!--StartupUri="ViewModel/Zapotrzebowanie/RozliczenieFV/Ewidencja/ZapotrzebowanieRozliczenieFVEwidencjaView.xaml"-->
+    <!--StartupUri="ViewModel/MainMenu/MainMenuView.xaml"-->
+
+    <!--StartupUri="ViewModel/Zapotrzebowanie/Ewidencja/ZapotrzebowanieEwidencjaView.xaml"-->
+    <!--StartupUri="ViewModel/Zapotrzebowanie/Dodaj/ZapotrzebowanieDodajView.xaml"-->
+    <!--StartupUri="ViewModel/Zapotrzebowanie/Dodaj/DodajPozycje/DodajPozycjeZapotrzebowaniaView.xaml"-->
+
+    <!--StartupUri="ViewModel/Kontrahent/Ewidencja/EwidencjaKontrahentowView.xaml"-->
+    <!--StartupUri="ViewModel/Kontrahent/Dodaj/DodajKontrahentaView.xaml"-->
+    <!--StartupUri="ViewModel/Badania/Geowlokniny/BadaniaGeowlokninView.xaml"-->
+    <!--#endregion-->
+    
+    <Application.Resources>
+        <ResourceDictionary>
+            
+            <!--#region DataGrid Filtry -->
+
+            <!--#region Wartosci -->
+            <ControlTemplate x:Key="FilterValuesWithPopup">
+                <dict:FilterWithPopupControl Filter="{Binding Path=Filter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=dgx:DataGridFilterColumnControl}}" />
+            </ControlTemplate>
+            <!--#endregion-->
+
+            <!--#region Daty -->
+            <ControlTemplate x:Key="FilterDatesWithPopup">
+                <dict:FilterDataWithPopupControl Filter="{Binding Path=Filter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=dgx:DataGridFilterColumnControl}}" />
+            </ControlTemplate>
+
+            <!--#endregion-->
+            <!--#endregion-->
+
+            <!--#region LOKATOR -->
+            <!-- Lokator do bindowania View z ViewModelami - kazdy View z tego korzysta -->
+            <vm:ViewModelLocator x:Key="Locator" />
+            <!--#endregion-->
+
+            <ResourceDictionary.MergedDictionaries>
+
+                <!-- Tutaj wpisujemy odwołania do globanych styli dla kontrolek w katalogu ResourceDictinaries -->
+
+                <!--#region MaterialDesign -->
+                <!--#region MaterialDesignThemes -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <!--#endregion-->
+
+                <!--#region MaterialDesign Custom colors -->
+                <ResourceDictionary>
+                    <!-- primary -->
+                    <!--<SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#2A5CAC"/>-->
+                    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#929EB0"/>
+                    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FFFFFF"/>
+                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2A5CAC"/>
+                    <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFFFFF"/>
+                    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#2A5CAC"/>
+                    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF"/>
+                    <!-- accent -->
+                    <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#D3D3D3"/>
+                    <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#2A5CAC"/>
+                </ResourceDictionary>
+                <!--#endregion-->
+
+                <!--#region MaterialDesing Overrides -->
+                <ResourceDictionary Source="ResourceDictionaries/MaterialDesign/MaterialDesignThemes.Overrides.xaml" />
+                <!--#endregion-->
+                <!--#endregion-->
+                
+                <!--#region Styles -->
+                <ResourceDictionary Source="ResourceDictionaries/StyleDictionary.xaml" />
+                <!--#endregion-->
+
+                <!--#endregion-->
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

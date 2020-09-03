@@ -1,0 +1,601 @@
+﻿<Window x:Class="GAT_Produkcja.ViewModel.Finanse.PodsumowanieFinansowe.PodsumowanieFinansoweView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GAT_Produkcja.ViewModel.Finanse.PodsumowanieFinansowe"
+        xmlns:converters ="clr-namespace:GAT_Produkcja.UI.Converters"
+        mc:Ignorable="d"
+
+        xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+        startUp:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+
+        Title="Podsumowanie finansowe" 
+        Height="600" 
+        MinHeight="500"
+        Width="700"
+        MinWidth="450"
+        WindowStartupLocation="CenterScreen"
+        Language="pl-PL"
+        >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding LoadCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding CloseWindowCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!--#region Naglowek -->
+        <Grid
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel
+                Orientation="Horizontal"
+            >
+                <DatePicker
+                    SelectedDate="{Binding DataOd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    materialDesign:HintAssist.Hint="Od daty"
+                    MinWidth="100"
+                    Margin="5"
+                    />
+                <DatePicker
+                    SelectedDate="{Binding DataDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    materialDesign:HintAssist.Hint="Do daty"
+                    MinWidth="100"
+                    Margin="5"
+                    />
+                <Button 
+                    Grid.Column="2"
+                    Width="40"
+                    Height="30"
+                    Padding="0"
+                    ToolTip="Pokaż podsumowanie finansowe w zadanych datatch"
+                    Command="{Binding SzukajCommand}"
+                    IsDefault="True"
+                    Margin="10">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Magnify"
+                                             Width="20"
+                                             Height="20"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+
+            <StackPanel
+                Grid.Column="2"
+                Orientation="Horizontal"
+                >
+
+                <TextBox 
+                    Text="{Binding Bilans, StringFormat=c2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    materialDesign:HintAssist.Hint="Bilans:"
+                    materialDesign:HintAssist.FloatingOffset="-51,0"
+                    materialDesign:HintAssist.FloatingScale="1.2"
+                    Margin="20 5"
+                    MinWidth="50"
+                    ToolTip="Bilans finansowy obliczony wg reguły => należności - zobowiązania + magazyny + stany kont"
+                    VerticalAlignment="Top"
+                    FontWeight="Bold"
+                    IsReadOnly="True"
+                    />
+                
+                <Button 
+                    Grid.Column="2"
+                    Width="30"
+                    Height="30"
+                    Padding="0"
+                    ToolTip="Generuj raport do pliku *.xlsx"
+                    Command="{Binding GenerujRaportXlsCommand}"
+                    IsDefault="True"
+                    Margin="10">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FileExcel"
+                                             Width="30"
+                                             Height="30"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+
+        <ScrollViewer
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            VerticalAlignment="Stretch"
+            >
+            <Grid
+
+                >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <!--#region ZK -->
+                <GroupBox>
+                    <GroupBox.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock 
+                                Text="Zlecenia od Klientów"
+                                Grid.Column="0"
+                                />
+                            <StackPanel Orientation="Horizontal"
+                                Grid.Column="2"
+                                >
+
+                                <TextBlock Text="Ilość [m2]:"/>
+                                <TextBlock Text="{Binding ZamowieniaOdKlientowPodsumowanie.IloscCalkowita, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="50"
+                                   Margin="5 0"
+                                />
+
+                                <TextBlock Text="; Wartość:"/>
+                                <TextBlock Text="{Binding ZamowieniaOdKlientowPodsumowanie.WartoscCalkowita, StringFormat=c2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox.Header>
+
+                    <DataGrid
+                        ItemsSource="{Binding ZamowieniaOdKlientowPodsumowanieLista, Mode=TwoWay}"
+                        ClipboardCopyMode="IncludeHeader"
+                        dgx:DataGridFilter.IsAutoFilterEnabled="True"
+                        >
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <!--<cmd:EventToCommand Command="{Binding PokazSzczegolyBadaniaCommand}" PassEventArgsToCommand="True" />-->
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="Copy" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+
+                        <DataGrid.Columns>
+                            <!--<DataGridCheckBoxColumn Header="Czy zrealizowano" Width="auto" Binding="{Binding CzyZrealizowano}"/>-->
+                            <DataGridTextColumn Header="Ilość [m2]&#x0a;w okresie" Width="auto" Binding="{Binding IloscTK, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Wartość&#x0a;w okresie" Width="auto" Binding="{Binding WartoscTK, StringFormat=c2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Ilość [m2]&#x0a;do realizacji" Width="auto" Binding="{Binding IloscCalkowita, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Wartość &#x0a;do realizacji" Width="auto" Binding="{Binding WartoscCalkowita, StringFormat=c2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </GroupBox>
+                <!--#endregion-->
+
+                <!--#region Produkcja -->
+                <GroupBox
+                    Grid.Row="1">
+                    <GroupBox.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Produkcja"
+                               Grid.Column="0"/>
+                            <StackPanel Orientation="Horizontal"
+                                Grid.Column="2">
+                                <TextBlock Text="Ilość [kg]:"/>
+                                <TextBlock Text="{Binding ProdukcjaPodsumowanie.Ilosc_kg, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="30"
+                                   Margin="5 0"/>
+                                <TextBlock Text="; Ilość [m2]:"/>
+                                <TextBlock Text="{Binding ProdukcjaPodsumowanie.Ilosc_m2, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="30"
+                                   Margin="5 0"/>
+                                <TextBlock Text="; Wartość:"/>
+                                <TextBlock Text="{Binding ProdukcjaPodsumowanie.Wartosc, StringFormat=c2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" 
+                                   MinWidth="30"
+                                   Margin="5 0"/>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox.Header>
+
+                    <DataGrid
+                Grid.Column="1"
+                ItemsSource="{Binding ProdukcjaPodsumowanieLista, Mode=TwoWay}"
+                ClipboardCopyMode="IncludeHeader"
+                >
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <!--<cmd:EventToCommand Command="{Binding PokazSzczegolyBadaniaCommand}" PassEventArgsToCommand="True" />-->
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="Copy" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Rodzaj produkcji" Width="auto" Binding="{Binding RodzajProdukcji}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                            <DataGridTextColumn Header="Ilość [m2]" Width="auto" Binding="{Binding Ilosc_m2, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Ilość [kg]" Width="auto" Binding="{Binding Ilosc_kg, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Wartość" Width="auto" Binding="{Binding Wartosc, StringFormat=c2}" ElementStyle="{StaticResource RightAlignStyle}" 
+                                                />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </GroupBox>
+                <!--#endregion-->
+
+                <!--#region Sprzdaz AGG -->
+                <GroupBox
+            Grid.Row="2"
+            >
+                    <GroupBox.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Sprzedaż: AG Geosynthetics sp. z o.o., sp. k."
+                               Grid.Column="0"/>
+                            <StackPanel Orientation="Horizontal"
+                                Grid.Column="2">
+
+                                <TextBlock Text="Ilość [m2]:"/>
+                                <TextBlock Text="{Binding SprzedazAGGPodsumowanie.Ilosc_m2, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="30"
+                                   Margin="5 0"/>
+                                <TextBlock Text="; Netto:"/>
+                                <TextBlock Text="{Binding SprzedazAGGPodsumowanie.Netto, StringFormat=c2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="30"
+                                   Margin="5 0"/>
+                                <TextBlock Text="; Zysk:"/>
+                                <TextBlock Text="{Binding SprzedazAGGPodsumowanie.Zysk, StringFormat=c2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" 
+                                   MinWidth="30"
+                                   Margin="5 0"/>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox.Header>
+
+                    <DataGrid
+                Grid.Column="1"
+                ItemsSource="{Binding SprzedazAGGPodsumowanieLista, Mode=TwoWay}"
+                ClipboardCopyMode="IncludeHeader"
+                >
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <!--<cmd:EventToCommand Command="{Binding PokazSzczegolyBadaniaCommand}" PassEventArgsToCommand="True" />-->
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="Copy" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nazwa" Width="auto" Binding="{Binding Nazwa}" ElementStyle="{StaticResource LeftAlignStyle}" />
+                            <DataGridTextColumn Header="Ilość [m2]" Width="auto" Binding="{Binding Ilosc_m2, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Netto" Width="auto" Binding="{Binding Netto, StringFormat=c2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Zysk" Width="auto" Binding="{Binding Zysk, StringFormat=c2}" ElementStyle="{StaticResource RightAlignStyle}" 
+                                                />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </GroupBox>
+                <!--#endregion-->
+
+                <!--#region Magazyny -->
+                <GroupBox
+            Grid.Row="3"
+            >
+                    <GroupBox.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Magazyny"
+                               Grid.Column="0"/>
+                            <StackPanel Orientation="Horizontal"
+                                Grid.Column="2">
+
+                                <TextBlock Text="Ilość [b/j]:"/>
+                                <TextBlock Text="{Binding MagazynyPodsumowanie.Ilosc, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+                                <TextBlock Text="; Wartość:"/>
+                                <TextBlock Text="{Binding MagazynyPodsumowanie.Wartosc, StringFormat=c2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox.Header>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <GroupBox
+                    Header="Magazyny AGG"
+                    Style="{StaticResource MaterialDesignHeaderedContentControl}"
+                    >
+
+                            <DataGrid
+                        Grid.Column="1"
+                        ItemsSource="{Binding MagazynAGGPodsumowanieLista, Mode=TwoWay}"
+                        ClipboardCopyMode="IncludeHeader"
+                            Margin="10"
+                        >
+
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <!--<cmd:EventToCommand Command="{Binding PokazSzczegolyBadaniaCommand}" PassEventArgsToCommand="True" />-->
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Command="Copy" />
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Lokalizacja" Width="auto" Binding="{Binding Lokalizacja}" ElementStyle="{StaticResource LeftAlignStyle}" />
+                                    <DataGridTextColumn Header="Nazwa magazynu" Width="250" Binding="{Binding NazwaMagazynu}" ElementStyle="{StaticResource LeftAlignStyle}" />
+                                    <DataGridTextColumn Header="Ilość" Width="auto" Binding="{Binding Ilosc, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                                    <DataGridTextColumn Header="Jm" Width="auto" Binding="{Binding Jm}" ElementStyle="{StaticResource CenterAlignStyle}" />
+                                    <DataGridTextColumn Header="Wartość" Width="auto" Binding="{Binding Wartosc, StringFormat=c2}" ElementStyle="{StaticResource RightAlignStyle}" 
+                                                        />
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                        </GroupBox>
+                        <GroupBox
+                    Header="Magazyny GTEX"
+                    Grid.Row="1"
+                    Style="{StaticResource MaterialDesignHeaderedContentControl}"
+
+                    >
+                            <DataGrid
+                        Grid.Column="1"
+                        ItemsSource="{Binding MagazynGTXPodsumowanieLista, Mode=TwoWay}"
+                        ClipboardCopyMode="IncludeHeader"
+                        Margin="10"
+                        >
+
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <!--<cmd:EventToCommand Command="{Binding PokazSzczegolyBadaniaCommand}" PassEventArgsToCommand="True" />-->
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Command="Copy" />
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Lokalizacja" Width="auto" Binding="{Binding Lokalizacja}" ElementStyle="{StaticResource LeftAlignStyle}" />
+                                    <DataGridTextColumn Header="Nazwa magazynu" Width="250" Binding="{Binding NazwaMagazynu}" ElementStyle="{StaticResource LeftAlignStyle}" />
+                                    <DataGridTextColumn Header="Ilość" Width="auto" Binding="{Binding Ilosc, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                                    <DataGridTextColumn Header="Jm" Width="auto" Binding="{Binding Jm}" ElementStyle="{StaticResource CenterAlignStyle}" />
+                                    <DataGridTextColumn Header="Wartość" Width="auto" Binding="{Binding Wartosc, StringFormat=c2}" ElementStyle="{StaticResource RightAlignStyle}" 
+                                                        />
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                        </GroupBox>
+                        <GroupBox
+                    Header="Magazyny GTEX 2"
+                    Grid.Row="2"
+                    Style="{StaticResource MaterialDesignHeaderedContentControl}"
+                    >
+                            <DataGrid
+                        Grid.Column="1"
+                        ItemsSource="{Binding MagazynGTX2PodsumowanieLista, Mode=TwoWay}"
+                        ClipboardCopyMode="IncludeHeader"
+                        Margin="10"
+                        >
+
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <!--<cmd:EventToCommand Command="{Binding PokazSzczegolyBadaniaCommand}" PassEventArgsToCommand="True" />-->
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Command="Copy" />
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Lokalizacja" Width="auto" Binding="{Binding Lokalizacja}" ElementStyle="{StaticResource LeftAlignStyle}" />
+                                    <DataGridTextColumn Header="Nazwa magazynu" Width="250" Binding="{Binding NazwaMagazynu}" ElementStyle="{StaticResource LeftAlignStyle}" />
+                                    <DataGridTextColumn Header="Ilość" Width="auto" Binding="{Binding Ilosc, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                                    <DataGridTextColumn Header="Jm" Width="auto" Binding="{Binding Jm}" ElementStyle="{StaticResource CenterAlignStyle}" />
+                                    <DataGridTextColumn Header="Wartość" Width="auto" Binding="{Binding Wartosc, StringFormat=c2}" ElementStyle="{StaticResource RightAlignStyle}" 
+                                                        />
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                        </GroupBox>
+                    </Grid>
+
+                </GroupBox>
+
+
+
+                <!--#endregion-->
+
+                <!--#region NaleznosciIZobowiazania -->
+                <GroupBox
+            Grid.Row="4"
+            >
+                    <GroupBox.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Należności i Zobowiązania"
+                               Grid.Column="0"/>
+                            <StackPanel Orientation="Horizontal"
+                                Grid.Column="2">
+
+                                <TextBlock Text="Należności:"/>
+                                <TextBlock Text="{Binding NaleznosciIZobowiazaniaPodsumowanie.NaleznosciAll, StringFormat=c2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+                                <TextBlock Text="; Zobowiązania:"/>
+                                <TextBlock Text="{Binding NaleznosciIZobowiazaniaPodsumowanie.ZobowiazaniaAll, StringFormat=c2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox.Header>
+
+                    <DataGrid
+                ItemsSource="{Binding NaleznosciIZobowiazaniaPodsumowanieLista, Mode=TwoWay}"
+                ClipboardCopyMode="IncludeHeader"
+                >
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <!--<cmd:EventToCommand Command="{Binding PokazSzczegolyBadaniaCommand}" PassEventArgsToCommand="True" />-->
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="Copy" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Firma" Width="auto" Binding="{Binding Firma}" ElementStyle="{StaticResource LeftAlignStyle}" />
+                            <!--<DataGridTextColumn Header="Należności do daty" Width="auto" Binding="{Binding NaleznosciDoDaty, StringFormat=c2}" ElementStyle="{StaticResource RightAlignStyle}" />-->
+                            <!--<DataGridTextColumn Header="Zobowiązania do daty" Width="auto" Binding="{Binding ZobowiazaniaDoDaty, StringFormat=c2}" ElementStyle="{StaticResource RightAlignStyle}" />-->
+                            <DataGridTextColumn Header="Należności" Width="auto" Binding="{Binding NaleznosciAll, StringFormat=c2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Zobowiązania" Width="auto" Binding="{Binding ZobowiazaniaAll, StringFormat=c2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </GroupBox>
+
+                <!--#endregion-->
+
+                <!--#region KontaBankowe -->
+                <GroupBox
+                    Grid.Row="5"
+                    >
+                    <GroupBox.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Konta bankowe"
+                               Grid.Column="0"/>
+                            <StackPanel Orientation="Horizontal"
+                                Grid.Column="2">
+
+                                <TextBlock Text="Stan sumaryczny:"/>
+                                <TextBlock Text="{Binding StanyKontPodsumowanie, StringFormat=c2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   MinWidth="50"
+                                   Margin="5 0"/>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox.Header>
+
+                    <DataGrid
+                        ItemsSource="{Binding StanyKontPodsumowanieLista, Mode=TwoWay}"
+                        ClipboardCopyMode="IncludeHeader"
+                        >
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <!--<cmd:EventToCommand Command="{Binding PokazSzczegolyBadaniaCommand}" PassEventArgsToCommand="True" />-->
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="Copy" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Firma" Width="auto" Binding="{Binding Firma}" ElementStyle="{StaticResource LeftAlignStyle}" />
+                            <DataGridTextColumn Header="Nazwa banku" Width="auto" Binding="{Binding BankNazwa}" ElementStyle="{StaticResource LeftAlignStyle}" />
+                            <DataGridTextColumn Header="Nr konta" Width="auto" Binding="{Binding NrKonta}" ElementStyle="{StaticResource LeftAlignStyle}" />
+                            <DataGridTextColumn Header="Stan" Width="auto" Binding="{Binding StanKonta, StringFormat=n2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Waluta" Width="auto" Binding="{Binding Waluta}" ElementStyle="{StaticResource LeftAlignStyle}" />
+                            <DataGridTextColumn Header="Kurs" Width="auto" Binding="{Binding Kurs, StringFormat=c4}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Stan w zł" Width="auto" Binding="{Binding StanWPrzeliczeniu, StringFormat=c2}" ElementStyle="{StaticResource RightAlignStyle}" />
+                            <DataGridTextColumn Header="Data stanu" Width="auto" Binding="{Binding DataStanuKonta, StringFormat=d}" ElementStyle="{StaticResource RightAlignStyle}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </GroupBox>
+
+                <!--#endregion-->
+
+            </Grid>
+        </ScrollViewer>
+
+    </Grid>
+</Window>

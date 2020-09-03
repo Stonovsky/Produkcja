@@ -1,0 +1,1768 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\PropertyChanged.Fody.3.0.1\build\PropertyChanged.Fody.props" Condition="Exists('..\packages\PropertyChanged.Fody.3.0.1\build\PropertyChanged.Fody.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ADFFB0E2-06D8-4BE6-8A88-8FAB32D7D669}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GAT_Produkcja.db</RootNamespace>
+    <AssemblyName>GAT_Produkcja.db</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="PropertyChanged, Version=3.0.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyChanged.Fody.3.0.1\lib\net452\PropertyChanged.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomValidationAttributes\HudredPercentValidator.cs" />
+    <Compile Include="CustomValidationAttributes\NipValidator.cs" />
+    <Compile Include="CustomValidationAttributes\StartEndDateValidator.cs" />
+    <Compile Include="Dictionaries\TowarGeowlokninaGramaturaDictionary.cs" />
+    <Compile Include="EntitesInterfaces\IFinanseBank.cs" />
+    <Compile Include="EntitesInterfaces\IFinanseNaleznosciZobowiazania.cs" />
+    <Compile Include="EntitesInterfaces\IMagazynRuchSubiekt.cs" />
+    <Compile Include="EntitesInterfaces\IMagazynSubiekt.cs" />
+    <Compile Include="EntitesInterfaces\IProdukcjaRozliczenie.cs" />
+    <Compile Include="EntitesInterfaces\IProdukcjaRozliczenie_PW.cs" />
+    <Compile Include="EntitesInterfaces\IProdukcjaRuchTowarWymiary.cs" />
+    <Compile Include="EntitesInterfaces\IProdukcjaRuchTowar.cs" />
+    <Compile Include="EntitiesExtensions\tblProdukcjaZlecenieProdukcyjneMieszanka.ExtraProperties.cs" />
+    <Compile Include="EntitiesExtensions\tblRuchTowar.ExtraProperties.cs" />
+    <Compile Include="EntitiesExtensions\tblUrzadzenia.ExtraProperties.cs" />
+    <Compile Include="EntitiesExtensions\tblKlasyfikacjaSzczegolowa.ExtraProperties.cs" />
+    <Compile Include="EntitiesExtensions\tblKlasyfikacjaOgolna.ExtraProperties.cs" />
+    <Compile Include="EntitiesExtensions\tblWynikiBadanGeowloknin.ExtraProperties.cs" />
+    <Compile Include="EntitiesExtensions\tblZapotrzebowanie_testowe.cs" />
+    <Compile Include="EntitiesValidation\ValidationBase.cs" />
+    <Compile Include="EntitiesValidation\ValidationBaseINDE.cs" />
+    <Compile Include="EntitiesValidation\ValidationBaseINotifyDataErrorInfo.cs" />
+    <Compile Include="Enums\DodajUsunEdytujEnum.cs" />
+    <Compile Include="Enums\DokumentTypEnum.cs" />
+    <Compile Include="Enums\FirmaEnum.cs" />
+    <Compile Include="Enums\GniazdaProdukcyjneEnum.cs" />
+    <Compile Include="Enums\ListViewModelStatesEnum.cs" />
+    <Compile Include="Enums\MagazynyGTXEnum.cs" />
+    <Compile Include="Enums\JmEnum.cs" />
+    <Compile Include="Enums\MagazynyEnum.cs" />
+    <Compile Include="Enums\ProdukcjaRozliczenieStatusEnum.cs" />
+    <Compile Include="Enums\ProdukcjaRuchTowarStatusEnum.cs" />
+    <Compile Include="Enums\ProdukcjaZlecenieEnum.cs" />
+    <Compile Include="Enums\ProdukcjaZlecenieStatusEnum.cs" />
+    <Compile Include="Enums\StatusRuchuTowarowEnum.cs" />
+    <Compile Include="Enums\StatusZapotrzebowaniaEnum.cs" />
+    <Compile Include="Enums\TowarGeowlokninaGramaturaEnum.cs" />
+    <Compile Include="Enums\TowarGrupaEnum.cs" />
+    <Compile Include="Enums\TowarGeowlokninaSurowiecEnum.cs" />
+    <Compile Include="Enums\TypDostepuEnum.cs" />
+    <Compile Include="Enums\TypEtykietEnum.cs" />
+    <Compile Include="Enums\TypKoduKreskowegoEnum.cs" />
+    <Compile Include="Enums\VatEnum.cs" />
+    <Compile Include="Enums\ZamOdKlientaAGG_StatusEx_Enum.cs" />
+    <Compile Include="Enums\ZamOdKlientaAGG_Status_Enum.cs" />
+    <Compile Include="Extensions\tblProdukcjaRuchTowarExtensions.cs" />
+    <Compile Include="GAT_ProdukcjaModel.cs" />
+    <Compile Include="Helpers\Kontrahent\KontrahentNipValidationHelper.cs" />
+    <Compile Include="Helpers\Towar\tblTowarHelper.cs" />
+    <Compile Include="EntitesInterfaces\ItblProdukcjaRuchTowar.cs" />
+    <Compile Include="EntitesInterfaces\ItblProdukcjaZlecenieCiecia.cs" />
+    <Compile Include="Migrations\202001031634499_Initial.cs" />
+    <Compile Include="Migrations\202001031634499_Initial.Designer.cs">
+      <DependentUpon>202001031634499_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001032104115_DataAnnot_ForeignKey_IDZlecenieProdukcyjne_tblProdukcjaZlecenieProdukcyjneMieszanka.cs" />
+    <Compile Include="Migrations\202001032104115_DataAnnot_ForeignKey_IDZlecenieProdukcyjne_tblProdukcjaZlecenieProdukcyjneMieszanka.Designer.cs">
+      <DependentUpon>202001032104115_DataAnnot_ForeignKey_IDZlecenieProdukcyjne_tblProdukcjaZlecenieProdukcyjneMieszanka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001032119093_DodanoTabele_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs" />
+    <Compile Include="Migrations\202001032119093_DodanoTabele_tblProdukcjaZlecenieProdukcyjne_Mieszanka.Designer.cs">
+      <DependentUpon>202001032119093_DodanoTabele_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001032137168_DodanoKolumneUwagi_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs" />
+    <Compile Include="Migrations\202001032137168_DodanoKolumneUwagi_tblProdukcjaZlecenieProdukcyjne_Mieszanka.Designer.cs">
+      <DependentUpon>202001032137168_DodanoKolumneUwagi_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001051319167_DodanoKolumne_CzyZakonczone_tblProdukcjaZlcecenieProdukcyjne.cs" />
+    <Compile Include="Migrations\202001051319167_DodanoKolumne_CzyZakonczone_tblProdukcjaZlcecenieProdukcyjne.Designer.cs">
+      <DependentUpon>202001051319167_DodanoKolumne_CzyZakonczone_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001051448493_DodanoKolumny_tblProdukcjaGniazdoWloknina.cs" />
+    <Compile Include="Migrations\202001051448493_DodanoKolumny_tblProdukcjaGniazdoWloknina.Designer.cs">
+      <DependentUpon>202001051448493_DodanoKolumny_tblProdukcjaGniazdoWloknina.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001060003190_DodanoKolumneUV_tblProdukcjaZlcecenieProdukcyjne.cs" />
+    <Compile Include="Migrations\202001060003190_DodanoKolumneUV_tblProdukcjaZlcecenieProdukcyjne.Designer.cs">
+      <DependentUpon>202001060003190_DodanoKolumneUV_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001060835470_DodanoKolumneNrRolki_tblRuchTowar.cs" />
+    <Compile Include="Migrations\202001060835470_DodanoKolumneNrRolki_tblRuchTowar.Designer.cs">
+      <DependentUpon>202001060835470_DodanoKolumneNrRolki_tblRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001061513140_DodanoKolumny_KosztMieszankiZaKg_KosztCalkowityMieszanki_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs" />
+    <Compile Include="Migrations\202001061513140_DodanoKolumny_KosztMieszankiZaKg_KosztCalkowityMieszanki_tblProdukcjaZlecenieProdukcyjne_Mieszanka.Designer.cs">
+      <DependentUpon>202001061513140_DodanoKolumny_KosztMieszankiZaKg_KosztCalkowityMieszanki_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001062243434_DodanoKolumneWaga_tblProdukcjaGniazdoWloknina.cs" />
+    <Compile Include="Migrations\202001062243434_DodanoKolumneWaga_tblProdukcjaGniazdoWloknina.Designer.cs">
+      <DependentUpon>202001062243434_DodanoKolumneWaga_tblProdukcjaGniazdoWloknina.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001071049225_DodanoKolumne_CzyZweryfikowano_tblZapotrzebowanie.cs" />
+    <Compile Include="Migrations\202001071049225_DodanoKolumne_CzyZweryfikowano_tblZapotrzebowanie.Designer.cs">
+      <DependentUpon>202001071049225_DodanoKolumne_CzyZweryfikowano_tblZapotrzebowanie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001141812522_DodanoKolumne_CzyZweryfikowano_vwZapotrzebowanieEwidencja.cs" />
+    <Compile Include="Migrations\202001141812522_DodanoKolumne_CzyZweryfikowano_vwZapotrzebowanieEwidencja.Designer.cs">
+      <DependentUpon>202001141812522_DodanoKolumne_CzyZweryfikowano_vwZapotrzebowanieEwidencja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001141901100_DodanoKolumnyZGramatura_tblProdukcjaGniazdoWloknina.cs" />
+    <Compile Include="Migrations\202001141901100_DodanoKolumnyZGramatura_tblProdukcjaGniazdoWloknina.Designer.cs">
+      <DependentUpon>202001141901100_DodanoKolumnyZGramatura_tblProdukcjaGniazdoWloknina.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001142059158_DodanoTabele_tblProdukcjaGniazdoWlokninaBadania.cs" />
+    <Compile Include="Migrations\202001142059158_DodanoTabele_tblProdukcjaGniazdoWlokninaBadania.Designer.cs">
+      <DependentUpon>202001142059158_DodanoTabele_tblProdukcjaGniazdoWlokninaBadania.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001142345474_DodanoColumne_Uwagi_tblProdukcjaGniazdoWlokninaBadania.cs" />
+    <Compile Include="Migrations\202001142345474_DodanoColumne_Uwagi_tblProdukcjaGniazdoWlokninaBadania.Designer.cs">
+      <DependentUpon>202001142345474_DodanoColumne_Uwagi_tblProdukcjaGniazdoWlokninaBadania.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001152136122_DodanoKolumne_MotywKoloru_tblPracownikGAT.cs" />
+    <Compile Include="Migrations\202001152136122_DodanoKolumne_MotywKoloru_tblPracownikGAT.Designer.cs">
+      <DependentUpon>202001152136122_DodanoKolumne_MotywKoloru_tblPracownikGAT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001201356370_ZmianaTypuDlaKolumny_NIP_tblFirma.cs" />
+    <Compile Include="Migrations\202001201356370_ZmianaTypuDlaKolumny_NIP_tblFirma.Designer.cs">
+      <DependentUpon>202001201356370_ZmianaTypuDlaKolumny_NIP_tblFirma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001201409472_DodanoKolumne_GramaturaSrednia_tblProdukcjaGniazdoWlokninaBadania.cs" />
+    <Compile Include="Migrations\202001201409472_DodanoKolumne_GramaturaSrednia_tblProdukcjaGniazdoWlokninaBadania.Designer.cs">
+      <DependentUpon>202001201409472_DodanoKolumne_GramaturaSrednia_tblProdukcjaGniazdoWlokninaBadania.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001210734372_DodanoKluczObcy_IDJm_tblZapotrzebowaniePozycje.cs" />
+    <Compile Include="Migrations\202001210734372_DodanoKluczObcy_IDJm_tblZapotrzebowaniePozycje.Designer.cs">
+      <DependentUpon>202001210734372_DodanoKluczObcy_IDJm_tblZapotrzebowaniePozycje.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001211334307_DodanoAtrybutyRequired_tblZapotrzebowaniePozycje.cs" />
+    <Compile Include="Migrations\202001211334307_DodanoAtrybutyRequired_tblZapotrzebowaniePozycje.Designer.cs">
+      <DependentUpon>202001211334307_DodanoAtrybutyRequired_tblZapotrzebowaniePozycje.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001280851093_ZmianaIlosciLiterWPolach_tblKontrahent.cs" />
+    <Compile Include="Migrations\202001280851093_ZmianaIlosciLiterWPolach_tblKontrahent.Designer.cs">
+      <DependentUpon>202001280851093_ZmianaIlosciLiterWPolach_tblKontrahent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002022124567_DodanoView_vwCenyMagazynoweAGG.cs" />
+    <Compile Include="Migrations\202002022124567_DodanoView_vwCenyMagazynoweAGG.Designer.cs">
+      <DependentUpon>202002022124567_DodanoView_vwCenyMagazynoweAGG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002051139085_NowaTabela_tblProdukcjaRozliczenie_Dane.cs" />
+    <Compile Include="Migrations\202002051139085_NowaTabela_tblProdukcjaRozliczenie_Dane.Designer.cs">
+      <DependentUpon>202002051139085_NowaTabela_tblProdukcjaRozliczenie_Dane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002051148066_DodanoTabele_tblProdukcjaRozliczenie_RW.cs" />
+    <Compile Include="Migrations\202002051148066_DodanoTabele_tblProdukcjaRozliczenie_RW.Designer.cs">
+      <DependentUpon>202002051148066_DodanoTabele_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002051220006_DodanoTabele_tblProdukcjaRozliczenie_PW.cs" />
+    <Compile Include="Migrations\202002051220006_DodanoTabele_tblProdukcjaRozliczenie_PW.Designer.cs">
+      <DependentUpon>202002051220006_DodanoTabele_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002052233032_ZmianaNazwyTabeli_tblProdukcjaRozliczenie_Naglowek.cs" />
+    <Compile Include="Migrations\202002052233032_ZmianaNazwyTabeli_tblProdukcjaRozliczenie_Naglowek.Designer.cs">
+      <DependentUpon>202002052233032_ZmianaNazwyTabeli_tblProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002052255394_ZmianaNazwyKluczPodstawowego_IDProdukcjaRozliczenie_Naglowek.cs" />
+    <Compile Include="Migrations\202002052255394_ZmianaNazwyKluczPodstawowego_IDProdukcjaRozliczenie_Naglowek.Designer.cs">
+      <DependentUpon>202002052255394_ZmianaNazwyKluczPodstawowego_IDProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002062127334_Dodano_tblProdukcjaRuchNaglowek.cs" />
+    <Compile Include="Migrations\202002062127334_Dodano_tblProdukcjaRuchNaglowek.Designer.cs">
+      <DependentUpon>202002062127334_Dodano_tblProdukcjaRuchNaglowek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002062134488_Dodano_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202002062134488_Dodano_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202002062134488_Dodano_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002062140090_Dodano_tblProdukcjaRuchTowarBadania.cs" />
+    <Compile Include="Migrations\202002062140090_Dodano_tblProdukcjaRuchTowarBadania.Designer.cs">
+      <DependentUpon>202002062140090_Dodano_tblProdukcjaRuchTowarBadania.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002062148239_DodanoAtrybut_IDProdukcjaRuchTowarWyjsciowy_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202002062148239_DodanoAtrybut_IDProdukcjaRuchTowarWyjsciowy_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202002062148239_DodanoAtrybut_IDProdukcjaRuchTowarWyjsciowy_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002062215075_ZmianaTypow_NrRolki_Gramatura_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202002062215075_ZmianaTypow_NrRolki_Gramatura_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202002062215075_ZmianaTypow_NrRolki_Gramatura_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002072205239_DodanoKolumne_IDPracownikOdpZaZakup_tblZapotrzebowanie.cs" />
+    <Compile Include="Migrations\202002072205239_DodanoKolumne_IDPracownikOdpZaZakup_tblZapotrzebowanie.Designer.cs">
+      <DependentUpon>202002072205239_DodanoKolumne_IDPracownikOdpZaZakup_tblZapotrzebowanie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002091759198_DodanoKolumne_OsobaOdpZaZap_ZmienionoNazweKolumny_ImieINazwiskoGAT_na_OsobaZglZap_vwZapotrzebowanieEwidencja.cs" />
+    <Compile Include="Migrations\202002091759198_DodanoKolumne_OsobaOdpZaZap_ZmienionoNazweKolumny_ImieINazwiskoGAT_na_OsobaZglZap_vwZapotrzebowanieEwidencja.Designer.cs">
+      <DependentUpon>202002091759198_DodanoKolumne_OsobaOdpZaZap_ZmienionoNazweKolumny_ImieINazwiskoGAT_na_OsobaZglZap_vwZapotrzebowanieEwidencja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002092004464_ZmianaNazwyKolumnyNa_Data_tblLog.cs" />
+    <Compile Include="Migrations\202002092004464_ZmianaNazwyKolumnyNa_Data_tblLog.Designer.cs">
+      <DependentUpon>202002092004464_ZmianaNazwyKolumnyNa_Data_tblLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002111030000_DodanoKolumny_NrZleceniaRW_NrZleceniaPW_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202002111030000_DodanoKolumny_NrZleceniaRW_NrZleceniaPW_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202002111030000_DodanoKolumny_NrZleceniaRW_NrZleceniaPW_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002111235482_DodanoKolumne_IDTowarGeowlokninaParametrySurowiec_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202002111235482_DodanoKolumne_IDTowarGeowlokninaParametrySurowiec_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202002111235482_DodanoKolumne_IDTowarGeowlokninaParametrySurowiec_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002112244072_DodanoKolumne_WagaOdpad_kg_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202002112244072_DodanoKolumne_WagaOdpad_kg_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202002112244072_DodanoKolumne_WagaOdpad_kg_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002131533457_DodanoKolumne_NrZleceniaProdukcjnego_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202002131533457_DodanoKolumne_NrZleceniaProdukcjnego_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202002131533457_DodanoKolumne_NrZleceniaProdukcjnego_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002132040289_DodanoTabele_tblProdukcjaZlecenieProdukcyjne_GniazdaProdParamTowar.cs" />
+    <Compile Include="Migrations\202002132040289_DodanoTabele_tblProdukcjaZlecenieProdukcyjne_GniazdaProdParamTowar.Designer.cs">
+      <DependentUpon>202002132040289_DodanoTabele_tblProdukcjaZlecenieProdukcyjne_GniazdaProdParamTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002132208571_DodanoKolumne_Ilosc_szt_tblProdukcjaZlecenieProdukcyjne_GniazdaProdParamTowar.cs" />
+    <Compile Include="Migrations\202002132208571_DodanoKolumne_Ilosc_szt_tblProdukcjaZlecenieProdukcyjne_GniazdaProdParamTowar.Designer.cs">
+      <DependentUpon>202002132208571_DodanoKolumne_Ilosc_szt_tblProdukcjaZlecenieProdukcyjne_GniazdaProdParamTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002150925549_DodanoKolumne_IDTowar_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202002150925549_DodanoKolumne_IDTowar_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202002150925549_DodanoKolumne_IDTowar_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002152250479_DodanoKolumne_IDMagazyn_tblProdukcjaRuchNaglowek.cs" />
+    <Compile Include="Migrations\202002152250479_DodanoKolumne_IDMagazyn_tblProdukcjaRuchNaglowek.Designer.cs">
+      <DependentUpon>202002152250479_DodanoKolumne_IDMagazyn_tblProdukcjaRuchNaglowek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002160821321_NowaTabela_tblProdukcjaZlecenieCiecia.cs" />
+    <Compile Include="Migrations\202002160821321_NowaTabela_tblProdukcjaZlecenieCiecia.Designer.cs">
+      <DependentUpon>202002160821321_NowaTabela_tblProdukcjaZlecenieCiecia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002162245520_DodanoKolumny_tblProdukcjaRuchTowaru.cs" />
+    <Compile Include="Migrations\202002162245520_DodanoKolumny_tblProdukcjaRuchTowaru.Designer.cs">
+      <DependentUpon>202002162245520_DodanoKolumny_tblProdukcjaRuchTowaru.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002162247180_DodanoKolumne_IDProdukcjaZlecenieCiecia_tblProdukcjaRuchNaglowek.cs" />
+    <Compile Include="Migrations\202002162247180_DodanoKolumne_IDProdukcjaZlecenieCiecia_tblProdukcjaRuchNaglowek.Designer.cs">
+      <DependentUpon>202002162247180_DodanoKolumne_IDProdukcjaZlecenieCiecia_tblProdukcjaRuchNaglowek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002162250282_DodanoKolumne_KodKreskowy_tblProdukcjaZlecenieCiecia.cs" />
+    <Compile Include="Migrations\202002162250282_DodanoKolumne_KodKreskowy_tblProdukcjaZlecenieCiecia.Designer.cs">
+      <DependentUpon>202002162250282_DodanoKolumne_KodKreskowy_tblProdukcjaZlecenieCiecia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002170846178_UsunietoKolumny_tblProdukcjaZlecenieCiecia.cs" />
+    <Compile Include="Migrations\202002170846178_UsunietoKolumny_tblProdukcjaZlecenieCiecia.Designer.cs">
+      <DependentUpon>202002170846178_UsunietoKolumny_tblProdukcjaZlecenieCiecia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002170848120_NowaTabela_tblProdukcjaZlecenieCieciaTowar.cs" />
+    <Compile Include="Migrations\202002170848120_NowaTabela_tblProdukcjaZlecenieCieciaTowar.Designer.cs">
+      <DependentUpon>202002170848120_NowaTabela_tblProdukcjaZlecenieCieciaTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002190943190_DodanoKol_NrDokumentu_tblProdukcjaZlecenieCiecia.cs" />
+    <Compile Include="Migrations\202002190943190_DodanoKol_NrDokumentu_tblProdukcjaZlecenieCiecia.Designer.cs">
+      <DependentUpon>202002190943190_DodanoKol_NrDokumentu_tblProdukcjaZlecenieCiecia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002191026275_NowaTabela_tblProdukcjaZlecenieStatus.cs" />
+    <Compile Include="Migrations\202002191026275_NowaTabela_tblProdukcjaZlecenieStatus.Designer.cs">
+      <DependentUpon>202002191026275_NowaTabela_tblProdukcjaZlecenieStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002191029343_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlecenieCiecia.cs" />
+    <Compile Include="Migrations\202002191029343_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlecenieCiecia.Designer.cs">
+      <DependentUpon>202002191029343_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlecenieCiecia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002191033153_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlcecenieProdukcyjne.cs" />
+    <Compile Include="Migrations\202002191033153_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlcecenieProdukcyjne.Designer.cs">
+      <DependentUpon>202002191033153_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002191907043_DodanoKolumny_tblProdukcjaZlcecenieProdukcyjne.cs" />
+    <Compile Include="Migrations\202002191907043_DodanoKolumny_tblProdukcjaZlcecenieProdukcyjne.Designer.cs">
+      <DependentUpon>202002191907043_DodanoKolumny_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002222115168_ZmienionoNazweKolumny_NrZlecenia_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202002222115168_ZmienionoNazweKolumny_NrZlecenia_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202002222115168_ZmienionoNazweKolumny_NrZlecenia_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002230744577_NowaTabela_tblProdukcjaRozliczenieStatus.cs" />
+    <Compile Include="Migrations\202002230744577_NowaTabela_tblProdukcjaRozliczenieStatus.Designer.cs">
+      <DependentUpon>202002230744577_NowaTabela_tblProdukcjaRozliczenieStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002230920543_DodanoKol_IDProdukcjaRozliczenieStatus_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202002230920543_DodanoKol_IDProdukcjaRozliczenieStatus_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202002230920543_DodanoKol_IDProdukcjaRozliczenieStatus_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002231224593_DodanoKol_IDProdukcjaZlecenieCieciaTowar_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202002231224593_DodanoKol_IDProdukcjaZlecenieCieciaTowar_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202002231224593_DodanoKol_IDProdukcjaZlecenieCieciaTowar_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002231240271_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlecenieCieciaTowar.cs" />
+    <Compile Include="Migrations\202002231240271_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlecenieCieciaTowar.Designer.cs">
+      <DependentUpon>202002231240271_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlecenieCieciaTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002231601034_DodanoKol_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202002231601034_DodanoKol_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202002231601034_DodanoKol_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002240803333_ZmianaNazwyTabeli_tblProdukcjaZlecenieCieciaTowar_tblProdukcjaZlecenieTowar.cs" />
+    <Compile Include="Migrations\202002240803333_ZmianaNazwyTabeli_tblProdukcjaZlecenieCieciaTowar_tblProdukcjaZlecenieTowar.Designer.cs">
+      <DependentUpon>202002240803333_ZmianaNazwyTabeli_tblProdukcjaZlecenieCieciaTowar_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002240808226_ZmianaNazwyKol_IDProdukcjaZlecenieTowar_tblProdukcjaZlecenieTowar.cs" />
+    <Compile Include="Migrations\202002240808226_ZmianaNazwyKol_IDProdukcjaZlecenieTowar_tblProdukcjaZlecenieTowar.Designer.cs">
+      <DependentUpon>202002240808226_ZmianaNazwyKol_IDProdukcjaZlecenieTowar_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002240810510_ZmianaNaNullableInt_IDProdukcjaZlecenieCiecia_tblProdukcjaZlecenieTowar.cs" />
+    <Compile Include="Migrations\202002240810510_ZmianaNaNullableInt_IDProdukcjaZlecenieCiecia_tblProdukcjaZlecenieTowar.Designer.cs">
+      <DependentUpon>202002240810510_ZmianaNaNullableInt_IDProdukcjaZlecenieCiecia_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002240816399_DodanoKolumny_tblProdukcjaZlecenieTowar.cs" />
+    <Compile Include="Migrations\202002240816399_DodanoKolumny_tblProdukcjaZlecenieTowar.Designer.cs">
+      <DependentUpon>202002240816399_DodanoKolumny_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002240818027_DodanoZmianaNazwyKol_tblProdukcjaZlecenieTowar.cs" />
+    <Compile Include="Migrations\202002240818027_DodanoZmianaNazwyKol_tblProdukcjaZlecenieTowar.Designer.cs">
+      <DependentUpon>202002240818027_DodanoZmianaNazwyKol_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002261304532_UsunietoKol_tblProdukcjaZlcecenieProdukcyjne.cs" />
+    <Compile Include="Migrations\202002261304532_UsunietoKol_tblProdukcjaZlcecenieProdukcyjne.Designer.cs">
+      <DependentUpon>202002261304532_UsunietoKol_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002261457203_DodanoKol_IDProdukcjaZlecenieProdukcyjne_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202002261457203_DodanoKol_IDProdukcjaZlecenieProdukcyjne_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202002261457203_DodanoKol_IDProdukcjaZlecenieProdukcyjne_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002271239236_DodanoKol_DatyFaktycze_tblProdukcjaZlcecenieProdukcyjne.cs" />
+    <Compile Include="Migrations\202002271239236_DodanoKol_DatyFaktycze_tblProdukcjaZlcecenieProdukcyjne.Designer.cs">
+      <DependentUpon>202002271239236_DodanoKol_DatyFaktycze_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003021645208_DodanoWidok_vwGtexMagazynRuch.cs" />
+    <Compile Include="Migrations\202003021645208_DodanoWidok_vwGtexMagazynRuch.Designer.cs">
+      <DependentUpon>202003021645208_DodanoWidok_vwGtexMagazynRuch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003021716181_DodanoKolumne_TowaruSymbol_vwMagazynRuchGTX.cs" />
+    <Compile Include="Migrations\202003021716181_DodanoKolumne_TowaruSymbol_vwMagazynRuchGTX.Designer.cs">
+      <DependentUpon>202003021716181_DodanoKolumne_TowaruSymbol_vwMagazynRuchGTX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003021744125_DodanoWidok_vwMagazynGTX.cs" />
+    <Compile Include="Migrations\202003021744125_DodanoWidok_vwMagazynGTX.Designer.cs">
+      <DependentUpon>202003021744125_DodanoWidok_vwMagazynGTX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003021943481_DodanoIUsunietoKol_vwMagazynRuchGTX.cs" />
+    <Compile Include="Migrations\202003021943481_DodanoIUsunietoKol_vwMagazynRuchGTX.Designer.cs">
+      <DependentUpon>202003021943481_DodanoIUsunietoKol_vwMagazynRuchGTX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003022038578_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs" />
+    <Compile Include="Migrations\202003022038578_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka.Designer.cs">
+      <DependentUpon>202003022038578_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003022057439_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka1.cs" />
+    <Compile Include="Migrations\202003022057439_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka1.Designer.cs">
+      <DependentUpon>202003022057439_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003022110086_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka2.cs" />
+    <Compile Include="Migrations\202003022110086_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka2.Designer.cs">
+      <DependentUpon>202003022110086_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003032219534_DodanoKol_WartoscMieszanki_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs" />
+    <Compile Include="Migrations\202003032219534_DodanoKol_WartoscMieszanki_tblProdukcjaZlecenieProdukcyjne_Mieszanka.Designer.cs">
+      <DependentUpon>202003032219534_DodanoKol_WartoscMieszanki_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003041346004_UsuniecieNullabliZKolumn_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs" />
+    <Compile Include="Migrations\202003041346004_UsuniecieNullabliZKolumn_tblProdukcjaZlecenieProdukcyjne_Mieszanka.Designer.cs">
+      <DependentUpon>202003041346004_UsuniecieNullabliZKolumn_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003041520458_DodanoKol_tblProdukcjaZlcecenieProdukcyjne.cs" />
+    <Compile Include="Migrations\202003041520458_DodanoKol_tblProdukcjaZlcecenieProdukcyjne.Designer.cs">
+      <DependentUpon>202003041520458_DodanoKol_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003042029518_UsunietoKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs" />
+    <Compile Include="Migrations\202003042029518_UsunietoKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka.Designer.cs">
+      <DependentUpon>202003042029518_UsunietoKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003042101066_ZmianaNazwyKol_tblProdukcjaZlcecenieProdukcyjne.cs" />
+    <Compile Include="Migrations\202003042101066_ZmianaNazwyKol_tblProdukcjaZlcecenieProdukcyjne.Designer.cs">
+      <DependentUpon>202003042101066_ZmianaNazwyKol_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003051204193_DodanoWidok_vwTowarGTX.cs" />
+    <Compile Include="Migrations\202003051204193_DodanoWidok_vwTowarGTX.Designer.cs">
+      <DependentUpon>202003051204193_DodanoWidok_vwTowarGTX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003051208507_ZmianaIdTowarNaPowiazanieZVwTowarGTX_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs" />
+    <Compile Include="Migrations\202003051208507_ZmianaIdTowarNaPowiazanieZVwTowarGTX_tblProdukcjaZlecenieProdukcyjne_Mieszanka.Designer.cs">
+      <DependentUpon>202003051208507_ZmianaIdTowarNaPowiazanieZVwTowarGTX_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003051217373_Test.cs" />
+    <Compile Include="Migrations\202003051217373_Test.Designer.cs">
+      <DependentUpon>202003051217373_Test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003051224316_Test2.cs" />
+    <Compile Include="Migrations\202003051224316_Test2.Designer.cs">
+      <DependentUpon>202003051224316_Test2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003051340449_DodanoKol_Zaawansowanie_tblProdukcjaZlcecenieProdukcyjne.cs" />
+    <Compile Include="Migrations\202003051340449_DodanoKol_Zaawansowanie_tblProdukcjaZlcecenieProdukcyjne.Designer.cs">
+      <DependentUpon>202003051340449_DodanoKol_Zaawansowanie_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003051342331_DodanoKol_Zaawansowanie_tblProdukcjaZlecenieCiecia.cs" />
+    <Compile Include="Migrations\202003051342331_DodanoKol_Zaawansowanie_tblProdukcjaZlecenieCiecia.Designer.cs">
+      <DependentUpon>202003051342331_DodanoKol_Zaawansowanie_tblProdukcjaZlecenieCiecia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003051352362_DodanoKol_tblProdukcjaZlcecenieProdukcyjne1.cs" />
+    <Compile Include="Migrations\202003051352362_DodanoKol_tblProdukcjaZlcecenieProdukcyjne1.Designer.cs">
+      <DependentUpon>202003051352362_DodanoKol_tblProdukcjaZlcecenieProdukcyjne1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003051355533_DodanoKol_tblProdukcjaZlcecenieCiecia.cs" />
+    <Compile Include="Migrations\202003051355533_DodanoKol_tblProdukcjaZlcecenieCiecia.Designer.cs">
+      <DependentUpon>202003051355533_DodanoKol_tblProdukcjaZlcecenieCiecia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003052133284_Usunieto_FK_IDTowar_tblProdukcjaZlecenieTowar.cs" />
+    <Compile Include="Migrations\202003052133284_Usunieto_FK_IDTowar_tblProdukcjaZlecenieTowar.Designer.cs">
+      <DependentUpon>202003052133284_Usunieto_FK_IDTowar_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003052146334_ZmianaNaNullable_IDTowar_tblProdukcjaZlecenieTowar.cs" />
+    <Compile Include="Migrations\202003052146334_ZmianaNaNullable_IDTowar_tblProdukcjaZlecenieTowar.Designer.cs">
+      <DependentUpon>202003052146334_ZmianaNaNullable_IDTowar_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003060757235_ZmianaNazwyKolumny_IDProdukcjaZlecenieTowar_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202003060757235_ZmianaNazwyKolumny_IDProdukcjaZlecenieTowar_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202003060757235_ZmianaNazwyKolumny_IDProdukcjaZlecenieTowar_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003060812203_UsuniecieFK_IDTowar_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202003060812203_UsuniecieFK_IDTowar_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202003060812203_UsuniecieFK_IDTowar_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003070931226_DodanoKol_Zaawansowanie_tblProdukcjaZlecenieTowar.cs" />
+    <Compile Include="Migrations\202003070931226_DodanoKol_Zaawansowanie_tblProdukcjaZlecenieTowar.Designer.cs">
+      <DependentUpon>202003070931226_DodanoKol_Zaawansowanie_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003071515213_UsuniecieFKztblPracownik1_tblProdukcjaRuchNaglowek.cs" />
+    <Compile Include="Migrations\202003071515213_UsuniecieFKztblPracownik1_tblProdukcjaRuchNaglowek.Designer.cs">
+      <DependentUpon>202003071515213_UsuniecieFKztblPracownik1_tblProdukcjaRuchNaglowek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003071551587_UsunietoKol_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202003071551587_UsunietoKol_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202003071551587_UsunietoKol_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003081534202_UsunietoKol_IDProdukcjaZlecenieProdukcyjne_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202003081534202_UsunietoKol_IDProdukcjaZlecenieProdukcyjne_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202003081534202_UsunietoKol_IDProdukcjaZlecenieProdukcyjne_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003091021474_NowaTabela_tblProdukcjaRuchTowarStatus.cs" />
+    <Compile Include="Migrations\202003091021474_NowaTabela_tblProdukcjaRuchTowarStatus.Designer.cs">
+      <DependentUpon>202003091021474_NowaTabela_tblProdukcjaRuchTowarStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003091026216_DodanoKol_IDProdukcjaRuchTowarStatus_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202003091026216_DodanoKol_IDProdukcjaRuchTowarStatus_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202003091026216_DodanoKol_IDProdukcjaRuchTowarStatus_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003091028194_ZmianaNaNullable_IDProdukcjaRuchTowarStatus_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202003091028194_ZmianaNaNullable_IDProdukcjaRuchTowarStatus_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202003091028194_ZmianaNaNullable_IDProdukcjaRuchTowarStatus_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003091535212_DodanoKol_IDRolkaBazowa_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202003091535212_DodanoKol_IDRolkaBazowa_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202003091535212_DodanoKol_IDRolkaBazowa_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003152149413_DodKol_DataDodania_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202003152149413_DodKol_DataDodania_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202003152149413_DodKol_DataDodania_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003202047514_DodanoKol_tblProdukcjaRozliczenie_PW.cs" />
+    <Compile Include="Migrations\202003202047514_DodanoKol_tblProdukcjaRozliczenie_PW.Designer.cs">
+      <DependentUpon>202003202047514_DodanoKol_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003202223383_DodanoKol_SymbolTowaruSubiekt_tblProdukcjaRozliczenie_PW.cs" />
+    <Compile Include="Migrations\202003202223383_DodanoKol_SymbolTowaruSubiekt_tblProdukcjaRozliczenie_PW.Designer.cs">
+      <DependentUpon>202003202223383_DodanoKol_SymbolTowaruSubiekt_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003212008574_NowaTabla_tblProdukcjaRozliczenie_CenyTransferowe.cs" />
+    <Compile Include="Migrations\202003212008574_NowaTabla_tblProdukcjaRozliczenie_CenyTransferowe.Designer.cs">
+      <DependentUpon>202003212008574_NowaTabla_tblProdukcjaRozliczenie_CenyTransferowe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003212247246_DodanoKol_CenaHurtowaAGG_m2_tblProdukcjaRozliczenie_PW.cs" />
+    <Compile Include="Migrations\202003212247246_DodanoKol_CenaHurtowaAGG_m2_tblProdukcjaRozliczenie_PW.Designer.cs">
+      <DependentUpon>202003212247246_DodanoKol_CenaHurtowaAGG_m2_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003230544078_DodanoKol_SymbolSurowcaSubiekt_tblProdukcjaRozliczenie_RW.cs" />
+    <Compile Include="Migrations\202003230544078_DodanoKol_SymbolSurowcaSubiekt_tblProdukcjaRozliczenie_RW.Designer.cs">
+      <DependentUpon>202003230544078_DodanoKol_SymbolSurowcaSubiekt_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003241039461_ZmienionoDlugoscNazwyTowaru_tblProdukcjaRozliczenie_RW.cs" />
+    <Compile Include="Migrations\202003241039461_ZmienionoDlugoscNazwyTowaru_tblProdukcjaRozliczenie_RW.Designer.cs">
+      <DependentUpon>202003241039461_ZmienionoDlugoscNazwyTowaru_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003241138589_UsunietoKolumy_tblProdukcjaRozliczenie_PW.cs" />
+    <Compile Include="Migrations\202003241138589_UsunietoKolumy_tblProdukcjaRozliczenie_PW.Designer.cs">
+      <DependentUpon>202003241138589_UsunietoKolumy_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003241143306_DodanoKol_tblProdukcjaRozliczenie_RW_tblProdukcjaRozliczenie_PW.cs" />
+    <Compile Include="Migrations\202003241143306_DodanoKol_tblProdukcjaRozliczenie_RW_tblProdukcjaRozliczenie_PW.Designer.cs">
+      <DependentUpon>202003241143306_DodanoKol_tblProdukcjaRozliczenie_RW_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003241147360_UsunietoKolumne_tblProdukcjaRozliczenie_PW.cs" />
+    <Compile Include="Migrations\202003241147360_UsunietoKolumne_tblProdukcjaRozliczenie_PW.Designer.cs">
+      <DependentUpon>202003241147360_UsunietoKolumne_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003241148500_UsunietoKolumne_tblProdukcjaRozliczenie_RW.cs" />
+    <Compile Include="Migrations\202003241148500_UsunietoKolumne_tblProdukcjaRozliczenie_RW.Designer.cs">
+      <DependentUpon>202003241148500_UsunietoKolumne_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003241537081_UsunietoKolumny_tblProdukcjaRozliczenie_RW.cs" />
+    <Compile Include="Migrations\202003241537081_UsunietoKolumny_tblProdukcjaRozliczenie_RW.Designer.cs">
+      <DependentUpon>202003241537081_UsunietoKolumny_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003241539590_UsunietoKolumny_tblProdukcjaRozliczenie_PW.cs" />
+    <Compile Include="Migrations\202003241539590_UsunietoKolumny_tblProdukcjaRozliczenie_PW.Designer.cs">
+      <DependentUpon>202003241539590_UsunietoKolumny_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003250512139_ZmianaNazwKolumn_tblProdukcjaRozliczenie_RW.cs" />
+    <Compile Include="Migrations\202003250512139_ZmianaNazwKolumn_tblProdukcjaRozliczenie_RW.Designer.cs">
+      <DependentUpon>202003250512139_ZmianaNazwKolumn_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003250514554_ZmianaNazwKolumn_tblProdukcjaRozliczenie_PW.cs" />
+    <Compile Include="Migrations\202003250514554_ZmianaNazwKolumn_tblProdukcjaRozliczenie_PW.Designer.cs">
+      <DependentUpon>202003250514554_ZmianaNazwKolumn_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003251059029_DodanoKol_tblProdukcjaRozliczenie_PW1.cs" />
+    <Compile Include="Migrations\202003251059029_DodanoKol_tblProdukcjaRozliczenie_PW1.Designer.cs">
+      <DependentUpon>202003251059029_DodanoKol_tblProdukcjaRozliczenie_PW1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003251241023_DodanoKol_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW.cs" />
+    <Compile Include="Migrations\202003251241023_DodanoKol_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW.Designer.cs">
+      <DependentUpon>202003251241023_DodanoKol_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003260713488_DodanoKol_tblProdukcjaRozliczenie_Naglowek.cs" />
+    <Compile Include="Migrations\202003260713488_DodanoKol_tblProdukcjaRozliczenie_Naglowek.Designer.cs">
+      <DependentUpon>202003260713488_DodanoKol_tblProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003260743495_DodanoKol_tblProdukcjaRozliczenie_RW.cs" />
+    <Compile Include="Migrations\202003260743495_DodanoKol_tblProdukcjaRozliczenie_RW.Designer.cs">
+      <DependentUpon>202003260743495_DodanoKol_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003260745210_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW.cs" />
+    <Compile Include="Migrations\202003260745210_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW.Designer.cs">
+      <DependentUpon>202003260745210_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003261449433_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW1.cs" />
+    <Compile Include="Migrations\202003261449433_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW1.Designer.cs">
+      <DependentUpon>202003261449433_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003261455480_DodanieKol_i_ZmianaNazwyKol_tblProdukcjaRozliczenie_RW.cs" />
+    <Compile Include="Migrations\202003261455480_DodanieKol_i_ZmianaNazwyKol_tblProdukcjaRozliczenie_RW.Designer.cs">
+      <DependentUpon>202003261455480_DodanieKol_i_ZmianaNazwyKol_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003270653172_DodanoKol_tblProdukcjaRozliczenie_Naglowek1.cs" />
+    <Compile Include="Migrations\202003270653172_DodanoKol_tblProdukcjaRozliczenie_Naglowek1.Designer.cs">
+      <DependentUpon>202003270653172_DodanoKol_tblProdukcjaRozliczenie_Naglowek1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003270815135_DodanoTabele_tblProdukcjaRozliczenie_PWPodsumowanie.cs" />
+    <Compile Include="Migrations\202003270815135_DodanoTabele_tblProdukcjaRozliczenie_PWPodsumowanie.Designer.cs">
+      <DependentUpon>202003270815135_DodanoTabele_tblProdukcjaRozliczenie_PWPodsumowanie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003271110349_ZmianaDataType_tblProdukcjaRozliczenie_Naglowek.cs" />
+    <Compile Include="Migrations\202003271110349_ZmianaDataType_tblProdukcjaRozliczenie_Naglowek.Designer.cs">
+      <DependentUpon>202003271110349_ZmianaDataType_tblProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003271112470_ZmianaDlugosciStringa_tblProdukcjaRozliczenie_Naglowek.cs" />
+    <Compile Include="Migrations\202003271112470_ZmianaDlugosciStringa_tblProdukcjaRozliczenie_Naglowek.Designer.cs">
+      <DependentUpon>202003271112470_ZmianaDlugosciStringa_tblProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003291225549_UsunietoKol_tblProdukcjaRozliczenie_Naglowek.cs" />
+    <Compile Include="Migrations\202003291225549_UsunietoKol_tblProdukcjaRozliczenie_Naglowek.Designer.cs">
+      <DependentUpon>202003291225549_UsunietoKol_tblProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003291240450_UsunietoKol_tblProdukcjaRozliczenie_Naglowek1.cs" />
+    <Compile Include="Migrations\202003291240450_UsunietoKol_tblProdukcjaRozliczenie_Naglowek1.Designer.cs">
+      <DependentUpon>202003291240450_UsunietoKol_tblProdukcjaRozliczenie_Naglowek1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003311105265_DoodanoKol_vwMagazynRuchGTX.cs" />
+    <Compile Include="Migrations\202003311105265_DoodanoKol_vwMagazynRuchGTX.Designer.cs">
+      <DependentUpon>202003311105265_DoodanoKol_vwMagazynRuchGTX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003311141481_DodanoWidokiZSubiektGT.cs" />
+    <Compile Include="Migrations\202003311141481_DodanoWidokiZSubiektGT.Designer.cs">
+      <DependentUpon>202003311141481_DodanoWidokiZSubiektGT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004051504456_ZmianaTypuIdNaNullable_tblProdukcjaRozliczenie_PW.cs" />
+    <Compile Include="Migrations\202004051504456_ZmianaTypuIdNaNullable_tblProdukcjaRozliczenie_PW.Designer.cs">
+      <DependentUpon>202004051504456_ZmianaTypuIdNaNullable_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004060549565_DodanoKol_tblProdukcjaRozliczenie_PW2.cs" />
+    <Compile Include="Migrations\202004060549565_DodanoKol_tblProdukcjaRozliczenie_PW2.Designer.cs">
+      <DependentUpon>202004060549565_DodanoKol_tblProdukcjaRozliczenie_PW2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004060551305_DodanoKol_tblProdukcjaRozliczenie_PW3.cs" />
+    <Compile Include="Migrations\202004060551305_DodanoKol_tblProdukcjaRozliczenie_PW3.Designer.cs">
+      <DependentUpon>202004060551305_DodanoKol_tblProdukcjaRozliczenie_PW3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004060841130_ZmianaStringLenghtDlaTowarNazwa_tblProdukcjaRozliczenie_Naglowek.cs" />
+    <Compile Include="Migrations\202004060841130_ZmianaStringLenghtDlaTowarNazwa_tblProdukcjaRozliczenie_Naglowek.Designer.cs">
+      <DependentUpon>202004060841130_ZmianaStringLenghtDlaTowarNazwa_tblProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004060905121_DecimalZmianaPrecyzji_Udzial_tblProdukcjaRozliczenie_RW.cs" />
+    <Compile Include="Migrations\202004060905121_DecimalZmianaPrecyzji_Udzial_tblProdukcjaRozliczenie_RW.Designer.cs">
+      <DependentUpon>202004060905121_DecimalZmianaPrecyzji_Udzial_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004060908141_ZmianaNazwyKol_IDProdukcjaRozliczenie_PWPodsumowanie.cs" />
+    <Compile Include="Migrations\202004060908141_ZmianaNazwyKol_IDProdukcjaRozliczenie_PWPodsumowanie.Designer.cs">
+      <DependentUpon>202004060908141_ZmianaNazwyKol_IDProdukcjaRozliczenie_PWPodsumowanie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004061052182_DodanoKol_tblProdukcjaRozliczenie_PWPodsumowanie.cs" />
+    <Compile Include="Migrations\202004061052182_DodanoKol_tblProdukcjaRozliczenie_PWPodsumowanie.Designer.cs">
+      <DependentUpon>202004061052182_DodanoKol_tblProdukcjaRozliczenie_PWPodsumowanie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004061847256_DodanoKol_tblProdukcjaRuchTowar1.cs" />
+    <Compile Include="Migrations\202004061847256_DodanoKol_tblProdukcjaRuchTowar1.Designer.cs">
+      <DependentUpon>202004061847256_DodanoKol_tblProdukcjaRuchTowar1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004091044041_DodanoKol_tblProdukcjaRozliczenie_PW4.cs" />
+    <Compile Include="Migrations\202004091044041_DodanoKol_tblProdukcjaRozliczenie_PW4.Designer.cs">
+      <DependentUpon>202004091044041_DodanoKol_tblProdukcjaRozliczenie_PW4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004091433427_DodanoKol_tblProdukcjaRuchTowar2.cs" />
+    <Compile Include="Migrations\202004091433427_DodanoKol_tblProdukcjaRuchTowar2.Designer.cs">
+      <DependentUpon>202004091433427_DodanoKol_tblProdukcjaRuchTowar2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004091512189_DodanoKol_tblProdukcjaRuchTowar3.cs" />
+    <Compile Include="Migrations\202004091512189_DodanoKol_tblProdukcjaRuchTowar3.Designer.cs">
+      <DependentUpon>202004091512189_DodanoKol_tblProdukcjaRuchTowar3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004150650239_DodanoKol_tblProdukcjaRozliczenie_PW5.cs" />
+    <Compile Include="Migrations\202004150650239_DodanoKol_tblProdukcjaRozliczenie_PW5.Designer.cs">
+      <DependentUpon>202004150650239_DodanoKol_tblProdukcjaRozliczenie_PW5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004151203072_DodanoKol_tblProdukcjaRozliczenie_PW6.cs" />
+    <Compile Include="Migrations\202004151203072_DodanoKol_tblProdukcjaRozliczenie_PW6.Designer.cs">
+      <DependentUpon>202004151203072_DodanoKol_tblProdukcjaRozliczenie_PW6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004151925496_DodanoKol_tblProdukcjaRozliczenie_PW7.cs" />
+    <Compile Include="Migrations\202004151925496_DodanoKol_tblProdukcjaRozliczenie_PW7.Designer.cs">
+      <DependentUpon>202004151925496_DodanoKol_tblProdukcjaRozliczenie_PW7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004162028309_Dodano_vwZamOdKlientaAGG.cs" />
+    <Compile Include="Migrations\202004162028309_Dodano_vwZamOdKlientaAGG.Designer.cs">
+      <DependentUpon>202004162028309_Dodano_vwZamOdKlientaAGG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004162119501_DodanoKolGrupa_vwZamOdKlientaAGG.cs" />
+    <Compile Include="Migrations\202004162119501_DodanoKolGrupa_vwZamOdKlientaAGG.Designer.cs">
+      <DependentUpon>202004162119501_DodanoKolGrupa_vwZamOdKlientaAGG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004181954199_DodanoKol_vwZamOdKlientaAGG.cs" />
+    <Compile Include="Migrations\202004181954199_DodanoKol_vwZamOdKlientaAGG.Designer.cs">
+      <DependentUpon>202004181954199_DodanoKol_vwZamOdKlientaAGG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004221213334_ZmianyW_Views.cs" />
+    <Compile Include="Migrations\202004221213334_ZmianyW_Views.Designer.cs">
+      <DependentUpon>202004221213334_ZmianyW_Views.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004221214496_DodanoView_vwZestSprzedazyAGG.cs" />
+    <Compile Include="Migrations\202004221214496_DodanoView_vwZestSprzedazyAGG.Designer.cs">
+      <DependentUpon>202004221214496_DodanoView_vwZestSprzedazyAGG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004230958287_Zmiany_vwZestSprzedazyAGG.cs" />
+    <Compile Include="Migrations\202004230958287_Zmiany_vwZestSprzedazyAGG.Designer.cs">
+      <DependentUpon>202004230958287_Zmiany_vwZestSprzedazyAGG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004230959471_ZmianaStringLength_tblProdukcjaRozliczenie_Naglowek.cs" />
+    <Compile Include="Migrations\202004230959471_ZmianaStringLength_tblProdukcjaRozliczenie_Naglowek.Designer.cs">
+      <DependentUpon>202004230959471_ZmianaStringLength_tblProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004290623195_DodanoJm_vwMagazynRuchGTX_vwMagazynRuchAGG.cs" />
+    <Compile Include="Migrations\202004290623195_DodanoJm_vwMagazynRuchGTX_vwMagazynRuchAGG.Designer.cs">
+      <DependentUpon>202004290623195_DodanoJm_vwMagazynRuchGTX_vwMagazynRuchAGG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005051602484_DodanoKol_tblProdukcjaRozliczenie_CenyTransferowe.cs" />
+    <Compile Include="Migrations\202005051602484_DodanoKol_tblProdukcjaRozliczenie_CenyTransferowe.Designer.cs">
+      <DependentUpon>202005051602484_DodanoKol_tblProdukcjaRozliczenie_CenyTransferowe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005120717540_DodanieViews_GTX2_MagazynRuch_FinanseIZobowiazania.cs" />
+    <Compile Include="Migrations\202005120717540_DodanieViews_GTX2_MagazynRuch_FinanseIZobowiazania.Designer.cs">
+      <DependentUpon>202005120717540_DodanieViews_GTX2_MagazynRuch_FinanseIZobowiazania.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005131615015_DodanoTabele_tblFinanseStanKonta.cs" />
+    <Compile Include="Migrations\202005131615015_DodanoTabele_tblFinanseStanKonta.Designer.cs">
+      <DependentUpon>202005131615015_DodanoTabele_tblFinanseStanKonta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005140718246_DodanoViews_vwFinanseBankAGG_GTX_GTX2.cs" />
+    <Compile Include="Migrations\202005140718246_DodanoViews_vwFinanseBankAGG_GTX_GTX2.Designer.cs">
+      <DependentUpon>202005140718246_DodanoViews_vwFinanseBankAGG_GTX_GTX2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005140822580_DodanoKol_tblFinanseStanKonta.cs" />
+    <Compile Include="Migrations\202005140822580_DodanoKol_tblFinanseStanKonta.Designer.cs">
+      <DependentUpon>202005140822580_DodanoKol_tblFinanseStanKonta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005140959559_DodanoAtrybutTabel_vwFinanseBankAGG_GTX_GTX2.cs" />
+    <Compile Include="Migrations\202005140959559_DodanoAtrybutTabel_vwFinanseBankAGG_GTX_GTX2.Designer.cs">
+      <DependentUpon>202005140959559_DodanoAtrybutTabel_vwFinanseBankAGG_GTX_GTX2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005141003279_DodanoAtrybutTabel_vwFinanseBankAGG_GTX_GTX21.cs" />
+    <Compile Include="Migrations\202005141003279_DodanoAtrybutTabel_vwFinanseBankAGG_GTX_GTX21.Designer.cs">
+      <DependentUpon>202005141003279_DodanoAtrybutTabel_vwFinanseBankAGG_GTX_GTX21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005141044017_DodanoKol_tblFinanseStanKonta1.cs" />
+    <Compile Include="Migrations\202005141044017_DodanoKol_tblFinanseStanKonta1.Designer.cs">
+      <DependentUpon>202005141044017_DodanoKol_tblFinanseStanKonta1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005141915014_DodanoTabele_tblProdukcjaGeokomorkaPodsumowaniePrzerob.cs" />
+    <Compile Include="Migrations\202005141915014_DodanoTabele_tblProdukcjaGeokomorkaPodsumowaniePrzerob.Designer.cs">
+      <DependentUpon>202005141915014_DodanoTabele_tblProdukcjaGeokomorkaPodsumowaniePrzerob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005150613079_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob.cs" />
+    <Compile Include="Migrations\202005150613079_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob.Designer.cs">
+      <DependentUpon>202005150613079_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005150616512_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob1.cs" />
+    <Compile Include="Migrations\202005150616512_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob1.Designer.cs">
+      <DependentUpon>202005150616512_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005150619417_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob2.cs" />
+    <Compile Include="Migrations\202005150619417_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob2.Designer.cs">
+      <DependentUpon>202005150619417_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005150715223_ZmianaNazwtKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob.cs" />
+    <Compile Include="Migrations\202005150715223_ZmianaNazwtKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob.Designer.cs">
+      <DependentUpon>202005150715223_ZmianaNazwtKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005151153037_DodanoKol_tblFinanseStanKonta2.cs" />
+    <Compile Include="Migrations\202005151153037_DodanoKol_tblFinanseStanKonta2.Designer.cs">
+      <DependentUpon>202005151153037_DodanoKol_tblFinanseStanKonta2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005190947569_DodanoView_vwMagazynGTX2.cs" />
+    <Compile Include="Migrations\202005190947569_DodanoView_vwMagazynGTX2.Designer.cs">
+      <DependentUpon>202005190947569_DodanoView_vwMagazynGTX2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006021022589_DodanoKol_tblProdukcjaRozliczenie_PW8.cs" />
+    <Compile Include="Migrations\202006021022589_DodanoKol_tblProdukcjaRozliczenie_PW8.Designer.cs">
+      <DependentUpon>202006021022589_DodanoKol_tblProdukcjaRozliczenie_PW8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006021026428_DodanoKol_tblProdukcjaRuchTowar4.cs" />
+    <Compile Include="Migrations\202006021026428_DodanoKol_tblProdukcjaRuchTowar4.Designer.cs">
+      <DependentUpon>202006021026428_DodanoKol_tblProdukcjaRuchTowar4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006021102147_DodanoKol_tblProdukcjaRuchTowar5.cs" />
+    <Compile Include="Migrations\202006021102147_DodanoKol_tblProdukcjaRuchTowar5.Designer.cs">
+      <DependentUpon>202006021102147_DodanoKol_tblProdukcjaRuchTowar5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006040627469_DodanoKol_tblProdukcjaZlecenieTowar.cs" />
+    <Compile Include="Migrations\202006040627469_DodanoKol_tblProdukcjaZlecenieTowar.Designer.cs">
+      <DependentUpon>202006040627469_DodanoKol_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006091131415_DodanoKol_tblProdukcjaZlecenieTowar1.cs" />
+    <Compile Include="Migrations\202006091131415_DodanoKol_tblProdukcjaZlecenieTowar1.Designer.cs">
+      <DependentUpon>202006091131415_DodanoKol_tblProdukcjaZlecenieTowar1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006230908247_ZmianaNaTypNullable_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202006230908247_ZmianaNaTypNullable_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202006230908247_ZmianaNaTypNullable_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006231255334_DodanoKol_tblTowarGeowlokninaParametry.cs" />
+    <Compile Include="Migrations\202006231255334_DodanoKol_tblTowarGeowlokninaParametry.Designer.cs">
+      <DependentUpon>202006231255334_DodanoKol_tblTowarGeowlokninaParametry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006231352038_DodanoKol_tblTowarGeowlokninaParametry1.cs" />
+    <Compile Include="Migrations\202006231352038_DodanoKol_tblTowarGeowlokninaParametry1.Designer.cs">
+      <DependentUpon>202006231352038_DodanoKol_tblTowarGeowlokninaParametry1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006261146378_DodanoKol_tblProdukcjaRuchTowarBadania.cs" />
+    <Compile Include="Migrations\202006261146378_DodanoKol_tblProdukcjaRuchTowarBadania.Designer.cs">
+      <DependentUpon>202006261146378_DodanoKol_tblProdukcjaRuchTowarBadania.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006261150421_UsunietoKol_tblProdukcjaRuchTowarBadania.cs" />
+    <Compile Include="Migrations\202006261150421_UsunietoKol_tblProdukcjaRuchTowarBadania.Designer.cs">
+      <DependentUpon>202006261150421_UsunietoKol_tblProdukcjaRuchTowarBadania.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006270724077_ZmianaTypuNaNonNullable_tblProdukcjaRuchTowarBadania.cs" />
+    <Compile Include="Migrations\202006270724077_ZmianaTypuNaNonNullable_tblProdukcjaRuchTowarBadania.Designer.cs">
+      <DependentUpon>202006270724077_ZmianaTypuNaNonNullable_tblProdukcjaRuchTowarBadania.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006301527259_DodanoKol_tblProdukcjaRuchNaglowek.cs" />
+    <Compile Include="Migrations\202006301527259_DodanoKol_tblProdukcjaRuchNaglowek.Designer.cs">
+      <DependentUpon>202006301527259_DodanoKol_tblProdukcjaRuchNaglowek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007081245383_DodanoKol_tblProdukcjaRuchTowar6.cs" />
+    <Compile Include="Migrations\202007081245383_DodanoKol_tblProdukcjaRuchTowar6.Designer.cs">
+      <DependentUpon>202007081245383_DodanoKol_tblProdukcjaRuchTowar6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007091942309_ZmianaTypu_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202007091942309_ZmianaTypu_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202007091942309_ZmianaTypu_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007121857318_ZmianaNazwKolumnOrazDodanieKol_tblProdukcjaZlcecenieProdukcyjne.cs" />
+    <Compile Include="Migrations\202007121857318_ZmianaNazwKolumnOrazDodanieKol_tblProdukcjaZlcecenieProdukcyjne.Designer.cs">
+      <DependentUpon>202007121857318_ZmianaNazwKolumnOrazDodanieKol_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007122025536_KorektaNazwyTabeli_tblProdukcjaZlcecenieProdukcyjne_na_tblProdukcjaZlecenie.cs" />
+    <Compile Include="Migrations\202007122025536_KorektaNazwyTabeli_tblProdukcjaZlcecenieProdukcyjne_na_tblProdukcjaZlecenie.Designer.cs">
+      <DependentUpon>202007122025536_KorektaNazwyTabeli_tblProdukcjaZlcecenieProdukcyjne_na_tblProdukcjaZlecenie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007122136104_ZmianaNazwyKol_tblProdukcjaZlecenie.cs" />
+    <Compile Include="Migrations\202007122136104_ZmianaNazwyKol_tblProdukcjaZlecenie.Designer.cs">
+      <DependentUpon>202007122136104_ZmianaNazwyKol_tblProdukcjaZlecenie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007122138406_ZmianaNazwyKol_IdPracownikGAT_tblProdukcjaZlecenie.cs" />
+    <Compile Include="Migrations\202007122138406_ZmianaNazwyKol_IdPracownikGAT_tblProdukcjaZlecenie.Designer.cs">
+      <DependentUpon>202007122138406_ZmianaNazwyKol_IdPracownikGAT_tblProdukcjaZlecenie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007122143208_DodanoKol_tblProdukcjaZlecenie.cs" />
+    <Compile Include="Migrations\202007122143208_DodanoKol_tblProdukcjaZlecenie.Designer.cs">
+      <DependentUpon>202007122143208_DodanoKol_tblProdukcjaZlecenie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007151016380_DodanoKol_IDProdukcjaGniazdoProdukcyjne_tblProdukcjaZlecenie.cs" />
+    <Compile Include="Migrations\202007151016380_DodanoKol_IDProdukcjaGniazdoProdukcyjne_tblProdukcjaZlecenie.Designer.cs">
+      <DependentUpon>202007151016380_DodanoKol_IDProdukcjaGniazdoProdukcyjne_tblProdukcjaZlecenie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007160918164_ZmianaKol_NullableString_tblProdukcjaZlecenie.cs" />
+    <Compile Include="Migrations\202007160918164_ZmianaKol_NullableString_tblProdukcjaZlecenie.Designer.cs">
+      <DependentUpon>202007160918164_ZmianaKol_NullableString_tblProdukcjaZlecenie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007160936091_ZmianaNazwyKol_tblProdukcjaZlecenieTowar.cs" />
+    <Compile Include="Migrations\202007160936091_ZmianaNazwyKol_tblProdukcjaZlecenieTowar.Designer.cs">
+      <DependentUpon>202007160936091_ZmianaNazwyKol_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007201350514_DodanoKol_tblTowarGeowlokninaParametry2.cs" />
+    <Compile Include="Migrations\202007201350514_DodanoKol_tblTowarGeowlokninaParametry2.Designer.cs">
+      <DependentUpon>202007201350514_DodanoKol_tblTowarGeowlokninaParametry2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007281513073_DodanoTabele_tblKonfiguracjaUrzadzen.cs" />
+    <Compile Include="Migrations\202007281513073_DodanoTabele_tblKonfiguracjaUrzadzen.Designer.cs">
+      <DependentUpon>202007281513073_DodanoTabele_tblKonfiguracjaUrzadzen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007282021222_DodanoKol_tblKonfiguracjaUrzadzen.cs" />
+    <Compile Include="Migrations\202007282021222_DodanoKol_tblKonfiguracjaUrzadzen.Designer.cs">
+      <DependentUpon>202007282021222_DodanoKol_tblKonfiguracjaUrzadzen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007282035502_DodanoKol_tblKonfiguracjaUrzadzen1.cs" />
+    <Compile Include="Migrations\202007282035502_DodanoKol_tblKonfiguracjaUrzadzen1.Designer.cs">
+      <DependentUpon>202007282035502_DodanoKol_tblKonfiguracjaUrzadzen1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008191130367_DodanoKol_IdMsAccess_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs" />
+    <Compile Include="Migrations\202008191130367_DodanoKol_IdMsAccess_tblProdukcjaZlecenieProdukcyjne_Mieszanka.Designer.cs">
+      <DependentUpon>202008191130367_DodanoKol_IdMsAccess_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008191146369_DodanoKol_IdMsAccess_tblProdukcjaZlecenie.cs" />
+    <Compile Include="Migrations\202008191146369_DodanoKol_IdMsAccess_tblProdukcjaZlecenie.Designer.cs">
+      <DependentUpon>202008191146369_DodanoKol_IdMsAccess_tblProdukcjaZlecenie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008201046420_ZmianaKol_DopuszczenieNull_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs" />
+    <Compile Include="Migrations\202008201046420_ZmianaKol_DopuszczenieNull_tblProdukcjaZlecenieProdukcyjne_Mieszanka.Designer.cs">
+      <DependentUpon>202008201046420_ZmianaKol_DopuszczenieNull_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008201342188_DodanoKol_Uwagi_tblProdukcjaRuchNaglowek.cs" />
+    <Compile Include="Migrations\202008201342188_DodanoKol_Uwagi_tblProdukcjaRuchNaglowek.Designer.cs">
+      <DependentUpon>202008201342188_DodanoKol_Uwagi_tblProdukcjaRuchNaglowek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008311913108_DodanoKolumny_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202008311913108_DodanoKolumny_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202008311913108_DodanoKolumny_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009021031489_ZmianaNazwKolumn_tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Migrations\202009021031489_ZmianaNazwKolumn_tblProdukcjaRuchTowar.Designer.cs">
+      <DependentUpon>202009021031489_ZmianaNazwKolumn_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009031211053_DodanoKol_WspZmniejszeniaMasy_tblProdukcjaGniazdoProdukcyjne.cs" />
+    <Compile Include="Migrations\202009031211053_DodanoKol_WspZmniejszeniaMasy_tblProdukcjaGniazdoProdukcyjne.Designer.cs">
+      <DependentUpon>202009031211053_DodanoKol_WspZmniejszeniaMasy_tblProdukcjaGniazdoProdukcyjne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\GenericRepository\IGenericRepository.cs" />
+    <Compile Include="Repositories\GenericRepository\GenericRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblCertyfikatCERepository.cs" />
+    <Compile Include="Repositories\Repositories\TblDokumentTypRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblFinanseStanKontaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblKonfiguracjaUrzadzenRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblLogRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblMieszankaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblMieszankaSkladRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaGeokomorkaPodsumowaniePrzerobRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaGniazdoKonfekcjaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaGniazdoKonfekcjaNastawyRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaGniazdoWlokninaBadaniaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaGniazdoWlokninaNastawyRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaGniazdoKalanderRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaGniazdoProdukcyjneRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaGniazdoKalanderNastawyRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaRozliczenie_CenyTransferoweRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaRozliczenie_DaneRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaRozliczenie_NaglowekRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaRozliczenie_PWPodsumowanieRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaRozliczenie_PWRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaRuchNaglowekRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaRuchTowarBadaniaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaRuchTowarRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaZlecenieCieciaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaZlecenieTowarRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaZlecenieProdukcyjne_GniazdaProdParamTowarRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaZlecenieProdukcyjne_MieszankaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaPaletyRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaTulejeRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaGniazdoWlokninaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaZlcecenieProdukcyjneRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaZlcecenieProdukcyjne_tblTowarParametryRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaZlecenieProdukcyjne_GniazdaProdukcyjneRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaZlecenieStatusRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblRuchTowarGeowlokninaParametryRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblTowarGeokomorkaParametryRodzajRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblTowarGeokomorkaParametryTypRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblFirmaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblJmRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblKlasyfikacjaOgolnaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblKlasyfikacjaSzczegolowaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblKodKreskowyTypRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblKontrahentRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblMagazynRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblPlikiRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblPracownikGATRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblRuchNaglowekRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblRuchStatusRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblRuchTowarRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblTowarGeokomorkaParametryGeometryczneRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblTowarGeokomorkaParametryZgrzewRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblTowarGeowlokninaParametryGramaturaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblTowarGeowlokninaParametryRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblTowarGeowlokninaParametrySurowiecRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblTowarGrupaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblTowarParametryRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblTowarRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblTowarGeowlokninaParametryRodzajRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblTowarStatusRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblUrzadzeniaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblVATRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblWynikiBadanDlaProbekRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblWynikiBadanGeowlokninRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblZamowieniaPrzesylkaKosztRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblZamowieniaTerminPlatnosciRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblZamowieniaWarunkiPlatnosciRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblZamowienieHandlowePakowanieRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblZamowienieHandlowePakowanieRodzajRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblZamowienieHandloweRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblZamowienieHandloweTowarGeokomorkaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblZamowienieHandloweTowarGeowlokninaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblZapotrzebowaniePozycjeRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblZapotrzebowanieRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblZapotrzebowanieStatusRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwCenyMagazynoweAGGRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwFinanseBankAGGRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwFinanseBankGTX2Repository.cs" />
+    <Compile Include="Repositories\Repositories\VwFinanseBankGTXRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwFinanseNalZobAGGRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwFinanseNalZobGTX2Repository.cs" />
+    <Compile Include="Repositories\Repositories\VwFinanseNalZobGTXRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwFVKosztowezSubiektGTRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwMagazynAGGRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwMagazynGTX2Repository.cs" />
+    <Compile Include="Repositories\Repositories\VwMagazynGTXRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwMagazynRuchAGGRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwMagazynRuchGTX2Repository.cs" />
+    <Compile Include="Repositories\Repositories\VwMagazynRuchGTXRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwRuchTowaruRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwStanTowaruRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwTowarAGGRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwTowarGTXRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwZamOdKlientaAGGRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwZapotrzebowanieEwidencjaRepository.cs" />
+    <Compile Include="Repositories\Repositories\TblProdukcjaRozliczenie_RWRepository.cs" />
+    <Compile Include="Repositories\Repositories\VwZestSprzedazyAGGRepository.cs" />
+    <Compile Include="Repositories\UnitOfWork\IUnitOfWorkFactory.cs" />
+    <Compile Include="Repositories\UnitOfWork\UnitOfWorkFactory.cs" />
+    <Compile Include="Repositories\UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="Repositories\UnitOfWork\UnitOfWork.cs" />
+    <Compile Include="sysdiagrams.cs" />
+    <Compile Include="Models\tblCenyTransferowe.cs" />
+    <Compile Include="Models\tblCertyfikatCE.cs" />
+    <Compile Include="Models\tblDokumentTyp.cs" />
+    <Compile Include="Models\tblFakturaZapotrzebowanie.cs" />
+    <Compile Include="Models\tblFinanseStanKonta.cs" />
+    <Compile Include="Models\tblFirma.cs" />
+    <Compile Include="Models\tblJm.cs" />
+    <Compile Include="Models\tblKlasyfikacja.cs" />
+    <Compile Include="Models\tblKlasyfikacjaOgolna.cs" />
+    <Compile Include="Models\tblKlasyfikacjaOgolna_SzczegolowaMM.cs" />
+    <Compile Include="Models\tblKlasyfikacjaProdukcji_UrzadzeniaMM.cs" />
+    <Compile Include="Models\tblKlasyfikacjaSzczegolowa.cs" />
+    <Compile Include="Models\tblKlasyfikacjaSzczegolowa_UrzadzeniaMM.cs" />
+    <Compile Include="Models\tblKodKreskowyTyp.cs" />
+    <Compile Include="Models\tblKonfiguracjaUrzadzen.cs" />
+    <Compile Include="Models\tblKontrahent.cs" />
+    <Compile Include="Models\tblKosztRodzaj.cs" />
+    <Compile Include="Models\tblKosztTyp.cs" />
+    <Compile Include="Models\tblLog.cs" />
+    <Compile Include="Models\tblMagazyn.cs" />
+    <Compile Include="Models\tblMieszanka.cs" />
+    <Compile Include="Models\tblMieszankaSklad.cs" />
+    <Compile Include="Models\tblPliki.cs" />
+    <Compile Include="Models\tblPracownikGAT.cs" />
+    <Compile Include="Models\tblPracownikGATDostep.cs" />
+    <Compile Include="Models\tblPracownikGATUstawienia.cs" />
+    <Compile Include="Models\tblProdukcjaGeokomorkaPodsumowaniePrzerob.cs" />
+    <Compile Include="Models\tblProdukcjaGniazdoProdukcyjne.cs" />
+    <Compile Include="Models\tblProdukcjaGniazdoKalander.cs" />
+    <Compile Include="Models\tblProdukcjaGniazdoKonfekcja.cs" />
+    <Compile Include="Models\tblProdukcjaGniazdoWloknina.cs" />
+    <Compile Include="Models\tblProdukcjaGniazdoKonfekcjaNastawy.cs" />
+    <Compile Include="Models\tblProdukcjaGniazdoKalanderNastawy.cs" />
+    <Compile Include="Models\tblProdukcjaGniazdoWlokninaBadania.cs" />
+    <Compile Include="Models\tblProdukcjaGniazdoWlokninaNastawy.cs" />
+    <Compile Include="Models\tblProdukcjaRozliczenieStatus.cs" />
+    <Compile Include="Models\tblProdukcjaRozliczenie_CenyTransferowe.cs" />
+    <Compile Include="Models\tblProdukcjaRozliczenie_PWPodsumowanie.cs" />
+    <Compile Include="Models\tblProdukcjaRozliczenie_PW.cs" />
+    <Compile Include="Models\tblProdukcjaRozliczenie_RW.cs" />
+    <Compile Include="Models\tblProdukcjaRuchNaglowek.cs" />
+    <Compile Include="Models\tblProdukcjaRuchTowar.cs" />
+    <Compile Include="Models\tblProdukcjaRuchTowarBadania.cs" />
+    <Compile Include="Models\tblProdukcjaRuchTowarStatus.cs" />
+    <Compile Include="Models\tblProdukcjaZlecenieCiecia.cs" />
+    <Compile Include="Models\tblProdukcjaZlecenieTowar.cs" />
+    <Compile Include="Models\tblProdukcjaZlecenieProdukcyjneMieszanka.cs" />
+    <Compile Include="Models\tblProdukcjaPalety.cs" />
+    <Compile Include="Models\tblProdukcjaTechnologia.cs" />
+    <Compile Include="Models\tblProdukcjaTuleje.cs" />
+    <Compile Include="Models\tblProdukcjaZlecenie.cs" />
+    <Compile Include="Models\tblProdukcjaZlecenieProdukcyjne_GniazdaProdukcyjne.cs" />
+    <Compile Include="Models\tblProdukcjaZlecenieProdukcyjne_GniazdaProdParamTowar.cs" />
+    <Compile Include="Models\tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs" />
+    <Compile Include="Models\tblProdukcjaRozliczenie_Naglowek.cs" />
+    <Compile Include="Models\tblProdukcjaZlecenieStatus.cs" />
+    <Compile Include="Models\tblRuchNaglowek.cs" />
+    <Compile Include="Models\tblRuchStatus.cs" />
+    <Compile Include="Models\tblRuchTowar.cs" />
+    <Compile Include="Models\tblRuchTowarGeowlokninaParametry.cs" />
+    <Compile Include="Models\tblTest.cs" />
+    <Compile Include="Models\tblTowar.cs" />
+    <Compile Include="Models\tblTowarGeokomorkaParametryGeometryczne.cs" />
+    <Compile Include="Models\tblTowarGeokomorkaParametryRodzaj.cs" />
+    <Compile Include="Models\tblTowarGeokomorkaParametryTyp.cs" />
+    <Compile Include="Models\tblTowarGeowlokninaParametry.cs" />
+    <Compile Include="Models\tblTowarGeowlokninaParametryGramatura.cs" />
+    <Compile Include="Models\tblTowarGeowlokninaParametrySurowiec.cs" />
+    <Compile Include="Models\tblTowarGrupa.cs" />
+    <Compile Include="Models\tblTowarParametry.cs" />
+    <Compile Include="Models\tblTowarStatus.cs" />
+    <Compile Include="Models\tblTowarGeowlokninaParametryRodzaj.cs" />
+    <Compile Include="Models\tblTowar_Kontrahent.cs" />
+    <Compile Include="Models\tblUrzadzenia.cs" />
+    <Compile Include="Models\tblVAT.cs" />
+    <Compile Include="Models\tblWojewodztwa.cs" />
+    <Compile Include="Models\tblWynikiBadanDlaProbek.cs" />
+    <Compile Include="Models\tblWynikiBadanGeowloknin.cs" />
+    <Compile Include="Models\tblZamowieniaPrzesylkaKoszt.cs" />
+    <Compile Include="Models\tblZamowieniaTerminPlatnosci.cs" />
+    <Compile Include="Models\tblZamowieniaWarunkiPlatnosci.cs" />
+    <Compile Include="Models\tblZamowienieHandlowe.cs" />
+    <Compile Include="Models\tblZamowienieHandlowePakowanie.cs" />
+    <Compile Include="Models\tblZamowienieHandlowePakowanieRodzaj.cs" />
+    <Compile Include="Models\tblTowarGeokomorkaParametryZgrzew.cs" />
+    <Compile Include="Models\tblZamowienieHandloweTowarGeokomorka.cs" />
+    <Compile Include="Models\tblZamowienieHandloweTowarGeowloknina.cs" />
+    <Compile Include="Models\tblZamowienieHandloweTowarInny.cs" />
+    <Compile Include="Models\tblZapotrzebowanie.cs" />
+    <Compile Include="Models\tblZapotrzebowaniePozycje.cs" />
+    <Compile Include="Models\tblZapotrzebowaniePozycjeMM.cs" />
+    <Compile Include="Models\tblZapotrzebowanieStatus.cs" />
+    <Compile Include="Models\tblProdukcjaZlcecenieProdukcyjne_tblTowarParametry.cs" />
+    <Compile Include="Models\vwCenyMagazynoweAGG.cs" />
+    <Compile Include="Models\vwEwidencja.cs" />
+    <Compile Include="Models\vwEwidencjaRejestracjiFV.cs" />
+    <Compile Include="Models\vwFinanseBankAGG.cs" />
+    <Compile Include="Models\vwFinanseBankGTX.cs" />
+    <Compile Include="Models\vwFinanseBankGTX2.cs" />
+    <Compile Include="Models\vwFinanseNalZobAGG.cs" />
+    <Compile Include="Models\vwFinanseNalZobGTX2.cs" />
+    <Compile Include="Models\vwFinanseNalZobGTX.cs" />
+    <Compile Include="Models\vwFVKosztowezSubiektGT.cs" />
+    <Compile Include="Models\vwFVZarejestrowane.cs" />
+    <Compile Include="Models\vwMagazynAGG.cs" />
+    <Compile Include="Models\vwMagazynGTX2.cs" />
+    <Compile Include="Models\vwMagazynGTX.cs" />
+    <Compile Include="Models\vwMagazynRuchAGG.cs" />
+    <Compile Include="Models\vwMagazynRuchGTX2.cs" />
+    <Compile Include="Models\vwMagazynRuchGTX.cs" />
+    <Compile Include="Models\vwMieszankaEwidencja.cs" />
+    <Compile Include="Models\vwRuchTowaru.cs" />
+    <Compile Include="Models\vwStanTowaru.cs" />
+    <Compile Include="Models\vwTowarAGG.cs" />
+    <Compile Include="Models\vwTowarGTX.cs" />
+    <Compile Include="Models\vwZamOdKlientaAGG.cs" />
+    <Compile Include="Models\vwZapotrzebowanieEwidencja.cs" />
+    <Compile Include="Models\vwZapotrzebowanieEwidencjaRejestracjaFV.cs" />
+    <Compile Include="Models\vwZestSprzedazyAGG.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202001031634499_Initial.resx">
+      <DependentUpon>202001031634499_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001032104115_DataAnnot_ForeignKey_IDZlecenieProdukcyjne_tblProdukcjaZlecenieProdukcyjneMieszanka.resx">
+      <DependentUpon>202001032104115_DataAnnot_ForeignKey_IDZlecenieProdukcyjne_tblProdukcjaZlecenieProdukcyjneMieszanka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001032119093_DodanoTabele_tblProdukcjaZlecenieProdukcyjne_Mieszanka.resx">
+      <DependentUpon>202001032119093_DodanoTabele_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001032137168_DodanoKolumneUwagi_tblProdukcjaZlecenieProdukcyjne_Mieszanka.resx">
+      <DependentUpon>202001032137168_DodanoKolumneUwagi_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001051319167_DodanoKolumne_CzyZakonczone_tblProdukcjaZlcecenieProdukcyjne.resx">
+      <DependentUpon>202001051319167_DodanoKolumne_CzyZakonczone_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001051448493_DodanoKolumny_tblProdukcjaGniazdoWloknina.resx">
+      <DependentUpon>202001051448493_DodanoKolumny_tblProdukcjaGniazdoWloknina.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001060003190_DodanoKolumneUV_tblProdukcjaZlcecenieProdukcyjne.resx">
+      <DependentUpon>202001060003190_DodanoKolumneUV_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001060835470_DodanoKolumneNrRolki_tblRuchTowar.resx">
+      <DependentUpon>202001060835470_DodanoKolumneNrRolki_tblRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001061513140_DodanoKolumny_KosztMieszankiZaKg_KosztCalkowityMieszanki_tblProdukcjaZlecenieProdukcyjne_Mieszanka.resx">
+      <DependentUpon>202001061513140_DodanoKolumny_KosztMieszankiZaKg_KosztCalkowityMieszanki_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001062243434_DodanoKolumneWaga_tblProdukcjaGniazdoWloknina.resx">
+      <DependentUpon>202001062243434_DodanoKolumneWaga_tblProdukcjaGniazdoWloknina.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001071049225_DodanoKolumne_CzyZweryfikowano_tblZapotrzebowanie.resx">
+      <DependentUpon>202001071049225_DodanoKolumne_CzyZweryfikowano_tblZapotrzebowanie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001141812522_DodanoKolumne_CzyZweryfikowano_vwZapotrzebowanieEwidencja.resx">
+      <DependentUpon>202001141812522_DodanoKolumne_CzyZweryfikowano_vwZapotrzebowanieEwidencja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001141901100_DodanoKolumnyZGramatura_tblProdukcjaGniazdoWloknina.resx">
+      <DependentUpon>202001141901100_DodanoKolumnyZGramatura_tblProdukcjaGniazdoWloknina.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001142059158_DodanoTabele_tblProdukcjaGniazdoWlokninaBadania.resx">
+      <DependentUpon>202001142059158_DodanoTabele_tblProdukcjaGniazdoWlokninaBadania.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001142345474_DodanoColumne_Uwagi_tblProdukcjaGniazdoWlokninaBadania.resx">
+      <DependentUpon>202001142345474_DodanoColumne_Uwagi_tblProdukcjaGniazdoWlokninaBadania.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001152136122_DodanoKolumne_MotywKoloru_tblPracownikGAT.resx">
+      <DependentUpon>202001152136122_DodanoKolumne_MotywKoloru_tblPracownikGAT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001201356370_ZmianaTypuDlaKolumny_NIP_tblFirma.resx">
+      <DependentUpon>202001201356370_ZmianaTypuDlaKolumny_NIP_tblFirma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001201409472_DodanoKolumne_GramaturaSrednia_tblProdukcjaGniazdoWlokninaBadania.resx">
+      <DependentUpon>202001201409472_DodanoKolumne_GramaturaSrednia_tblProdukcjaGniazdoWlokninaBadania.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001210734372_DodanoKluczObcy_IDJm_tblZapotrzebowaniePozycje.resx">
+      <DependentUpon>202001210734372_DodanoKluczObcy_IDJm_tblZapotrzebowaniePozycje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001211334307_DodanoAtrybutyRequired_tblZapotrzebowaniePozycje.resx">
+      <DependentUpon>202001211334307_DodanoAtrybutyRequired_tblZapotrzebowaniePozycje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001280851093_ZmianaIlosciLiterWPolach_tblKontrahent.resx">
+      <DependentUpon>202001280851093_ZmianaIlosciLiterWPolach_tblKontrahent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002022124567_DodanoView_vwCenyMagazynoweAGG.resx">
+      <DependentUpon>202002022124567_DodanoView_vwCenyMagazynoweAGG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002051139085_NowaTabela_tblProdukcjaRozliczenie_Dane.resx">
+      <DependentUpon>202002051139085_NowaTabela_tblProdukcjaRozliczenie_Dane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002051148066_DodanoTabele_tblProdukcjaRozliczenie_RW.resx">
+      <DependentUpon>202002051148066_DodanoTabele_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002051220006_DodanoTabele_tblProdukcjaRozliczenie_PW.resx">
+      <DependentUpon>202002051220006_DodanoTabele_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002052233032_ZmianaNazwyTabeli_tblProdukcjaRozliczenie_Naglowek.resx">
+      <DependentUpon>202002052233032_ZmianaNazwyTabeli_tblProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002052255394_ZmianaNazwyKluczPodstawowego_IDProdukcjaRozliczenie_Naglowek.resx">
+      <DependentUpon>202002052255394_ZmianaNazwyKluczPodstawowego_IDProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002062127334_Dodano_tblProdukcjaRuchNaglowek.resx">
+      <DependentUpon>202002062127334_Dodano_tblProdukcjaRuchNaglowek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002062134488_Dodano_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202002062134488_Dodano_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002062140090_Dodano_tblProdukcjaRuchTowarBadania.resx">
+      <DependentUpon>202002062140090_Dodano_tblProdukcjaRuchTowarBadania.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002062148239_DodanoAtrybut_IDProdukcjaRuchTowarWyjsciowy_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202002062148239_DodanoAtrybut_IDProdukcjaRuchTowarWyjsciowy_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002062215075_ZmianaTypow_NrRolki_Gramatura_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202002062215075_ZmianaTypow_NrRolki_Gramatura_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002072205239_DodanoKolumne_IDPracownikOdpZaZakup_tblZapotrzebowanie.resx">
+      <DependentUpon>202002072205239_DodanoKolumne_IDPracownikOdpZaZakup_tblZapotrzebowanie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002091759198_DodanoKolumne_OsobaOdpZaZap_ZmienionoNazweKolumny_ImieINazwiskoGAT_na_OsobaZglZap_vwZapotrzebowanieEwidencja.resx">
+      <DependentUpon>202002091759198_DodanoKolumne_OsobaOdpZaZap_ZmienionoNazweKolumny_ImieINazwiskoGAT_na_OsobaZglZap_vwZapotrzebowanieEwidencja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002092004464_ZmianaNazwyKolumnyNa_Data_tblLog.resx">
+      <DependentUpon>202002092004464_ZmianaNazwyKolumnyNa_Data_tblLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002111030000_DodanoKolumny_NrZleceniaRW_NrZleceniaPW_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202002111030000_DodanoKolumny_NrZleceniaRW_NrZleceniaPW_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002111235482_DodanoKolumne_IDTowarGeowlokninaParametrySurowiec_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202002111235482_DodanoKolumne_IDTowarGeowlokninaParametrySurowiec_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002112244072_DodanoKolumne_WagaOdpad_kg_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202002112244072_DodanoKolumne_WagaOdpad_kg_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002131533457_DodanoKolumne_NrZleceniaProdukcjnego_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202002131533457_DodanoKolumne_NrZleceniaProdukcjnego_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002132040289_DodanoTabele_tblProdukcjaZlecenieProdukcyjne_GniazdaProdParamTowar.resx">
+      <DependentUpon>202002132040289_DodanoTabele_tblProdukcjaZlecenieProdukcyjne_GniazdaProdParamTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002132208571_DodanoKolumne_Ilosc_szt_tblProdukcjaZlecenieProdukcyjne_GniazdaProdParamTowar.resx">
+      <DependentUpon>202002132208571_DodanoKolumne_Ilosc_szt_tblProdukcjaZlecenieProdukcyjne_GniazdaProdParamTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002150925549_DodanoKolumne_IDTowar_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202002150925549_DodanoKolumne_IDTowar_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002152250479_DodanoKolumne_IDMagazyn_tblProdukcjaRuchNaglowek.resx">
+      <DependentUpon>202002152250479_DodanoKolumne_IDMagazyn_tblProdukcjaRuchNaglowek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002160821321_NowaTabela_tblProdukcjaZlecenieCiecia.resx">
+      <DependentUpon>202002160821321_NowaTabela_tblProdukcjaZlecenieCiecia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002162245520_DodanoKolumny_tblProdukcjaRuchTowaru.resx">
+      <DependentUpon>202002162245520_DodanoKolumny_tblProdukcjaRuchTowaru.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002162247180_DodanoKolumne_IDProdukcjaZlecenieCiecia_tblProdukcjaRuchNaglowek.resx">
+      <DependentUpon>202002162247180_DodanoKolumne_IDProdukcjaZlecenieCiecia_tblProdukcjaRuchNaglowek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002162250282_DodanoKolumne_KodKreskowy_tblProdukcjaZlecenieCiecia.resx">
+      <DependentUpon>202002162250282_DodanoKolumne_KodKreskowy_tblProdukcjaZlecenieCiecia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002170846178_UsunietoKolumny_tblProdukcjaZlecenieCiecia.resx">
+      <DependentUpon>202002170846178_UsunietoKolumny_tblProdukcjaZlecenieCiecia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002170848120_NowaTabela_tblProdukcjaZlecenieCieciaTowar.resx">
+      <DependentUpon>202002170848120_NowaTabela_tblProdukcjaZlecenieCieciaTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002190943190_DodanoKol_NrDokumentu_tblProdukcjaZlecenieCiecia.resx">
+      <DependentUpon>202002190943190_DodanoKol_NrDokumentu_tblProdukcjaZlecenieCiecia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002191026275_NowaTabela_tblProdukcjaZlecenieStatus.resx">
+      <DependentUpon>202002191026275_NowaTabela_tblProdukcjaZlecenieStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002191029343_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlecenieCiecia.resx">
+      <DependentUpon>202002191029343_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlecenieCiecia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002191033153_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlcecenieProdukcyjne.resx">
+      <DependentUpon>202002191033153_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002191907043_DodanoKolumny_tblProdukcjaZlcecenieProdukcyjne.resx">
+      <DependentUpon>202002191907043_DodanoKolumny_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002222115168_ZmienionoNazweKolumny_NrZlecenia_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202002222115168_ZmienionoNazweKolumny_NrZlecenia_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002230744577_NowaTabela_tblProdukcjaRozliczenieStatus.resx">
+      <DependentUpon>202002230744577_NowaTabela_tblProdukcjaRozliczenieStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002230920543_DodanoKol_IDProdukcjaRozliczenieStatus_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202002230920543_DodanoKol_IDProdukcjaRozliczenieStatus_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002231224593_DodanoKol_IDProdukcjaZlecenieCieciaTowar_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202002231224593_DodanoKol_IDProdukcjaZlecenieCieciaTowar_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002231240271_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlecenieCieciaTowar.resx">
+      <DependentUpon>202002231240271_DodanoKol_IDProdukcjaZlecenieStatus_tblProdukcjaZlecenieCieciaTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002231601034_DodanoKol_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202002231601034_DodanoKol_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002240803333_ZmianaNazwyTabeli_tblProdukcjaZlecenieCieciaTowar_tblProdukcjaZlecenieTowar.resx">
+      <DependentUpon>202002240803333_ZmianaNazwyTabeli_tblProdukcjaZlecenieCieciaTowar_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002240808226_ZmianaNazwyKol_IDProdukcjaZlecenieTowar_tblProdukcjaZlecenieTowar.resx">
+      <DependentUpon>202002240808226_ZmianaNazwyKol_IDProdukcjaZlecenieTowar_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002240810510_ZmianaNaNullableInt_IDProdukcjaZlecenieCiecia_tblProdukcjaZlecenieTowar.resx">
+      <DependentUpon>202002240810510_ZmianaNaNullableInt_IDProdukcjaZlecenieCiecia_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002240816399_DodanoKolumny_tblProdukcjaZlecenieTowar.resx">
+      <DependentUpon>202002240816399_DodanoKolumny_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002240818027_DodanoZmianaNazwyKol_tblProdukcjaZlecenieTowar.resx">
+      <DependentUpon>202002240818027_DodanoZmianaNazwyKol_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002261304532_UsunietoKol_tblProdukcjaZlcecenieProdukcyjne.resx">
+      <DependentUpon>202002261304532_UsunietoKol_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002261457203_DodanoKol_IDProdukcjaZlecenieProdukcyjne_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202002261457203_DodanoKol_IDProdukcjaZlecenieProdukcyjne_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002271239236_DodanoKol_DatyFaktycze_tblProdukcjaZlcecenieProdukcyjne.resx">
+      <DependentUpon>202002271239236_DodanoKol_DatyFaktycze_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003021645208_DodanoWidok_vwGtexMagazynRuch.resx">
+      <DependentUpon>202003021645208_DodanoWidok_vwGtexMagazynRuch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003021716181_DodanoKolumne_TowaruSymbol_vwMagazynRuchGTX.resx">
+      <DependentUpon>202003021716181_DodanoKolumne_TowaruSymbol_vwMagazynRuchGTX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003021744125_DodanoWidok_vwMagazynGTX.resx">
+      <DependentUpon>202003021744125_DodanoWidok_vwMagazynGTX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003021943481_DodanoIUsunietoKol_vwMagazynRuchGTX.resx">
+      <DependentUpon>202003021943481_DodanoIUsunietoKol_vwMagazynRuchGTX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003022038578_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka.resx">
+      <DependentUpon>202003022038578_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003022057439_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka1.resx">
+      <DependentUpon>202003022057439_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003022110086_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka2.resx">
+      <DependentUpon>202003022110086_ZmianaNazwKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003032219534_DodanoKol_WartoscMieszanki_tblProdukcjaZlecenieProdukcyjne_Mieszanka.resx">
+      <DependentUpon>202003032219534_DodanoKol_WartoscMieszanki_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003041346004_UsuniecieNullabliZKolumn_tblProdukcjaZlecenieProdukcyjne_Mieszanka.resx">
+      <DependentUpon>202003041346004_UsuniecieNullabliZKolumn_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003041520458_DodanoKol_tblProdukcjaZlcecenieProdukcyjne.resx">
+      <DependentUpon>202003041520458_DodanoKol_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003042029518_UsunietoKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka.resx">
+      <DependentUpon>202003042029518_UsunietoKol_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003042101066_ZmianaNazwyKol_tblProdukcjaZlcecenieProdukcyjne.resx">
+      <DependentUpon>202003042101066_ZmianaNazwyKol_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003051204193_DodanoWidok_vwTowarGTX.resx">
+      <DependentUpon>202003051204193_DodanoWidok_vwTowarGTX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003051208507_ZmianaIdTowarNaPowiazanieZVwTowarGTX_tblProdukcjaZlecenieProdukcyjne_Mieszanka.resx">
+      <DependentUpon>202003051208507_ZmianaIdTowarNaPowiazanieZVwTowarGTX_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003051217373_Test.resx">
+      <DependentUpon>202003051217373_Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003051224316_Test2.resx">
+      <DependentUpon>202003051224316_Test2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003051340449_DodanoKol_Zaawansowanie_tblProdukcjaZlcecenieProdukcyjne.resx">
+      <DependentUpon>202003051340449_DodanoKol_Zaawansowanie_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003051342331_DodanoKol_Zaawansowanie_tblProdukcjaZlecenieCiecia.resx">
+      <DependentUpon>202003051342331_DodanoKol_Zaawansowanie_tblProdukcjaZlecenieCiecia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003051352362_DodanoKol_tblProdukcjaZlcecenieProdukcyjne1.resx">
+      <DependentUpon>202003051352362_DodanoKol_tblProdukcjaZlcecenieProdukcyjne1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003051355533_DodanoKol_tblProdukcjaZlcecenieCiecia.resx">
+      <DependentUpon>202003051355533_DodanoKol_tblProdukcjaZlcecenieCiecia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003052133284_Usunieto_FK_IDTowar_tblProdukcjaZlecenieTowar.resx">
+      <DependentUpon>202003052133284_Usunieto_FK_IDTowar_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003052146334_ZmianaNaNullable_IDTowar_tblProdukcjaZlecenieTowar.resx">
+      <DependentUpon>202003052146334_ZmianaNaNullable_IDTowar_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003060757235_ZmianaNazwyKolumny_IDProdukcjaZlecenieTowar_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202003060757235_ZmianaNazwyKolumny_IDProdukcjaZlecenieTowar_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003060812203_UsuniecieFK_IDTowar_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202003060812203_UsuniecieFK_IDTowar_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003070931226_DodanoKol_Zaawansowanie_tblProdukcjaZlecenieTowar.resx">
+      <DependentUpon>202003070931226_DodanoKol_Zaawansowanie_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003071515213_UsuniecieFKztblPracownik1_tblProdukcjaRuchNaglowek.resx">
+      <DependentUpon>202003071515213_UsuniecieFKztblPracownik1_tblProdukcjaRuchNaglowek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003071551587_UsunietoKol_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202003071551587_UsunietoKol_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003081534202_UsunietoKol_IDProdukcjaZlecenieProdukcyjne_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202003081534202_UsunietoKol_IDProdukcjaZlecenieProdukcyjne_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003091021474_NowaTabela_tblProdukcjaRuchTowarStatus.resx">
+      <DependentUpon>202003091021474_NowaTabela_tblProdukcjaRuchTowarStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003091026216_DodanoKol_IDProdukcjaRuchTowarStatus_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202003091026216_DodanoKol_IDProdukcjaRuchTowarStatus_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003091028194_ZmianaNaNullable_IDProdukcjaRuchTowarStatus_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202003091028194_ZmianaNaNullable_IDProdukcjaRuchTowarStatus_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003091535212_DodanoKol_IDRolkaBazowa_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202003091535212_DodanoKol_IDRolkaBazowa_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003152149413_DodKol_DataDodania_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202003152149413_DodKol_DataDodania_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003202047514_DodanoKol_tblProdukcjaRozliczenie_PW.resx">
+      <DependentUpon>202003202047514_DodanoKol_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003202223383_DodanoKol_SymbolTowaruSubiekt_tblProdukcjaRozliczenie_PW.resx">
+      <DependentUpon>202003202223383_DodanoKol_SymbolTowaruSubiekt_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003212008574_NowaTabla_tblProdukcjaRozliczenie_CenyTransferowe.resx">
+      <DependentUpon>202003212008574_NowaTabla_tblProdukcjaRozliczenie_CenyTransferowe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003212247246_DodanoKol_CenaHurtowaAGG_m2_tblProdukcjaRozliczenie_PW.resx">
+      <DependentUpon>202003212247246_DodanoKol_CenaHurtowaAGG_m2_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003230544078_DodanoKol_SymbolSurowcaSubiekt_tblProdukcjaRozliczenie_RW.resx">
+      <DependentUpon>202003230544078_DodanoKol_SymbolSurowcaSubiekt_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003241039461_ZmienionoDlugoscNazwyTowaru_tblProdukcjaRozliczenie_RW.resx">
+      <DependentUpon>202003241039461_ZmienionoDlugoscNazwyTowaru_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003241138589_UsunietoKolumy_tblProdukcjaRozliczenie_PW.resx">
+      <DependentUpon>202003241138589_UsunietoKolumy_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003241143306_DodanoKol_tblProdukcjaRozliczenie_RW_tblProdukcjaRozliczenie_PW.resx">
+      <DependentUpon>202003241143306_DodanoKol_tblProdukcjaRozliczenie_RW_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003241147360_UsunietoKolumne_tblProdukcjaRozliczenie_PW.resx">
+      <DependentUpon>202003241147360_UsunietoKolumne_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003241148500_UsunietoKolumne_tblProdukcjaRozliczenie_RW.resx">
+      <DependentUpon>202003241148500_UsunietoKolumne_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003241537081_UsunietoKolumny_tblProdukcjaRozliczenie_RW.resx">
+      <DependentUpon>202003241537081_UsunietoKolumny_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003241539590_UsunietoKolumny_tblProdukcjaRozliczenie_PW.resx">
+      <DependentUpon>202003241539590_UsunietoKolumny_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003250512139_ZmianaNazwKolumn_tblProdukcjaRozliczenie_RW.resx">
+      <DependentUpon>202003250512139_ZmianaNazwKolumn_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003250514554_ZmianaNazwKolumn_tblProdukcjaRozliczenie_PW.resx">
+      <DependentUpon>202003250514554_ZmianaNazwKolumn_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003251059029_DodanoKol_tblProdukcjaRozliczenie_PW1.resx">
+      <DependentUpon>202003251059029_DodanoKol_tblProdukcjaRozliczenie_PW1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003251241023_DodanoKol_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW.resx">
+      <DependentUpon>202003251241023_DodanoKol_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003260713488_DodanoKol_tblProdukcjaRozliczenie_Naglowek.resx">
+      <DependentUpon>202003260713488_DodanoKol_tblProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003260743495_DodanoKol_tblProdukcjaRozliczenie_RW.resx">
+      <DependentUpon>202003260743495_DodanoKol_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003260745210_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW.resx">
+      <DependentUpon>202003260745210_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003261449433_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW1.resx">
+      <DependentUpon>202003261449433_ZmianaNazwyKol_tblProdukcjaRozliczenie_PW1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003261455480_DodanieKol_i_ZmianaNazwyKol_tblProdukcjaRozliczenie_RW.resx">
+      <DependentUpon>202003261455480_DodanieKol_i_ZmianaNazwyKol_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003270653172_DodanoKol_tblProdukcjaRozliczenie_Naglowek1.resx">
+      <DependentUpon>202003270653172_DodanoKol_tblProdukcjaRozliczenie_Naglowek1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003270815135_DodanoTabele_tblProdukcjaRozliczenie_PWPodsumowanie.resx">
+      <DependentUpon>202003270815135_DodanoTabele_tblProdukcjaRozliczenie_PWPodsumowanie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003271110349_ZmianaDataType_tblProdukcjaRozliczenie_Naglowek.resx">
+      <DependentUpon>202003271110349_ZmianaDataType_tblProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003271112470_ZmianaDlugosciStringa_tblProdukcjaRozliczenie_Naglowek.resx">
+      <DependentUpon>202003271112470_ZmianaDlugosciStringa_tblProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003291225549_UsunietoKol_tblProdukcjaRozliczenie_Naglowek.resx">
+      <DependentUpon>202003291225549_UsunietoKol_tblProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003291240450_UsunietoKol_tblProdukcjaRozliczenie_Naglowek1.resx">
+      <DependentUpon>202003291240450_UsunietoKol_tblProdukcjaRozliczenie_Naglowek1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003311105265_DoodanoKol_vwMagazynRuchGTX.resx">
+      <DependentUpon>202003311105265_DoodanoKol_vwMagazynRuchGTX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003311141481_DodanoWidokiZSubiektGT.resx">
+      <DependentUpon>202003311141481_DodanoWidokiZSubiektGT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004051504456_ZmianaTypuIdNaNullable_tblProdukcjaRozliczenie_PW.resx">
+      <DependentUpon>202004051504456_ZmianaTypuIdNaNullable_tblProdukcjaRozliczenie_PW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004060549565_DodanoKol_tblProdukcjaRozliczenie_PW2.resx">
+      <DependentUpon>202004060549565_DodanoKol_tblProdukcjaRozliczenie_PW2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004060551305_DodanoKol_tblProdukcjaRozliczenie_PW3.resx">
+      <DependentUpon>202004060551305_DodanoKol_tblProdukcjaRozliczenie_PW3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004060841130_ZmianaStringLenghtDlaTowarNazwa_tblProdukcjaRozliczenie_Naglowek.resx">
+      <DependentUpon>202004060841130_ZmianaStringLenghtDlaTowarNazwa_tblProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004060905121_DecimalZmianaPrecyzji_Udzial_tblProdukcjaRozliczenie_RW.resx">
+      <DependentUpon>202004060905121_DecimalZmianaPrecyzji_Udzial_tblProdukcjaRozliczenie_RW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004060908141_ZmianaNazwyKol_IDProdukcjaRozliczenie_PWPodsumowanie.resx">
+      <DependentUpon>202004060908141_ZmianaNazwyKol_IDProdukcjaRozliczenie_PWPodsumowanie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004061052182_DodanoKol_tblProdukcjaRozliczenie_PWPodsumowanie.resx">
+      <DependentUpon>202004061052182_DodanoKol_tblProdukcjaRozliczenie_PWPodsumowanie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004061847256_DodanoKol_tblProdukcjaRuchTowar1.resx">
+      <DependentUpon>202004061847256_DodanoKol_tblProdukcjaRuchTowar1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004091044041_DodanoKol_tblProdukcjaRozliczenie_PW4.resx">
+      <DependentUpon>202004091044041_DodanoKol_tblProdukcjaRozliczenie_PW4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004091433427_DodanoKol_tblProdukcjaRuchTowar2.resx">
+      <DependentUpon>202004091433427_DodanoKol_tblProdukcjaRuchTowar2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004091512189_DodanoKol_tblProdukcjaRuchTowar3.resx">
+      <DependentUpon>202004091512189_DodanoKol_tblProdukcjaRuchTowar3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004150650239_DodanoKol_tblProdukcjaRozliczenie_PW5.resx">
+      <DependentUpon>202004150650239_DodanoKol_tblProdukcjaRozliczenie_PW5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004151203072_DodanoKol_tblProdukcjaRozliczenie_PW6.resx">
+      <DependentUpon>202004151203072_DodanoKol_tblProdukcjaRozliczenie_PW6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004151925496_DodanoKol_tblProdukcjaRozliczenie_PW7.resx">
+      <DependentUpon>202004151925496_DodanoKol_tblProdukcjaRozliczenie_PW7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004162028309_Dodano_vwZamOdKlientaAGG.resx">
+      <DependentUpon>202004162028309_Dodano_vwZamOdKlientaAGG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004162119501_DodanoKolGrupa_vwZamOdKlientaAGG.resx">
+      <DependentUpon>202004162119501_DodanoKolGrupa_vwZamOdKlientaAGG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004181954199_DodanoKol_vwZamOdKlientaAGG.resx">
+      <DependentUpon>202004181954199_DodanoKol_vwZamOdKlientaAGG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004221213334_ZmianyW_Views.resx">
+      <DependentUpon>202004221213334_ZmianyW_Views.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004221214496_DodanoView_vwZestSprzedazyAGG.resx">
+      <DependentUpon>202004221214496_DodanoView_vwZestSprzedazyAGG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004230958287_Zmiany_vwZestSprzedazyAGG.resx">
+      <DependentUpon>202004230958287_Zmiany_vwZestSprzedazyAGG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004230959471_ZmianaStringLength_tblProdukcjaRozliczenie_Naglowek.resx">
+      <DependentUpon>202004230959471_ZmianaStringLength_tblProdukcjaRozliczenie_Naglowek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004290623195_DodanoJm_vwMagazynRuchGTX_vwMagazynRuchAGG.resx">
+      <DependentUpon>202004290623195_DodanoJm_vwMagazynRuchGTX_vwMagazynRuchAGG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005051602484_DodanoKol_tblProdukcjaRozliczenie_CenyTransferowe.resx">
+      <DependentUpon>202005051602484_DodanoKol_tblProdukcjaRozliczenie_CenyTransferowe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005120717540_DodanieViews_GTX2_MagazynRuch_FinanseIZobowiazania.resx">
+      <DependentUpon>202005120717540_DodanieViews_GTX2_MagazynRuch_FinanseIZobowiazania.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005131615015_DodanoTabele_tblFinanseStanKonta.resx">
+      <DependentUpon>202005131615015_DodanoTabele_tblFinanseStanKonta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005140718246_DodanoViews_vwFinanseBankAGG_GTX_GTX2.resx">
+      <DependentUpon>202005140718246_DodanoViews_vwFinanseBankAGG_GTX_GTX2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005140822580_DodanoKol_tblFinanseStanKonta.resx">
+      <DependentUpon>202005140822580_DodanoKol_tblFinanseStanKonta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005140959559_DodanoAtrybutTabel_vwFinanseBankAGG_GTX_GTX2.resx">
+      <DependentUpon>202005140959559_DodanoAtrybutTabel_vwFinanseBankAGG_GTX_GTX2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005141003279_DodanoAtrybutTabel_vwFinanseBankAGG_GTX_GTX21.resx">
+      <DependentUpon>202005141003279_DodanoAtrybutTabel_vwFinanseBankAGG_GTX_GTX21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005141044017_DodanoKol_tblFinanseStanKonta1.resx">
+      <DependentUpon>202005141044017_DodanoKol_tblFinanseStanKonta1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005141915014_DodanoTabele_tblProdukcjaGeokomorkaPodsumowaniePrzerob.resx">
+      <DependentUpon>202005141915014_DodanoTabele_tblProdukcjaGeokomorkaPodsumowaniePrzerob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005150613079_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob.resx">
+      <DependentUpon>202005150613079_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005150616512_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob1.resx">
+      <DependentUpon>202005150616512_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005150619417_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob2.resx">
+      <DependentUpon>202005150619417_DodanoKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005150715223_ZmianaNazwtKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob.resx">
+      <DependentUpon>202005150715223_ZmianaNazwtKol_tblProdukcjaGeokomorkaPodsumowaniePrzerob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005151153037_DodanoKol_tblFinanseStanKonta2.resx">
+      <DependentUpon>202005151153037_DodanoKol_tblFinanseStanKonta2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005190947569_DodanoView_vwMagazynGTX2.resx">
+      <DependentUpon>202005190947569_DodanoView_vwMagazynGTX2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006021022589_DodanoKol_tblProdukcjaRozliczenie_PW8.resx">
+      <DependentUpon>202006021022589_DodanoKol_tblProdukcjaRozliczenie_PW8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006021026428_DodanoKol_tblProdukcjaRuchTowar4.resx">
+      <DependentUpon>202006021026428_DodanoKol_tblProdukcjaRuchTowar4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006021102147_DodanoKol_tblProdukcjaRuchTowar5.resx">
+      <DependentUpon>202006021102147_DodanoKol_tblProdukcjaRuchTowar5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006040627469_DodanoKol_tblProdukcjaZlecenieTowar.resx">
+      <DependentUpon>202006040627469_DodanoKol_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006091131415_DodanoKol_tblProdukcjaZlecenieTowar1.resx">
+      <DependentUpon>202006091131415_DodanoKol_tblProdukcjaZlecenieTowar1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006230908247_ZmianaNaTypNullable_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202006230908247_ZmianaNaTypNullable_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006231255334_DodanoKol_tblTowarGeowlokninaParametry.resx">
+      <DependentUpon>202006231255334_DodanoKol_tblTowarGeowlokninaParametry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006231352038_DodanoKol_tblTowarGeowlokninaParametry1.resx">
+      <DependentUpon>202006231352038_DodanoKol_tblTowarGeowlokninaParametry1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006261146378_DodanoKol_tblProdukcjaRuchTowarBadania.resx">
+      <DependentUpon>202006261146378_DodanoKol_tblProdukcjaRuchTowarBadania.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006261150421_UsunietoKol_tblProdukcjaRuchTowarBadania.resx">
+      <DependentUpon>202006261150421_UsunietoKol_tblProdukcjaRuchTowarBadania.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006270724077_ZmianaTypuNaNonNullable_tblProdukcjaRuchTowarBadania.resx">
+      <DependentUpon>202006270724077_ZmianaTypuNaNonNullable_tblProdukcjaRuchTowarBadania.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006301527259_DodanoKol_tblProdukcjaRuchNaglowek.resx">
+      <DependentUpon>202006301527259_DodanoKol_tblProdukcjaRuchNaglowek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007081245383_DodanoKol_tblProdukcjaRuchTowar6.resx">
+      <DependentUpon>202007081245383_DodanoKol_tblProdukcjaRuchTowar6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007091942309_ZmianaTypu_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202007091942309_ZmianaTypu_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007121857318_ZmianaNazwKolumnOrazDodanieKol_tblProdukcjaZlcecenieProdukcyjne.resx">
+      <DependentUpon>202007121857318_ZmianaNazwKolumnOrazDodanieKol_tblProdukcjaZlcecenieProdukcyjne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007122025536_KorektaNazwyTabeli_tblProdukcjaZlcecenieProdukcyjne_na_tblProdukcjaZlecenie.resx">
+      <DependentUpon>202007122025536_KorektaNazwyTabeli_tblProdukcjaZlcecenieProdukcyjne_na_tblProdukcjaZlecenie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007122136104_ZmianaNazwyKol_tblProdukcjaZlecenie.resx">
+      <DependentUpon>202007122136104_ZmianaNazwyKol_tblProdukcjaZlecenie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007122138406_ZmianaNazwyKol_IdPracownikGAT_tblProdukcjaZlecenie.resx">
+      <DependentUpon>202007122138406_ZmianaNazwyKol_IdPracownikGAT_tblProdukcjaZlecenie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007122143208_DodanoKol_tblProdukcjaZlecenie.resx">
+      <DependentUpon>202007122143208_DodanoKol_tblProdukcjaZlecenie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007151016380_DodanoKol_IDProdukcjaGniazdoProdukcyjne_tblProdukcjaZlecenie.resx">
+      <DependentUpon>202007151016380_DodanoKol_IDProdukcjaGniazdoProdukcyjne_tblProdukcjaZlecenie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007160918164_ZmianaKol_NullableString_tblProdukcjaZlecenie.resx">
+      <DependentUpon>202007160918164_ZmianaKol_NullableString_tblProdukcjaZlecenie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007160936091_ZmianaNazwyKol_tblProdukcjaZlecenieTowar.resx">
+      <DependentUpon>202007160936091_ZmianaNazwyKol_tblProdukcjaZlecenieTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007201350514_DodanoKol_tblTowarGeowlokninaParametry2.resx">
+      <DependentUpon>202007201350514_DodanoKol_tblTowarGeowlokninaParametry2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007281513073_DodanoTabele_tblKonfiguracjaUrzadzen.resx">
+      <DependentUpon>202007281513073_DodanoTabele_tblKonfiguracjaUrzadzen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007282021222_DodanoKol_tblKonfiguracjaUrzadzen.resx">
+      <DependentUpon>202007282021222_DodanoKol_tblKonfiguracjaUrzadzen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007282035502_DodanoKol_tblKonfiguracjaUrzadzen1.resx">
+      <DependentUpon>202007282035502_DodanoKol_tblKonfiguracjaUrzadzen1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008191130367_DodanoKol_IdMsAccess_tblProdukcjaZlecenieProdukcyjne_Mieszanka.resx">
+      <DependentUpon>202008191130367_DodanoKol_IdMsAccess_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008191146369_DodanoKol_IdMsAccess_tblProdukcjaZlecenie.resx">
+      <DependentUpon>202008191146369_DodanoKol_IdMsAccess_tblProdukcjaZlecenie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008201046420_ZmianaKol_DopuszczenieNull_tblProdukcjaZlecenieProdukcyjne_Mieszanka.resx">
+      <DependentUpon>202008201046420_ZmianaKol_DopuszczenieNull_tblProdukcjaZlecenieProdukcyjne_Mieszanka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008201342188_DodanoKol_Uwagi_tblProdukcjaRuchNaglowek.resx">
+      <DependentUpon>202008201342188_DodanoKol_Uwagi_tblProdukcjaRuchNaglowek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008311913108_DodanoKolumny_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202008311913108_DodanoKolumny_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009021031489_ZmianaNazwKolumn_tblProdukcjaRuchTowar.resx">
+      <DependentUpon>202009021031489_ZmianaNazwKolumn_tblProdukcjaRuchTowar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009031211053_DodanoKol_WspZmniejszeniaMasy_tblProdukcjaGniazdoProdukcyjne.resx">
+      <DependentUpon>202009031211053_DodanoKol_WspZmniejszeniaMasy_tblProdukcjaGniazdoProdukcyjne.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Fody.5.0.6\build\Fody.targets" Condition="Exists('..\packages\Fody.5.0.6\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Ten projekt zawiera odwołania do pakietów NuGet, których nie ma na tym komputerze. Użyj przywracania pakietów NuGet, aby je pobrać. Aby uzyskać więcej informacji, zobacz http://go.microsoft.com/fwlink/?LinkID=322105. Brakujący plik: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.5.0.6\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.5.0.6\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\PropertyChanged.Fody.3.0.1\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PropertyChanged.Fody.3.0.1\build\PropertyChanged.Fody.props'))" />
+  </Target>
+</Project>

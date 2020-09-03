@@ -1,0 +1,136 @@
+﻿<Window x:Class="GAT_Produkcja.ViewModel.Produkcja.Badania.Geowlokniny.BadaniaGeowlokninView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+             startUp:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d"
+             xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+            xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                
+                TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                TextElement.FontWeight="Regular"
+                TextElement.FontSize="12"
+                TextOptions.TextFormattingMode="Ideal"
+                TextOptions.TextRenderingMode="Auto"
+                Background="{DynamicResource MaterialDesignPaper}"
+                FontFamily="{DynamicResource MaterialDesignFont}"
+    
+             d:DesignHeight="600" d:DesignWidth="1100" Language="pl-PL">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                        Text="{Binding Tytul}" Margin="10"
+                        FontSize="14" 
+                        FontWeight="Bold"
+                        Foreground="CadetBlue" 
+                        VerticalAlignment="Center">
+
+                <TextBlock.ToolTip>
+                    <ToolTip>
+                        <TextBlock Text="{Binding Tytul}"/>
+                    </ToolTip>
+                </TextBlock.ToolTip>
+            </TextBlock>
+            <Button Width="60" ToolTip="Dodaj plik"
+                                Grid.Column="2"
+                                Command="{Binding DodajBadanieCommand}"
+                                Margin="10"
+                                VerticalAlignment="Top"
+                                    >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Add" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Button>
+
+        </Grid>
+
+        <!--<materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                             Margin="10"
+                             Grid.Row="1"
+                             VerticalAlignment="Stretch"
+                             >-->
+
+        <DataGrid
+                        Grid.Row="1"
+                        Margin="5"    
+                        ItemsSource="{Binding ListaBadan}"
+                        SelectedItem="{Binding WybraneBadanie}"
+                        VerticalScrollBarVisibility="Visible"
+                        HorizontalScrollBarVisibility="Auto"
+                        ClipboardCopyMode="IncludeHeader"
+                        FontSize="11"
+                        dgx:DataGridFilter.IsAutoFilterEnabled="True"
+                    >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <cmd:EventToCommand Command="{Binding PokazSzczegolyBadaniaCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <!--<MenuItem Command="Copy" />-->
+                    <MenuItem Header="Odśwież zestawienie"
+                                    Command="{Binding OdswiezZestawienieCommand}" />
+                    <MenuItem Header="Pokaż szczegóły badania" 
+                                    Command="{Binding PokazSzczegolyBadaniaCommand}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Data badania" Width="auto" Binding="{Binding DataBadania, StringFormat=d}" ElementStyle="{StaticResource CenterAlignStyle}"
+                                        dgx:DataGridFilterColumn.Template="{StaticResource FilterDatesWithPopup}"
+                                        />
+                <DataGridTextColumn Header="Nazwa" Width="120" Binding="{Binding Nazwa }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                <DataGridTextColumn Header="Gramatura" Width="auto" Binding="{Binding Gramatura}" ElementStyle="{StaticResource CenterAlignStyle}" />
+                <DataGridTextColumn Header="Surowiec" Width="120" Binding="{Binding Surowiec}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                <DataGridTextColumn Header="Kierunek badania" Width="120" Binding="{Binding KierunekBadania }" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                <DataGridCheckBoxColumn Header="Kalandrowana" Width="120" Binding="{Binding CzyKalandrowana }"/>
+                <DataGridTextColumn Header="Nr rolki" Width="120" Binding="{Binding NrRolki }" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                <DataGridTextColumn Header="Technologia" Width="120" Binding="{Binding Technologia }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                <!--<DataGridTextColumn Header="Siła min." Width="120" Binding="{Binding SilaMinimalna, StringFormat=N2}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                    <DataGridTextColumn Header="Siła max." Width="120" Binding="{Binding SilaMaksymalna, StringFormat=N2}" ElementStyle="{StaticResource CenterAlignStyle}"/>-->
+                <DataGridTextColumn Header="Siła srednia" Width="120" Binding="{Binding SilaSrednia, StringFormat=N2}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                <!--<DataGridTextColumn Header="Wytrzymałość min." Width="120" Binding="{Binding WytrzymaloscMinimalna, StringFormat=N2}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                    <DataGridTextColumn Header="Wytrzymałość max." Width="120" Binding="{Binding WytrzymaloscMaksymalna, StringFormat=N2}" ElementStyle="{StaticResource CenterAlignStyle}"/>-->
+                <DataGridTextColumn Header="Wytrzymałość srednia" Width="120" Binding="{Binding WytrzymaloscSrednia, StringFormat=N2}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                <!--<DataGridTextColumn Header="Wydłużenie min." Width="120" Binding="{Binding WydluzenieMinimalne, StringFormat=N2}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                    <DataGridTextColumn Header="Wydłużenie max." Width="120" Binding="{Binding WydluzenieMaksymalne, StringFormat=N2}" ElementStyle="{StaticResource CenterAlignStyle}"/>-->
+                <DataGridTextColumn Header="Wydłużenie średnie" Width="120" Binding="{Binding WydluzenieSrednie, StringFormat=N2}" ElementStyle="{StaticResource CenterAlignStyle}"/>
+                <!--<DataGridTextColumn Header="Gramatura min." Width="120" Binding="{Binding GramaturaMinimalna, StringFormat=N2}" ElementStyle="{StaticResource CenterAlignStyle}"
+                                        dgx:DataGridFilterColumn.Template="{StaticResource FilterValuesWithPopup}"
+                                        />
+                    <DataGridTextColumn Header="Gramatura max." Width="120" Binding="{Binding GramaturaMaksymalna, StringFormat=N2}" ElementStyle="{StaticResource CenterAlignStyle}"
+                                        dgx:DataGridFilterColumn.Template="{StaticResource FilterValuesWithPopup}"
+                                        />-->
+                <DataGridTextColumn Header="Gramatura średnia" Width="120" Binding="{Binding GramaturaSrednia, StringFormat=N2}" ElementStyle="{StaticResource CenterAlignStyle}"
+                                        dgx:DataGridFilterColumn.Template="{StaticResource FilterValuesWithPopup}"
+                                        />
+                <DataGridTextColumn Header="Uwagi" Width="auto" Binding="{Binding Uwagi }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                <DataGridCheckBoxColumn Header="Badanie Zgodne" Width="auto" Binding="{Binding CzyBadanieZgodne }"/>
+                <DataGridTextColumn Header="Uwagi dotyczące wyniku" Width="auto" Binding="{Binding UwagiDotyczaceWyniku }" ElementStyle="{StaticResource LeftAlignStyle}"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <!--</materialDesign:Card>-->
+
+    </Grid>
+</Window>

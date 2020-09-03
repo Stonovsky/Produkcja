@@ -1,0 +1,432 @@
+﻿<Window x:Class="GAT_Produkcja.ViewModel.Produkcja.GniazdaProdukcyjne.ProdukcjaRuch.RuchTowar.Naglowek.GPRuchNaglowekView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.GniazdaProdukcyjne.ProdukcjaRuch.RuchTowar.Naglowek"
+        xmlns:converters="clr-namespace:GAT_Produkcja.UI.Converters"
+
+        mc:Ignorable="d"
+        xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+        startUp:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+        xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
+        xmlns:viewBadania="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.GniazdaProdukcyjne.ProdukcjaRuch.Badania"
+        xmlns:viewOgolne="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.GniazdaProdukcyjne.ProdukcjaRuch.RuchTowar.Naglowek"
+        xmlns:vmRW="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.GniazdaProdukcyjne.ProdukcjaRuch.RuchTowar.RW"
+        xmlns:vmPW="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.GniazdaProdukcyjne.ProdukcjaRuch.RuchTowar.PW"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="12"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        MinHeight="450"
+        MinWidth="300"
+        Title="Gniazdo: Linia włóknin"
+        Height="700"
+        Width="900"
+        WindowStartupLocation="CenterScreen"
+        Language="pl-PL"
+        >
+    <!--DataContext="{Binding Source={StaticResource Locator}, Path=LiniaWlokninViewModel}"-->
+
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding LoadCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding AddEditOnPWCommand}" />
+        <KeyBinding Key="Add" Command="{Binding AddEditOnPWCommand}" />
+    </Window.InputBindings>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="100"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.RowSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height=" 60"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel
+                Grid.Row="0"
+                Orientation="Horizontal"
+                >
+                <ComboBox ItemsSource="{Binding ListaGniazdProdukcyjnych, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding WybraneGniazdo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          DisplayMemberPath="GniazdoNazwa"
+                          SelectedValuePath="IDProdukcjaGniazdoProdukcyjne"
+                          SelectedValue="{Binding VMEntity.IDProdukcjaGniazdoProdukcyjne, 
+                                                  Mode=TwoWay, 
+                                                  UpdateSourceTrigger=PropertyChanged, 
+                                                  ValidatesOnDataErrors=True, 
+                                                  NotifyOnValidationError=True}"
+                          materialDesign:HintAssist.Hint="Gniazdo produkcyjne"
+                          VerticalAlignment="Center"
+                          Margin="10" 
+                          />
+                <StackPanel Orientation="Horizontal">
+                    <Separator Width="2" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                </StackPanel>
+
+                <ComboBox ItemsSource="{Binding ListaPracownikow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding WybranyPracownik_1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          DisplayMemberPath="ImieINazwiskoGAT"
+                          SelectedValuePath="ID_PracownikGAT"
+                          SelectedValue="{Binding VMEntity.IDPracownikGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                          materialDesign:HintAssist.Hint="Operator 1"
+                          VerticalAlignment="Center"
+                          Margin="10" />
+                <ComboBox ItemsSource="{Binding ListaPracownikow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding WybranyPracownik_2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          DisplayMemberPath="ImieINazwiskoGAT"
+                          SelectedValuePath="ID_PracownikGAT"
+                          SelectedValue="{Binding VMEntity.IDPracownikGAT1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                          materialDesign:HintAssist.Hint="Operator 2"
+                          VerticalAlignment="Center"
+                          Margin="10" />
+
+            </StackPanel>
+
+            <StackPanel
+                Grid.Column="1"
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                >
+                <TextBlock Text="Auto zapis"
+                           VerticalAlignment="Center"
+                           Margin="10"
+                           Visibility="Collapsed"/>
+                <ToggleButton IsChecked="{Binding AutoSave, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Grid.Column="1"
+                              Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                              ToolTip="Automatyczny zapis po każdy dodaniu pozycji PW" 
+                              ToolTipService.ShowOnDisabled="True"
+                              Visibility="Collapsed"      
+                              />
+            </StackPanel>
+
+            <!--#region Zlecenie Produkcyjne-->
+            <StackPanel 
+                Orientation="Horizontal"
+                Grid.Column="1"
+                Grid.Row="1"
+                Visibility="Collapsed"
+                >
+                <!--Visibility="{Binding CzyZlecProdMaBycWidoczne,
+                                    Mode=OneWay,
+                                    UpdateSourceTrigger=PropertyChanged,
+                                    Converter={converters:BooleanToVisibilityConverter}}"-->
+                <ComboBox ItemsSource="{Binding ListaAktywnychZlecenProdukcyjnych, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding WybraneAktywneZlecenieProdukcyjne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          DisplayMemberPath="NrZleceniaProdukcyjnego"
+                          SelectedValuePath="IDProdukcjaZlecenieProdukcyjne"
+                          SelectedValue="{Binding VMEntity.IDProdukcjaZlecenieProdukcyjne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                          materialDesign:HintAssist.Hint="Zlecenie produkcyjne"
+                          VerticalAlignment="Center"
+                          Margin="10" />
+
+                <TextBox Text="{Binding KodKreskowyZleceniaProdukcyjnego, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="Zeskanuj kod kreskowy zlecenia produkcyjnego"
+                         materialDesign:HintAssist.Hint="Kod zlec. prod."
+                         Margin="10"
+                         VerticalAlignment="Center"
+                         Width="130"
+                         TextAlignment="Right" />
+            </StackPanel>
+            <!--#endregion-->
+
+            <!--#region Buttony-->
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="2"
+                        VerticalAlignment="Top"
+                        Margin="10">
+                <!--<Button Content="Usuń"
+                        Margin="5"
+                        Command="{Binding UsunCommand}" />-->
+                <Button Content="Anuluj"
+                        Margin="5"
+                        Command="{Binding }" />
+                <Button Content="Zapisz"
+                        Margin="5"
+                        Command="{Binding SaveCommand}" />
+
+
+            </StackPanel>
+            <!--#endregion-->
+        </Grid>
+
+        <!--#region Zlecenie Ciecia-->
+
+        <GroupBox Header="Zlecenie Produkcyjne"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3"
+                      Grid.Row="1"
+
+                                                >
+            <!--Visibility="{Binding CzyZlecCieciaMaBycWidoczne, 
+                                            Mode=OneWay, 
+                                            UpdateSourceTrigger=PropertyChanged, 
+                                            Converter={converters:BooleanToVisibilityConverter}}"-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                        Orientation="Horizontal"
+                        Grid.Column="0">
+
+                    <TextBox Text="{Binding ZlecenieTowar.tblProdukcjaZlecenie.NrZlecenia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Nr"
+                             Margin="10"
+                             VerticalAlignment="Center"
+                             Width="auto"
+                             TextAlignment="Right" />
+                    <TextBox Text="{Binding ZlecenieTowar.tblProdukcjaZlecenie.tblKontrahent.Nazwa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Kontrahent"
+                             Margin="10"
+                             VerticalAlignment="Center"
+                             MinWidth="150"
+                             MaxWidth="300"
+                             TextAlignment="Left" />
+                    <TextBox Text="{Binding ZlecenieTowar.TowarNazwa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Towar"
+                             Margin="10"
+                             VerticalAlignment="Center"
+                             MinWidth="100"
+                             Width="auto"
+                             TextAlignment="Right" />
+                    <TextBox Text="{Binding ZlecenieTowar.Ilosc_szt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Ilość szt."
+                             Margin="10"
+                             VerticalAlignment="Center"
+                             MinWidth="50"
+                             Width="auto"
+                             TextAlignment="Right" />
+                    <TextBox Text="{Binding ZlecenieTowar.Ilosc_m2, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Ilość [m2]"
+                             Margin="10"
+                             VerticalAlignment="Center"
+                             MinWidth="60"
+                             Width="auto"
+                             TextAlignment="Right" />
+                </StackPanel>
+
+                <Button 
+                        Grid.Column="2"
+                        Width="40"
+                        Padding="0"
+                        ToolTip="Wyszukaj zlecenie cięcia dla którego będzie prowadzona konfekcja"
+                        Command="{Binding DodajZlecenieProdukcyjneCommand}"
+                        IsEnabled="{Binding CzyDodajZlecenieButtonAktywny }"
+                        Margin="10">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Magnify"
+                                             Width="30"
+                                             Height="30"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left" />
+                        <!--<TextBlock Text="Dodaj" VerticalAlignment="Center" FontSize="16"/>-->
+                    </StackPanel>
+                </Button>
+
+            </Grid>
+
+        </GroupBox>
+        <!--#endregion-->
+
+        <!--#region Zlecenie Produkcyjne-->
+
+        <GroupBox Header="Zlecenie Produkcyjne"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3"
+                      Grid.Row="1"
+                       Visibility="Collapsed">
+            <!--Visibility="{Binding CzyZlecProdMaBycWidoczne, 
+                                            Mode=OneWay, 
+                                            UpdateSourceTrigger=PropertyChanged, 
+                                            Converter={converters:BooleanToVisibilityConverter}}"-->
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                        Orientation="Horizontal"
+                        Grid.Column="0"
+                        >
+
+                    <TextBox Text="{Binding ZlecenieTowar.tblProdukcjaZlcecenieProdukcyjne.NrZleceniaProdukcyjnego, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Nr zlec."
+                             Margin="10"
+                             VerticalAlignment="Center"
+                             Width="auto"
+                             TextAlignment="Right" />
+                    <TextBox Text="{Binding ZlecenieTowar.TowarNazwa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Towar"
+                             Margin="10"
+                             VerticalAlignment="Center"
+                             MinWidth="100"
+                             Width="auto"
+                             TextAlignment="Right" />
+                    <TextBox Text="{Binding ZlecenieTowar.Ilosc_szt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Ilość szt."
+                             Margin="10"
+                             VerticalAlignment="Center"
+                             MinWidth="50"
+                             Width="auto"
+                             TextAlignment="Right" />
+                    <TextBox Text="{Binding ZlecenieTowar.Ilosc_m2, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Ilość [m2]"
+                             Margin="10"
+                             VerticalAlignment="Center"
+                             MinWidth="60"
+                             Width="auto"
+                             TextAlignment="Right" />
+                </StackPanel>
+
+                <Button 
+                        Grid.Column="2"
+                        Width="40"
+                        Padding="0"
+                        ToolTip="Wyszukaj zlecenie produkcyjne"
+                        Command="{Binding DodajZlecenieProdukcyjneCommand}"
+                        Margin="10">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Magnify"
+                                             Width="30"
+                                             Height="30"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left" />
+                        <!--<TextBlock Text="Dodaj" VerticalAlignment="Center" FontSize="16"/>-->
+                    </StackPanel>
+                </Button>
+
+            </Grid>
+
+        </GroupBox>
+
+
+        <!--#endregion-->
+
+
+
+        <TabControl Grid.Row="3"
+                    Margin="5"
+                    Background="Transparent"
+                    >
+            <TabItem
+                Header="Ogolne"
+                IsEnabled="False"
+                >
+                <!--<viewOgolne:LiniaWlokninRuchTowarView DataContext="{Binding LiniaWlokninOgolneViewModel}" />-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!--<GroupBox 
+                              Grid.Row="0"
+                              IsEnabled="{Binding RwEnabled, UpdateSourceTrigger=PropertyChanged}"
+                              Padding="5"
+                              BorderThickness="0"
+                              >
+                        <GroupBox.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="RemoveCircleOutline"
+                                                     Foreground="AliceBlue"
+                                                     Margin="0 0 10 0"
+                                                     VerticalAlignment="Center"
+                                                     />
+                                <TextBlock Text="RW - rozchód - rolka, która podlega przerobieniu"
+                                       Foreground="AliceBlue"
+                                       />
+
+                            </StackPanel>
+                        </GroupBox.Header>
+                        <vmRW:GPRuchTowarRWView DataContext="{Binding RuchTowarRWViewModel}"
+                                                IsEnabled="{Binding RwEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </GroupBox>-->
+
+                    <Expander
+                             Grid.Row="0"
+                             IsEnabled="{Binding RwEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                             IsExpanded="{Binding RwEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                             BorderThickness="0"
+                             materialDesign:ExpanderAssist.DownHeaderPadding="5,2,0,0"
+                             Background="{DynamicResource PrimaryHueDarkBrush}"
+                        >
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="RemoveCircleOutline"
+                                                     Foreground="AliceBlue"
+                                                     Margin="0 0 10 0"
+                                                     VerticalAlignment="Center"
+                                                     />
+                                <TextBlock Text="RW - rozchód - rolka, która podlega przerobieniu"
+                                       Foreground="AliceBlue"
+                                       />
+
+                            </StackPanel>
+
+                        </Expander.Header>
+                        <vmRW:GPRuchTowarRWView DataContext="{Binding RuchTowarRWViewModel}"
+                                                IsEnabled="{Binding RwEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    </Expander>
+                    <GroupBox 
+                        Grid.Row="1"
+                        BorderThickness="0"
+                        >
+                        <GroupBox.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AddCircleOutline"
+                                                     Foreground="AliceBlue"
+                                                     Margin="0 0 10 0"
+                                                     VerticalAlignment="Center"
+                                                     />
+                                <TextBlock Text="PW - przychód - nowe rolki"
+                                       Foreground="AliceBlue"
+                                       />
+
+                            </StackPanel>
+                        </GroupBox.Header>
+
+                        <vmPW:GPRuchTowarPWView DataContext="{Binding RuchTowarPWViewModel}"/>
+                    </GroupBox>
+
+                </Grid>
+            </TabItem>
+            <!--TODO Dorobic BADANIA-->
+            <!--<TabItem Header="Badania">
+                <viewBadania:LiniaWlokninBadaniaView DataContext="{Binding LiniaWlokninBadaniaViewModel}" />
+
+            </TabItem>-->
+        </TabControl>
+    </Grid>
+</Window>

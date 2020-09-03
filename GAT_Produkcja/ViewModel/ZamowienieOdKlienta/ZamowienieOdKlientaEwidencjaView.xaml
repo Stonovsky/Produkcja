@@ -1,0 +1,228 @@
+﻿<Window x:Class="GAT_Produkcja.ViewModel.ZamowienieOdKlienta.ZamowienieOdKlientaEwidencjaView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GAT_Produkcja.ViewModel.ZamowienieOdKlienta"
+        mc:Ignorable="d"
+        xmlns:ucZamowieniaDoKlientow ="clr-namespace:GAT_Produkcja.ViewModel.ZamowienieOdKlienta.Szczegoly"
+        xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+        startUp:ViewModelLocator.AutoWireViewModel="True"
+
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:converters ="clr-namespace:GAT_Produkcja.UI.Converters"
+        
+        xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+        xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="12"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        MinHeight="450"
+        MinWidth="900"
+        Title="{Binding Tytul}"
+        Height="600"
+        Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Language="pl-PL"
+        >
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding LoadCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding CloseWindowCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!--#region Filtr -->
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="0">
+                <!--#region Data przyjęcia ZK -->
+                <StackPanel
+                VerticalAlignment="Bottom">
+                    <TextBlock Text="Data przyjęcia: " 
+                       Margin="5"
+                       VerticalAlignment="Center"
+                       />
+                    <StackPanel Orientation="Horizontal">
+
+                        <DatePicker SelectedDate="{Binding Filtr.DataOd, StringFormat=d,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        materialDesign:HintAssist.Hint="Od"
+                        MinWidth="80"
+                        VerticalAlignment="Center"
+                        Margin="5"
+                        />
+                        <DatePicker SelectedDate="{Binding Filtr.DataDo, StringFormat=d,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        materialDesign:HintAssist.Hint="Do"
+                        MinWidth="80"
+                        VerticalAlignment="Center"
+                        Margin="5"
+                        />
+                    </StackPanel>
+                </StackPanel>
+                <!--#endregion-->
+
+                <!--#region Termin realizacji ZK -->
+                <StackPanel
+                VerticalAlignment="Bottom"
+                >
+                    <TextBlock Text="Termin realizacji: " 
+                       Margin="5"
+                       VerticalAlignment="Center"
+                       />
+                    <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Bottom">
+
+                        <DatePicker SelectedDate="{Binding Filtr.TerminRealizacjiOd, StringFormat=d,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        materialDesign:HintAssist.Hint="Od"
+                        MinWidth="80"
+                        VerticalAlignment="Bottom"
+                        Margin="5"
+                        />
+                        <DatePicker SelectedDate="{Binding Filtr.TerminRealizacjiDo, StringFormat=d,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        materialDesign:HintAssist.Hint="Do"
+                        MinWidth="80"
+                        VerticalAlignment="Center"
+                        Margin="5"
+                        />
+                    </StackPanel>
+                </StackPanel>
+                <!--#endregion-->
+
+
+                <TextBox Text="{Binding NazwaTowaru, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="Nazwa Towaru"
+                     VerticalAlignment="Bottom"
+                     MinWidth="100"
+                     />
+                <ComboBox ItemsSource="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding WybranyStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      materialDesign:HintAssist.Hint="Status"
+                      VerticalAlignment="Bottom"
+                      MinWidth="80"
+                      />
+                <ComboBox ItemsSource="{Binding Grupa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding WybranaGrupa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      materialDesign:HintAssist.Hint="Grupa"
+                      VerticalAlignment="Bottom"
+                      MinWidth="80"
+                          IsEditable="True"
+                      />
+                <Button
+                    Command="{Binding FiltrujCommand}"
+                    ToolTip="Filtruj listę"
+                    VerticalAlignment="Bottom"
+                    IsDefault="True"
+                    Margin="5"
+                    Width="40"
+                    Padding="0"
+                    >
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Magnify" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <!--<TextBlock Text="Dodaj" VerticalAlignment="Center" FontSize="16"/>-->
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+            <!--#endregion-->
+
+            <!--#region Podsumowanie -->
+            <materialDesign:Card
+                Grid.Column="2"
+                VerticalAlignment="Stretch"
+                Margin="5"
+                MinWidth="150"
+                HorizontalAlignment="Center"
+                >
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    >
+                    <TextBlock Text="Podsumowanie"
+                               Margin="5 0"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding Podsumowanie.Ilosc, StringFormat=n2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Ilość"
+                             MinWidth="80"
+                             TextAlignment="Right"
+                             Margin="5"/>
+                        <TextBox Text="{Binding Podsumowanie.Wartosc, StringFormat=c2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Wartość [zł]"
+                             TextAlignment="Right"
+                             MinWidth="80"
+                             Margin="5"
+                             Visibility="{Binding Converter={converters:DostepDyrektorVisibilityConverter}}"
+                        />
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <!--#endregion-->
+        </Grid>
+
+
+        <ucZamowieniaDoKlientow:ZamowienieOdKlientaEwidencjaSzczegolyUCView
+            Grid.Row="1"
+            DataContext="{Binding SzczegolyUCViewModel}"/>
+
+        <!--#region DataGrid -->
+        <!--<DataGrid
+            ItemsSource="{Binding ListaZamowienOdKlientow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding WybraneZamowienieOdKlienta}"
+            Grid.Row="1"
+            Margin="0 20 0 0"
+            dgx:DataGridFilter.IsAutoFilterEnabled="True"
+            
+            >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nr dok." Width="auto" Binding="{Binding NrPelny}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                <DataGridTextColumn Header="Przyjęto" Width="auto" Binding="{Binding DataWyst, StringFormat=d}" ElementStyle="{StaticResource CenterAlignStyle}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource FilterDatesWithPopup}"
+                                    />
+                <materialDesign:MaterialDataGridTextColumn Header="Termin &#x0a; realizacji" Width="100" Binding="{Binding TerminRealizacji, StringFormat=d}" ElementStyle="{StaticResource CenterAlignStyle}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource FilterDatesWithPopup}">
+                </materialDesign:MaterialDataGridTextColumn>
+                <DataGridTextColumn Header="Kontrahent" Width="150" Binding="{Binding KontrahentNazwa}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                <DataGridTextColumn Header="Towar" Binding="{Binding TowarNazwa}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                <DataGridTextColumn Header="Grupa" Binding="{Binding Grupa}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+
+                <DataGridTextColumn Header="Ilość" Binding="{Binding Ilosc, StringFormat=n2}" ElementStyle="{StaticResource CenterAlignStyle}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource FilterValuesWithPopup}"
+                                    />
+                <DataGridTextColumn Header="Jm" Binding="{Binding Jm}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                --><!--<DataGridTextColumn Header="Cena &#x0a; netto" Binding="{Binding CenaNetto, StringFormat=C2}" ElementStyle="{StaticResource RightAlignStyle}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource FilterValuesWithPopup}"
+                                    />
+                <DataGridTextColumn Header="Wartość &#x0a; netto" Binding="{Binding WartNetto, StringFormat=C2}" ElementStyle="{StaticResource RightAlignStyle}"
+                                    dgx:DataGridFilterColumn.Template="{StaticResource FilterValuesWithPopup}"
+                                    />--><!--
+                <DataGridTextColumn Header="Wystawił(a)" Binding="{Binding Wystawil}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                <DataGridTextColumn Header="Uwagi" Width="100" Binding="{Binding Uwagi}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>-->
+        <!--#endregion-->
+    </Grid>
+
+</Window>

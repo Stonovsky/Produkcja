@@ -1,0 +1,233 @@
+﻿<Window x:Class="GAT_Produkcja.ViewModel.Zapotrzebowanie.Ewidencja.ZapotrzebowanieEwidencjaView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converterRGB="clr-namespace:GAT_Produkcja.UI.ViewModel.Zapotrzebowanie.Ewidencja.Converter"
+        xmlns:converters="clr-namespace:GAT_Produkcja.UI.Converters"
+        
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+        startUp:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+
+         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+         TextElement.FontWeight="Regular"
+         TextElement.FontSize="13"
+         TextOptions.TextFormattingMode="Ideal"
+         TextOptions.TextRenderingMode="Auto"
+         Background="{DynamicResource MaterialDesignPaper}"
+         FontFamily="{DynamicResource MaterialDesignFont}"
+        
+            Title="Ewidencja zapotrzebowań" 
+            Height="700" Width="1100" 
+            MinWidth="500" MinHeight="400"
+            WindowStartupLocation="CenterScreen"
+            Language="pl-PL"
+            >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding PobierzWartosciPoczatkoweCommand}" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+        
+            <TextBlock Text="Ewidencja zapotrzebowań" 
+                       Foreground="CadetBlue" 
+                       FontSize="14" Margin="5"
+                       Grid.Column="0"
+                       />
+            <Button Width="60" ToolTip="Dodaj zapotrzebowanie"
+                                Grid.Column="2"
+                                Command="{Binding DodajZapotrzebowanieCommand}"
+                                Margin="10"
+                                VerticalAlignment="Top"
+                                    >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Add" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Button>
+        
+        </Grid>
+
+<!--#region Podsumowanie zapotrzebowan-->
+        <Grid Grid.Row="1" Grid.RowSpan="2"
+              Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Suma wszytkich zapotrzebowań:"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        />
+            <TextBlock Text="{Binding SumaZapotrzebowan, StringFormat=C2}"
+                        TextAlignment="Right"
+                        FontWeight="Bold"
+                        HorizontalAlignment="Right"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                             />
+            <TextBlock Text="Suma zapotrzebowań z bieżącego roku" 
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                             />
+            <TextBlock Text="{Binding SumaZapotrzebowanZBiezacegoRoku, StringFormat=C2}"
+                        TextAlignment="Right"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontWeight="Bold"
+                             />
+            <TextBlock Text="Suma zapotrzebowań z bieżącego miesiąca" 
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                             />
+            <TextBlock Text="{Binding SumaZapotrzebowanDlaBiezacegoMiesiaca, StringFormat=C2}"
+                        TextAlignment="Right"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        FontWeight="Bold"
+                             />
+
+
+            <TextBlock Text="Suma wszystkich zapotrzebowań zaakceptowanych" 
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        HorizontalAlignment="Left"
+                                     />
+            <TextBlock Text="{Binding SumaWszystkichZapotrzebowanZaakceptowanych, StringFormat=C2}"
+                        TextAlignment="Right"
+                        Grid.Row="0"
+                        Grid.Column="4"
+                        FontWeight="Bold"
+                                     />
+            <TextBlock Text="Suma zapotrzebowań zaakceptowanych w bieżącym roku" 
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        HorizontalAlignment="Left"
+                                             />
+            <TextBlock Text="{Binding SumaZapotrzebowanZaakceptowanychWBiezacymRoku, StringFormat=C2}"
+                        TextAlignment="Right"
+                        Grid.Row="1"
+                        Grid.Column="4"
+                        FontWeight="Bold"
+                                             />
+            <TextBlock Text="Suma zapotrzebowań zaakceptowanych w bieżącym miesiącu" 
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    HorizontalAlignment="Left"
+                                             />
+            <TextBlock Text="{Binding SumaZapotrzebowanZaakceptowanychWBiezacymMiesiacu, StringFormat=C2}"
+                        TextAlignment="Right"
+                        Grid.Row="2"
+                        Grid.Column="4"
+                        FontWeight="Bold"
+                                             />
+        </Grid>
+<!--#endregion-->
+
+        
+        <materialDesign:Card Grid.Row="3" 
+                             materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                             Margin="10"
+                             VerticalAlignment="Stretch">
+
+            <DataGrid
+                        Margin="5"    
+                        ItemsSource="{Binding ListaZapotrzebowan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding WybraneZapotrzebowanie}"
+                        FontSize="11"
+                        dgx:DataGridFilter.IsAutoFilterEnabled="True"
+                >
+
+                <!--#region Zmiana koloru calego wiersza zgodnie z IValueConverter-->
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Foreground" Value="{Binding IDZapotrzebowanieStatus, Converter={converterRGB:ZapotrzebowanieEwidencjaRedGreenGrayConverter}}"/>
+                        <Setter Property="Background"
+                                Value="Transparent" />
+
+                        <!--#region Hover Over Background -->
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="AliceBlue" />
+                            </Trigger>
+                        </Style.Triggers>
+                        <!--#endregion-->
+
+                    </Style>
+                </DataGrid.RowStyle>
+                <!--#endregion-->
+                
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <cmd:EventToCommand Command="{Binding PokazSzczegolyZapotrzebowaniaCommand}" PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="Copy" />
+                        <MenuItem Header="Pokaz szczegóły" Command="{Binding PokazSzczegolyZapotrzebowaniaCommand }"/>
+                        <MenuItem Header="Zmiana statusu"
+                                  Visibility="{Binding WybraneZapotrzebowanie, Converter={converters:StatusZapotrzebowaniaVisibilityConverter} }">
+                            <MenuItem Header="Akceptacja" Command="{Binding StatusAkceptacjaCommand }"/>
+                            <MenuItem Header="Brak akceptacji" Command="{Binding StatusBrakAkceptacjiCommand}"/>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Status" Width="100" Binding="{Binding StatusZapotrzebowania, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  ElementStyle="{StaticResource LeftAlignStyle}"/>
+                    <DataGridCheckBoxColumn Header="Czy zweryfikowano" Width="100" Binding="{Binding CzyZweryfikowano, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"/>
+                    <DataGridTextColumn Header="Data zgłoszenia" Width="100" Binding="{Binding DataZgloszenia, StringFormat=d, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  ElementStyle="{StaticResource CenterAlignStyle}"
+                                        dgx:DataGridFilterColumn.Template="{StaticResource FilterDatesWithPopup}"
+                                        />
+                    <DataGridTextColumn Header="Data zapotrzebowania" Width="100" Binding="{Binding DataZapotrzebowania, StringFormat=d, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  ElementStyle="{StaticResource CenterAlignStyle}"
+                                        dgx:DataGridFilterColumn.Template="{StaticResource FilterDatesWithPopup}"
+                                        />
+                    <DataGridTextColumn Header="Nr zap." Width="100" Binding="{Binding Nr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  ElementStyle="{StaticResource CenterAlignStyle}"/>
+                    <DataGridTextColumn Header="Zgłoszono" Width="100" Binding="{Binding OsobaZglZap, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  ElementStyle="{StaticResource LeftAlignStyle}"/>
+                    <DataGridTextColumn Header="Zakup" Width="100" Binding="{Binding OsobaOdpZaZap, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  ElementStyle="{StaticResource LeftAlignStyle}"/>
+                    <DataGridTextColumn Header="Opis" Width="200" Binding="{Binding Opis, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  ElementStyle="{StaticResource LeftAlignStyle}"/>
+                    <DataGridTextColumn Header="Zakup od" Width="120" Binding="{Binding ZakupOd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                    <DataGridTextColumn Header="Koszt" Width="100" Binding="{Binding SumaOfKoszt, StringFormat=C2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource RightAlignStyle}"/>
+                    <DataGridTextColumn Header="Klasyfikacja ogólna" Width="120" Binding="{Binding KlasyfikacjaOgolna, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                    <DataGridTextColumn Header="Klasyfikacja szczegółowa" Width="120" Binding="{Binding KlasyfikacjaSzczegolowa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                    <DataGridTextColumn Header="Dot. urządzenia" Width="120" Binding="{Binding Urzadzenie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                    <DataGridTextColumn Header="Koszt na firmę" Width="auto" Binding="{Binding NazwaFirmy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource LeftAlignStyle}"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </materialDesign:Card>
+    </Grid>
+</Window>

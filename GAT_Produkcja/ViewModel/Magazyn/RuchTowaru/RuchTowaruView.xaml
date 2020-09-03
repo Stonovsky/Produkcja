@@ -1,0 +1,723 @@
+﻿<Window x:Class="GAT_Produkcja.ViewModel.Magazyn.RuchTowaru.RuchTowaruView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GAT_Produkcja.ViewModel.Magazyn.RuchTowaru"
+        xmlns:converters="clr-namespace:GAT_Produkcja.UI.Converters"
+        mc:Ignorable="d"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
+        xmlns:controls="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
+        xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
+        xmlns:myBehavior="clr-namespace:GAT_Produkcja.UI.Utilities.WPFControls.DataGridControl"
+        xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+        startUp:ViewModelLocator.AutoWireViewModel="True"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+         TextElement.FontWeight="Regular"
+         TextElement.FontSize="13"
+         TextOptions.TextFormattingMode="Ideal"
+         TextOptions.TextRenderingMode="Auto"
+         Background="{DynamicResource MaterialDesignPaper}"
+         FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        Title="{Binding Tytul}" 
+        Height="750" 
+        Width="1100" MinWidth="500"
+        WindowStartupLocation="CenterScreen"
+        Language="pl-PL"
+        >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding ZamknijOknoCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+        <!--<i:EventTrigger EventName="KeyDown">
+            <cmd:EventToCommand Command="{Binding DrukujKodKreskowyCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>-->
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding ZaladujWartosciPoczatkoweCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Window.Resources>
+        <CollectionViewSource x:Key="MagazynyTest" Source="{Binding ListaMagazynow}"/>
+        <CollectionViewSource x:Key="ListaJm" Source="{Binding ListaJm}"/>
+        <CollectionViewSource x:Key="ListaTowarow" Source="{Binding ListaTowarow}"/>
+    </Window.Resources>
+
+    <Grid Margin="-1,0,0.6,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="380"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--#region Tytul-->
+        <Grid
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel 
+            Grid.Column="0"
+            VerticalAlignment="Center">
+
+                <StackPanel Orientation="Horizontal"
+                            Margin="10">
+                    <ComboBox ItemsSource="{Binding ListaStatusowRuchu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            SelectedItem="{Binding WybranyStatusRuchu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                            DisplayMemberPath="Status"
+                            SelectedValuePath="IDRuchStatus"
+                            SelectedValue="{Binding RuchNaglowek.IDRuchStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                            materialDesign:HintAssist.Hint="Status" materialDesign:HintAssist.IsFloating="True"
+                            Margin="10"
+                            VerticalAlignment="Bottom"
+                            IsReadOnly="False"
+                            IsEnabled="True"
+                            Width="200"
+                            />
+                    <ComboBox 
+                            Grid.Row="3"
+                            ItemsSource="{Binding ListaPracownikowGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            SelectedItem="{Binding WybranyPracownikGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                            DisplayMemberPath="ImieINazwiskoGAT"
+                            SelectedValuePath="ID_PracownikGAT"
+                            SelectedValue="{Binding RuchNaglowek.ID_PracownikGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                            materialDesign:HintAssist.Hint="Przez" materialDesign:HintAssist.IsFloating="True"
+                            Margin="10"
+                            VerticalAlignment="Bottom"
+                            Width="200"
+                            />
+                    <TextBox Text="{Binding RuchNaglowek.NrDokumentuPelny, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               materialDesign:HintAssist.Hint="Nr dok. wewn."
+                               materialDesign:HintAssist.IsFloating="True"
+                               VerticalAlignment="Bottom"
+                               Margin="10"
+                               IsReadOnly="True"  
+                             />
+                </StackPanel>
+                <!--IsReadOnly="{Binding WybranyStatus, Converter={converters:StatusZapotrzebowaniaIsReadOnlyBoolConverter}}"-->
+
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button Content="Usuń"
+                            Command="{Binding UsunCommand}"
+                            Margin="5"
+                            />
+                <Button Content="Zapisz"
+                            Command="{Binding ZapiszCommand}"
+                            ToolTip="{Binding ToolTipZapiszCommand}"
+                            ToolTipService.ShowOnDisabled="True"
+                            Margin="5"/>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+
+
+        <!--#region Naglowek -->
+
+            <materialDesign:Card 
+                Grid.Row="1" 
+                Grid.Column="0" Grid.ColumnSpan="2"
+                materialDesign:ShadowAssist.ShadowDepth="Depth5" 
+                Margin="10"
+                VerticalAlignment="Stretch"
+                >
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                <!--#region PZ-->
+                    <StackPanel Orientation="Vertical"
+                            Grid.Row="0"
+                            Margin="5"
+                            Visibility="{Binding CzyStatusPZ, Converter={converters:BooleanToVisibilityConverter}}"
+                            >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel 
+                                Grid.Row="1"
+                                    >
+                                <TextBlock Text="Od:"
+                                               Margin=" 10"
+                                           FontWeight="Bold"
+                                        />
+                                <TextBox Text="{Binding KontrahentPelnaNazwa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"
+                                        Grid.Row="1"
+                                        materialDesign:HintAssist.Hint="Nazwa dostawcy i adres"
+                                        materialDesign:HintAssist.IsFloating="True"
+                                        Margin="10"
+                                        IsReadOnly="True"
+                                        />
+                                <TextBox 
+                                    Grid.Row="2"
+                                    Text="{Binding RuchNaglowek.NrDokumentuKontrahenta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    Margin="10"
+                                    materialDesign:HintAssist.Hint="Nr dokumentu Kontrahenta"
+                                    materialDesign:HintAssist.IsFloating="True"
+                                    />
+                                <TextBlock Text="Do:"
+                                           Margin=" 10"
+                                           FontWeight="Bold"
+                                    />
+                                <ComboBox 
+                                    Grid.Row="1"
+                                    ItemsSource="{Binding ListaFirmGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    SelectedItem="{Binding WybranaFirmaGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                    DisplayMemberPath="Nazwa"
+                                    SelectedValuePath="IDFirma"
+                                    SelectedValue="{Binding RuchNaglowek.IDFirmaDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Nazwa Firmy" materialDesign:HintAssist.IsFloating="True"
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    />
+                                <ComboBox 
+                                    Grid.Row="2"
+                                    ItemsSource="{Binding ListaMagazynow_Do, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    SelectedItem="{Binding WybranyMagazyn_Do, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                    DisplayMemberPath="Nazwa"
+                                    SelectedValuePath="IDMagazyn"
+                                    SelectedValue="{Binding RuchNaglowek.IDMagazynDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Nazwa Magazynu" materialDesign:HintAssist.IsFloating="True"
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    />
+                            </StackPanel>
+
+                            <Button Width="60" ToolTip="Wyszukaj firmę"
+                                Grid.Column="2"
+                                Command="{Binding PokazEwidencjeKontrahentowCommand}"
+                                Margin="10 50 10 10"
+                                VerticalAlignment="Top"
+                                    >
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Magnify" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="Dodaj" VerticalAlignment="Center" FontSize="16"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+
+                    </StackPanel>
+                    <!--#endregion-->
+
+                <!--#region MM PW-->
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="0"
+                            Margin="5"
+                            Visibility="{Binding CzyStatusMM_PW, Converter={converters:BooleanToVisibilityConverter}}"
+                            >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel 
+                                Grid.Row="1"
+                                    >
+                            <TextBlock Text="Z magazynu:"
+                                           Margin=" 10"
+                                    />
+                            <ComboBox 
+                                    Grid.Row="1"
+                                    ItemsSource="{Binding ListaFirmGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    SelectedItem="{Binding WybranaFirmaGAT_Z, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                    DisplayMemberPath="Nazwa"
+                                    SelectedValuePath="IDFirma"
+                                    SelectedValue="{Binding RuchNaglowek.IDFirmaZ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Nazwa Firmy" materialDesign:HintAssist.IsFloating="True"
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    />
+                            <ComboBox 
+                                    Grid.Row="2"
+                                    ItemsSource="{Binding ListaMagazynow_Z, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    SelectedItem="{Binding WybranyMagazyn_Z, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                    DisplayMemberPath="Nazwa"
+                                    SelectedValuePath="IDMagazyn"
+                                    SelectedValue="{Binding RuchNaglowek.IDMagazynZ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Nazwa Magazynu" materialDesign:HintAssist.IsFloating="True"
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    />
+                            <TextBlock Text="Na magazyn"
+                                           Margin=" 10"
+                                    />
+                            <ComboBox 
+                                    Grid.Row="1"
+                                    ItemsSource="{Binding ListaFirmGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    SelectedItem="{Binding WybranaFirmaGAT_Do, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                    DisplayMemberPath="Nazwa"
+                                    SelectedValuePath="IDFirma"
+                                    SelectedValue="{Binding RuchNaglowek.IDFirmaDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Nazwa Firmy" materialDesign:HintAssist.IsFloating="True"
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    />
+                            <ComboBox 
+                                    Grid.Row="2"
+                                    ItemsSource="{Binding ListaMagazynow_Do, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    SelectedItem="{Binding WybranyMagazyn_Do, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                    DisplayMemberPath="Nazwa"
+                                    SelectedValuePath="IDMagazyn"
+                                    SelectedValue="{Binding RuchNaglowek.IDMagazynDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Nazwa Magazynu" materialDesign:HintAssist.IsFloating="True"
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    />
+
+
+                        </StackPanel>
+                    </Grid>
+
+                </StackPanel>
+                <!--#endregion-->
+
+                <!--#region WZ--> 
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="0"
+                            Margin="5"
+                            Visibility="{Binding CzyStatusWZ, Converter={converters:BooleanToVisibilityConverter}}"
+                            >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel 
+                                Grid.Row="1"
+                                    >
+                            <TextBlock Text="Wydanie Z:"
+                                           Margin=" 10"
+                                    />
+                            <ComboBox 
+                                    Grid.Row="1"
+                                    ItemsSource="{Binding ListaFirmGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    SelectedItem="{Binding WybranaFirmaGAT_Z, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                    DisplayMemberPath="Nazwa"
+                                    SelectedValuePath="IDFirma"
+                                    SelectedValue="{Binding RuchNaglowek.IDFirmaZ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Nazwa Firmy" materialDesign:HintAssist.IsFloating="True"
+                                    Margin="5"
+                                    VerticalAlignment="Bottom"
+                                    />
+                            <ComboBox 
+                                    Grid.Row="2"
+                                    ItemsSource="{Binding ListaMagazynow_Z, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    SelectedItem="{Binding WybranyMagazyn_Z, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                    DisplayMemberPath="Nazwa"
+                                    SelectedValuePath="IDMagazyn"
+                                    SelectedValue="{Binding RuchNaglowek.IDMagazynZ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Nazwa Magazynu" materialDesign:HintAssist.IsFloating="True"
+                                    Margin="5"
+                                    VerticalAlignment="Bottom"
+                                    />
+                            <TextBlock Text="Wydanie do:"
+                                           Margin=" 10"
+                                    />
+                            <TextBox Text="{Binding KontrahentPelnaNazwa}"
+                                    Grid.Row="1"
+                                    materialDesign:HintAssist.Hint="Nazwa dostawcy i adres"
+                                    materialDesign:HintAssist.IsFloating="True"
+                                    Margin="10"
+                                    IsReadOnly="True"
+                                    />
+                            <TextBox 
+                                    Grid.Row="2"
+                                    Text="{Binding RuchNaglowek.NrDokumentuKontrahenta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    Margin="10"
+                                    materialDesign:HintAssist.Hint="Nr dokumentu wydania"
+                                    materialDesign:HintAssist.IsFloating="True"
+                                    />
+
+
+
+                        </StackPanel>
+
+
+                        <Button Width="60" ToolTip="Wyszukaj firmę"
+                                Grid.Column="2"
+                                Command="{Binding PokazEwidencjeKontrahentowCommand}"
+                                Margin="10 180 10 10"
+                                VerticalAlignment="Top"
+                                    >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Magnify" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Dodaj" VerticalAlignment="Center" FontSize="16"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                </StackPanel>
+                <!--#endregion-->
+
+                <!--#region RW-->
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="0"
+                            Margin="5"
+                            Visibility="{Binding CzyStatusRW, Converter={converters:BooleanToVisibilityConverter}}"
+                            >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel 
+                                Grid.Row="1"
+                                    >
+                            <ComboBox 
+                                    Width="100"
+                                    HorizontalAlignment="Left"
+                                    ItemsSource="{Binding ListaZlecenProdukcyjnych, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    SelectedItem="{Binding WybraneZlecenieProdukcyjne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                    DisplayMemberPath="NrZleceniaProdukcyjnego"
+                                    SelectedValuePath="IDProdukcjaZlcecenieProdukcyjne"
+                                    SelectedValue="{Binding RuchNaglowek.IDProdukcjaZlecenieProdukcyjne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Nr zlec. prod." 
+                                    materialDesign:HintAssist.IsFloating="True"
+                                    Margin="10 0 10 10 "
+                                    VerticalAlignment="Bottom"
+                                ToolTip="Wybierz numer zlecenia produkcyjnego"
+                                    />
+
+                            <TextBlock Text="Z magazynu:"
+                                           Margin=" 10 10 10 0 "
+                                    />
+                            <ComboBox 
+                                    Grid.Row="1"
+                                    ItemsSource="{Binding ListaFirmGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    SelectedItem="{Binding WybranaFirmaGAT_Z, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                    DisplayMemberPath="Nazwa"
+                                    SelectedValuePath="IDFirma"
+                                    SelectedValue="{Binding RuchNaglowek.IDFirmaZ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Nazwa Firmy" materialDesign:HintAssist.IsFloating="True"
+                                    Margin="10 0 10 10 "
+                                    VerticalAlignment="Bottom"
+                                    />
+                            <ComboBox 
+                                    Grid.Row="2"
+                                    ItemsSource="{Binding ListaMagazynow_Z, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    SelectedItem="{Binding WybranyMagazyn_Z, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                    DisplayMemberPath="Nazwa"
+                                    SelectedValuePath="IDMagazyn"
+                                    SelectedValue="{Binding RuchNaglowek.IDMagazynZ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Nazwa Magazynu" materialDesign:HintAssist.IsFloating="True"
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    />
+                            <TextBlock Text="Na magazyn"
+                                           Margin=" 10 10 10 0"
+                                    />
+                            <ComboBox 
+                                    Grid.Row="1"
+                                    ItemsSource="{Binding ListaFirmGAT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    SelectedItem="{Binding WybranaFirmaGAT_Do, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                    DisplayMemberPath="Nazwa"
+                                    SelectedValuePath="IDFirma"
+                                    SelectedValue="{Binding RuchNaglowek.IDFirmaDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Nazwa Firmy" materialDesign:HintAssist.IsFloating="True"
+                                    Margin="10 0 10 10"
+                                    VerticalAlignment="Bottom"
+                                    />
+                            <ComboBox 
+                                    Grid.Row="2"
+                                    ItemsSource="{Binding ListaMagazynow_Do, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    SelectedItem="{Binding WybranyMagazyn_Do, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                    DisplayMemberPath="Nazwa"
+                                    SelectedValuePath="IDMagazyn"
+                                    SelectedValue="{Binding RuchNaglowek.IDMagazynDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Nazwa Magazynu" materialDesign:HintAssist.IsFloating="True"
+                                    Margin="10"
+                                    VerticalAlignment="Bottom"
+                                    />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+                <!--#endregion-->
+            </Grid>
+            </materialDesign:Card>
+        <!--#endregion-->
+
+        <!--#region Towar -->
+        <DataGrid
+            Name="dgTowar"
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding ListaRuchuTowarow}"
+            SelectedItem="{Binding WybranyTowarRuch,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"
+            AutoGenerateColumns="False"
+            RowHeight="30"
+            Padding="0"
+            Margin="5"
+            materialDesign:DataGridAssist.ColumnHeaderPadding="3"
+            materialDesign:DataGridAssist.CellPadding="0"
+            materialDesign:DataGridAssist.EnableEditBoxAssist="True"
+            CanUserAddRows="True"
+            IsEnabled="{Binding IsDataGridEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            ToolTip="{Binding ToolTipDataGrid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            ToolTipService.ShowOnDisabled="True"
+            >
+            <!--<Style TargetType="DataGridCell">
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="IsEditing" Value="True" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>-->
+            <i:Interaction.Behaviors>
+                <myBehavior:EditCellOnSingleClick/>
+            </i:Interaction.Behaviors>
+            
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="CellEditEnding">
+                    <cmd:EventToCommand Command="{Binding PoEdycjiKomorkiDataGridCommand}" PassEventArgsToCommand="True" CommandParameter="dgTowar"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <cmd:EventToCommand Command="{Binding SelectionChangedCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="Copy" />
+                    <MenuItem Header="Usuń" Command="{Binding UsunTowarRuchCommand }"/>
+                    <MenuItem Header="Skanuj kod kreskowy" Command="{Binding PokazOknoDoWpisywaniaKoduKreskowegoCommand }"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+
+            <DataGrid.Columns>
+
+            <!--#region Combobox Template Columns-->
+                <!--<DataGridTemplateColumn Header="TowardNKC">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <dotNetKitControls:AutoCompleteComboBox
+                                Width="250"
+                                TextSearch.TextPath="Nazwa"
+                                DisplayMemberPath="Nazwa"
+                                ItemsSource="{Binding Path=DataContext.ListaTowarow,
+                                                      RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                SelectedValuePath="IDTowar"
+                                SelectedValue="{Binding IDTowar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                >
+                            </dotNetKitControls:AutoCompleteComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+
+                <!--<DataGridTemplateColumn Header="jmCB">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox
+                                Width="80"
+                                IsEditable="True"
+                                IsSynchronizedWithCurrentItem="False"
+                                ItemsSource="{Binding Path=DataContext.ListaJm,
+                                                      RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                DisplayMemberPath="Jm"
+                                SelectedValuePath="IDJm"
+                                SelectedValue="{Binding IDJm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsTextSearchEnabled="True"
+                                IsTextSearchCaseSensitive="False"
+                                >
+                                                                , ValidatesOnDataErrors=True, NotifyOnValidationError=True
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>-->
+                <!--</DataGridTemplateColumn>-->
+            <!--#endregion-->
+
+                <DataGridTextColumn 
+                    Header="Towar"
+                    Width="250"
+                    Binding="{Binding TowarNazwa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                      ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                    IsReadOnly="True"
+                    />
+
+                <DataGridTemplateColumn
+                    Width="30">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button 
+                                Height="15"
+                                Width="15" 
+                                ToolTip="Pokaż listę towarów"
+                                Grid.Column="2"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
+                                            Path= DataContext.SzukajTowarCommand}"
+                                Margin="5 0 0 10"
+                                VerticalAlignment="Bottom"
+                                Padding="0"
+                                    >
+                                    <StackPanel Orientation="Horizontal"
+                                                VerticalAlignment="Bottom">
+                                        <materialDesign:PackIcon Kind="Magnify" 
+                                                                 Width="15" 
+                                                                 Height="15" 
+                                                                 VerticalAlignment="Bottom" 
+                                                                 HorizontalAlignment="Left"
+                                                                 />
+                                    </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+
+                <DataGridTextColumn Header="Ilość" Width="100" 
+                                    Binding="{Binding Ilosc, StringFormat=N2,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                                ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
+                                    />
+                                    <!--ElementStyle="{StaticResource ValidationTextBlockStyle}"-->
+
+                <DataGridComboBoxColumn Header="Jm"
+                                        Width="100"
+                                        ItemsSource="{Binding Source={StaticResource ListaJm}}"
+                                        SelectedItemBinding="{Binding WybranaJm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        DisplayMemberPath="Jm"
+                                        SelectedValuePath="IDJm"
+                                        SelectedValueBinding="{Binding IDJm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                                ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                        />
+                
+                <!--<DataGridTemplateColumn Header="Towar">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox
+                                Width="280"
+                                IsSynchronizedWithCurrentItem="False"
+                                ItemsSource="{Binding Path=DataContext.ListaTowarow,
+                                                      RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                DisplayMemberPath="Nazwa"
+                                SelectedValuePath="IDTowar"
+                                SelectedValue="{Binding IDTowar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsEditable="True"
+                                IsTextSearchEnabled="True"
+                                IsTextSearchCaseSensitive="False"
+                                >
+                                --><!--, ValidatesOnDataErrors=True, NotifyOnValidationError=True--><!--
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+
+                
+                <DataGridTextColumn Header="Nr partii / Kod kreskowy" 
+                                    Width="150" 
+                                    Binding="{Binding NrParti,  
+                                                Mode=TwoWay, 
+                                                UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    />
+
+
+                <!--#region Gerenuj kod kreskowy-->
+
+                <DataGridTemplateColumn
+                    Width="30">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button 
+                                Height="15"
+                                Width="25" 
+                                    ToolTip="Wygeneruj nr partii"
+                                Grid.Column="2"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
+                                            Path= DataContext.GenerujKodKreskowyCommand}"
+                                Margin="5 0 0 10"
+                                VerticalAlignment="Bottom"
+                                Padding="0"
+                                    >
+                                <StackPanel Orientation="Horizontal"
+                                            VerticalAlignment="Bottom">
+                                    <materialDesign:PackIcon Kind="GetApp" 
+                                                             Width="15" 
+                                                             Height="15" 
+                                                             VerticalAlignment="Bottom" 
+                                                             HorizontalAlignment="Left"
+                                                             />
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!--#endregion-->
+
+                <!--#region  Drukuj kod-->
+
+                <DataGridTemplateColumn
+                    Width="30">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button 
+                                Height="15"
+                                Width="15" 
+                                    ToolTip="Drukuj nr partii"
+                                Grid.Column="2"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
+                                            Path= DataContext.DrukujKodKreskowyCommand}"
+                                Margin="5 0 0 10"
+                                VerticalAlignment="Bottom"
+                                Padding="0"
+                                    >
+                                <StackPanel Orientation="Horizontal"
+                                            VerticalAlignment="Bottom">
+                                    <materialDesign:PackIcon Kind="Printer" 
+                                                             Width="15" 
+                                                             Height="15" 
+                                                             VerticalAlignment="Bottom" 
+                                                             HorizontalAlignment="Left"
+                                                             />
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!--#endregion-->
+
+
+
+                <DataGridTextColumn Header="Ilość przed" Width="120" 
+                                    Binding="{Binding IloscPrzed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=n2}"  
+                                    IsReadOnly="True"
+                                    ElementStyle="{StaticResource RightAlignStyle}"/>
+                <DataGridTextColumn Header="Ilość po" Width="120" 
+                                    Binding="{Binding IloscPo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=n2}"  
+                                    IsReadOnly="True"
+                                    ElementStyle="{StaticResource RightAlignStyle}"/>
+
+                <!--<DataGridTextColumn Header="Cena" Width="100" Binding="{Binding Cena, StringFormat=C2}"  ElementStyle="{StaticResource CenterAlignStyle}"/>
+                                <DataGridTextColumn Header="VAT" Width="100" Binding="{Binding tblVAT.VAT}"  ElementStyle="{StaticResource CenterAlignStyle}"/>
+                        <DataGridTextColumn Header="Koszt" Width="100" Binding="{Binding Koszt, StringFormat=C2}"  ElementStyle="{StaticResource CenterAlignStyle}"/>-->
+
+                <DataGridTextColumn Header="Uwagi" Width="100" Binding="{Binding Uwagi}"  
+                                    ElementStyle="{StaticResource LeftAlignStyle}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <!--#endregion-->
+
+    </Grid>
+</Window>

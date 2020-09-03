@@ -1,0 +1,224 @@
+﻿<Window x:Class="GAT_Produkcja.ViewModel.Produkcja.Zlecenia.ZlecenieProdukcyjne.Dodaj.Naglowek.ZlecenieProdukcyjneNaglowekView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.Zlecenia.ZlecenieProdukcyjne.Dodaj.Naglowek"
+        xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+        startUp:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+        xmlns:viewMieszanka="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.Zlecenia.ZlecenieProdukcyjne.Dodaj.Mieszanka"
+        xmlns:vmTowar ="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.Zlecenia.ZlecenieProdukcyjne.Dodaj.Towar"
+        xmlns:vmLiniaWloknin ="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.Zlecenia.ZlecenieProdukcyjne.Dodaj.Towar.LiniaWloknin"
+        xmlns:vmLiniaKalandra ="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.Zlecenia.ZlecenieProdukcyjne.Dodaj.Towar.LiniaKalandra"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="{Binding Title}"
+        Width="800"
+        Height="700"
+        WindowStartupLocation="CenterScreen"
+        Language="pl-PL">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding LoadCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="180"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--#region  Naglowek-->
+        <Grid
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition   Width="auto"/>
+                <ColumnDefinition   Width="*"/>
+                <ColumnDefinition   Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel
+                Margin="5 0"
+                >
+                <TextBlock Text="{Binding Title}"
+                           Margin="5"
+                           />
+                <ComboBox ItemsSource="{Binding ListaStatusowZlecen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                          SelectedItem="{Binding WybranyStatusZlecenia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          DisplayMemberPath="Status"
+                          SelectedValuePath="IDProdukcjaZlecenieStatus"
+                          SelectedValue="{Binding VMEntity.IDProdukcjaZlecenieStatus, 
+                                                  Mode=TwoWay, 
+                                                  UpdateSourceTrigger=PropertyChanged, 
+                                                  ValidatesOnDataErrors=True, 
+                                                  NotifyOnValidationError=True}"    
+                          materialDesign:HintAssist.Hint="Status zlecenia"
+                          MinWidth="90"
+                          ToolTip="Status zlecenia"
+                          HorizontalAlignment="Left"
+                          />
+            </StackPanel>
+            
+            <StackPanel
+                Grid.Column="2"
+                Orientation="Horizontal"    
+                >
+                <Button Content="Zapisz"
+                        Command="{Binding SaveCommand}"
+                        Margin="5"/>
+            </StackPanel>
+
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region Dane Ogolne-->
+        <GroupBox
+            Header="Dane ogólne"
+            Grid.Row="1"
+            Padding="5"
+            BorderThickness="0"
+            >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox 
+                        Text="{Binding VMEntity.NazwaZleceniaProdukcyjnego, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged
+                                            ,ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                             materialDesign:HintAssist.Hint="Nazwa zlecenia"
+                             materialDesign:HintAssist.FloatingScale="1"
+                             materialDesign:HintAssist.FloatingOffset="-1,-20"
+                             materialDesign:HintAssist.IsFloating="True" 
+                        Margin="5"
+                    Width="480"
+                             />
+                    <StackPanel Orientation="Horizontal">
+                        <Separator Width="2" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    </StackPanel>
+
+                    <DatePicker SelectedDate="{Binding VMEntity.DataRozpoczecia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                    ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                Width="auto"
+                                VerticalAlignment="Center"
+                                materialDesign:HintAssist.Hint="Data rozpoczęcia"
+                                materialDesign:HintAssist.IsFloating="True" 
+                                materialDesign:HintAssist.FloatingScale="1"
+                                materialDesign:HintAssist.FloatingOffset="-1,-20"
+                                
+                                />
+                    <DatePicker SelectedDate="{Binding VMEntity.DataZakonczenia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                        ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                Width="auto"
+                                VerticalAlignment="Center"
+                                materialDesign:HintAssist.Hint="Data zakończenia"
+                                materialDesign:HintAssist.IsFloating="True"
+                                materialDesign:HintAssist.FloatingScale="1"
+                                materialDesign:HintAssist.FloatingOffset="-1,-20"
+
+                                Margin="20 0 0 0" />
+
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal"
+                        Grid.Row="1">
+                    <TextBox Text="{Binding VMEntity.NrZlecenia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Nr zlecenia"
+                             TextAlignment="Center"
+                             Margin="5 0"
+                             />
+                    <TextBox Text="{Binding VMEntity.NrDokumentu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Nr dokumentu"
+                             TextAlignment="Center"
+                             Margin="10 0"
+                             />
+                    <StackPanel Orientation="Horizontal"
+                        >
+                    <!--<materialDesign:PackIcon Kind="Barcode"
+                                             Padding="0"
+                                             Background="Transparent"
+                                             HorizontalAlignment="Stretch"
+                                             VerticalAlignment="Center"
+                                             />-->
+
+                        <TextBox 
+                            Text="{Binding VMEntity.KodKreskowy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            materialDesign:HintAssist.Hint="Kod zlecenia"
+                            materialDesign:HintAssist.IsFloating="False"
+                            Width="100"
+                            Margin="10 0"    
+                            >
+
+                        </TextBox>
+                    </StackPanel>
+                    <CheckBox
+                        IsChecked="{Binding VMEntity.CzyZakonczone}"
+                        Margin="225 0 0 0 "
+                        >
+                        Czy zlecenie zakończone?
+                    </CheckBox>
+
+                </StackPanel>
+                
+                <StackPanel
+                    Orientation="Vertical"
+                    Grid.Row="2">
+
+
+                    <TextBox Text="{Binding VMEntity.Uwagi}"
+                         materialDesign:HintAssist.Hint="Uwagi"
+                         TextWrapping="Wrap" 
+                         HorizontalAlignment="Stretch"
+                         Margin="5"/>
+
+                </StackPanel>
+            </Grid>
+
+        </GroupBox>
+        <!--#endregion-->
+
+        <!--#region TabControl -->
+        <TabControl Grid.Row="2"
+                    Margin="10"
+                    >
+            <TabItem Header="Gniazda"
+                     ToolTip="Określenie parametrów dla gniazd linii włóknin oraz linii kalandra."
+                     >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <vmLiniaWloknin:ZlecenieProdukcyjneTowarLiniaWlokninView 
+                        DataContext="{Binding LiniaWlokninViewModel}"  />
+                    <vmLiniaKalandra:ZlecenieProdukcyjneTowarLiniaKalandraView 
+                        Grid.Row="1"
+                        DataContext="{Binding LiniaKalandraViewModel}"  />
+                    <!--<vmTowar:ZlecenieProdukcyjneTowarView DataContext="{Binding TowarViewModel}" />-->
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Mieszanka"
+                     >
+                <viewMieszanka:ZlecenieProdukcyjneMieszankaView DataContext="{Binding MieszankaViewModel}" />
+            </TabItem>
+
+        </TabControl>
+        <!--#endregion-->
+
+
+    </Grid>
+</Window>

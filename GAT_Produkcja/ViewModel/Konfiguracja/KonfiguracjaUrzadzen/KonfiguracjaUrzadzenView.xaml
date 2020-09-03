@@ -1,0 +1,154 @@
+﻿<Window x:Class="GAT_Produkcja.ViewModel.Konfiguracja.KonfiguracjaUrzadzen.KonfiguracjaUrzadzenView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GAT_Produkcja.ViewModel.Konfiguracja.KonfiguracjaUrzadzen"
+        mc:Ignorable="d"
+        
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:vmBadania ="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.GniazdaProdukcyjne.ProdukcjaRuch.RuchTowar.Badania"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="12"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        MinHeight="100"
+        MinWidth="100"
+        Height="300"
+        Width="450"
+
+        xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+        startUp:ViewModelLocator.AutoWireViewModel="True"
+        Title="{Binding Title}"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        >
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding LoadCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--#region Naglowek -->
+        <Grid
+            Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel
+                Orientation="Horizontal"
+                Grid.Column="2"
+                >
+                <Button 
+                        Command="{Binding SaveCommand}"
+                        Margin="5"
+                        ToolTip="Zapisz konfigurację"
+                    >
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ContentSave" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    </StackPanel>
+
+                </Button>
+            </StackPanel>
+        </Grid>
+
+
+        <Grid
+            Grid.Row="1"
+            >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+                <GroupBox
+                    Header="Drukarka etykiet"
+                    Margin="5"
+                    >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <StackPanel
+                    Orientation="Horizontal"
+                    >
+                            <TextBlock Text="Nazwa drukarki"
+                             Margin="10"
+                               VerticalAlignment="Bottom"
+                               />
+                            <ComboBox ItemsSource="{Binding Printers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                          SelectedItem="{Binding SelectedPrinter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                          materialDesign:HintAssist.Hint="Wybierz drukarkę"
+                                          materialDesign:HintAssist.IsFloating="False"
+                                          VerticalAlignment="Center"
+                                          MinWidth="200"
+                                          Margin="10" 
+                                          />
+                        </StackPanel>
+                        <StackPanel
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        >
+                            <TextBlock Text="Port drukarki"
+                               Margin="10"
+                               VerticalAlignment="Bottom"
+                               />
+                            <TextBox Text="{Binding VMEntity.DrukarkaIP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Margin="25 5"
+                                     />
+                        </StackPanel>
+                    </Grid>
+
+                </GroupBox>
+
+                <GroupBox
+                    Grid.Row="1"
+                    Header="Waga"
+                    Margin="5"
+                    >
+
+                    <StackPanel
+                        Orientation="Horizontal"
+                        >
+                        <TextBlock Text="Nr portu COM" 
+                               Margin="10"
+                               VerticalAlignment="Bottom"
+                               />
+                        <ComboBox ItemsSource="{Binding ComPorts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    SelectedItem="{Binding SelectedScaleCom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Wybierz port"
+                                    materialDesign:HintAssist.IsFloating="False"
+                                    MinWidth="250"
+                                    Margin="20 0" 
+                                    />
+                    </StackPanel>
+
+                </GroupBox>
+
+        </Grid>
+
+
+    </Grid>
+</Window>

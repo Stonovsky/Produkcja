@@ -1,0 +1,73 @@
+﻿<Control x:Name="Control" 
+         x:Class="GAT_Trade.UI.ResourceDictionaries.FilterDataWithPopupControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         
+         Language="pl-PL"
+         >
+  <Control.Template>
+    <ControlTemplate>
+      <Grid>
+        <ToggleButton x:Name="button">
+          <ToggleButton.Style>
+            <Style TargetType="Control">
+              <!-- Only show the button if the filter is active or if the mouse is over the column header -->
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Filter, ElementName=Control}" Value="{x:Null}">
+                  <Setter Property="Visibility" Value="Visible"/> <!--Was "Hidden"-->
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridColumnHeader}}" Value="True">
+                  <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </ToggleButton.Style>
+          <!-- Reuse the standard icon, but change color to green -->
+          <Control Style="{DynamicResource {x:Static dgx:DataGridFilter.IconStyleKey}}" Foreground="Gray"/>
+        </ToggleButton>
+        <Popup x:Name="popup" IsOpen="{Binding Path=IsChecked, ElementName=button, Mode=TwoWay}" 
+               AllowsTransparency="True"
+               DataContext="{Binding ElementName=Control}" StaysOpen="False">
+          <Border Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="3" Padding="4">
+            <StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Wprowadź daty:" Margin="5"/>
+                    <Button Content="X" Width="40"
+                            Command="{Binding WyczyscFiltrCommand}"/>
+                </StackPanel>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                      <RowDefinition/>
+                      <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <DatePicker 
+                        Grid.Row="0"    
+                        SelectedDate="{Binding FromDate, StringFormat=d, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Width="auto"
+                            VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Od dnia" materialDesign:HintAssist.IsFloating="True"
+                        />
+                    <DatePicker 
+                            Grid.Row="1"    
+                            SelectedDate="{Binding ToDate, StringFormat=d, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Width="auto"
+                            VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Do dnia" materialDesign:HintAssist.IsFloating="True"
+                        />
+
+              </Grid>
+            </StackPanel>
+          </Border>
+        </Popup>
+      </Grid>
+    </ControlTemplate>
+  </Control.Template>
+</Control>

@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" />
+  <Import Project="..\packages\NUnit3TestAdapter.3.16.1\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.3.16.1\build\net35\NUnit3TestAdapter.props')" />
+  <Import Project="..\packages\PropertyChanged.Fody.3.0.1\build\PropertyChanged.Fody.props" Condition="Exists('..\packages\PropertyChanged.Fody.3.0.1\build\PropertyChanged.Fody.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F6498C71-262B-4BF5-A124-834A0DBDADD8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GAT_Produkcja.Tests</RootNamespace>
+    <AssemblyName>GAT_Produkcja.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoFixture, Version=4.11.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.4.11.0\lib\net452\AutoFixture.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoFixture.AutoMoq, Version=4.11.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.AutoMoq.4.11.0\lib\net452\AutoFixture.AutoMoq.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.4.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Fare, Version=2.1.0.0, Culture=neutral, PublicKeyToken=ea68d375bf33a7c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fare.2.1.1\lib\net35\Fare.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq, Version=4.13.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.13.0\lib\net45\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.12.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PropertyChanged, Version=3.0.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyChanged.Fody.3.0.1\lib\net452\PropertyChanged.dll</HintPath>
+    </Reference>
+    <Reference Include="SdkApi.Core, Version=2.15.2634.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.1\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Workflow.ComponentModel" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsBase.4.6.1055.0\lib\WindowsBase.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseClasses\SaveDeleteCommandTestsBaseClass.cs" />
+    <Compile Include="BaseClasses\TestBaseGeneric.cs" />
+    <Compile Include="BaseClasses\TestBase.cs" />
+    <Compile Include="Convention\ModelConventionTests.cs" />
+    <Compile Include="Convention\ViewModelConventionTests.cs" />
+    <Compile Include="Helpers\Geokomorka\GeokomorkaHelperTests.cs" />
+    <Compile Include="Helpers\Geowlokina\GeowlokninaHelperTests.cs" />
+    <Compile Include="Helpers\Theme\ThemeChangerHelperTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\BarCodeScanner\BarCodeScannerTests.cs" />
+    <Compile Include="Utilities\BaseClasses\AddEditCommandGenericViewModelBaseInstance.cs" />
+    <Compile Include="Utilities\BaseClasses\AddEditCommandGenericViewModelBaseTests.cs" />
+    <Compile Include="Utilities\BaseClasses\ListAddEditDeleteCommandGenericViewModelBaseInstance.cs" />
+    <Compile Include="Utilities\BaseClasses\ListAddEditDeleteCommandGenericViewModelBaseTests.cs" />
+    <Compile Include="Utilities\ComputerData\ComputerServiceTests.cs" />
+    <Compile Include="Utilities\CurrencyService\NBP\NBPServiceTests.cs" />
+    <Compile Include="Utilities\EppFile\EppFileGeneratorTests.cs" />
+    <Compile Include="Utilities\ExcelReportGenerator\XlsServiceTests.cs" />
+    <Compile Include="Utilities\ExcelReportGenerator\XlsNewServiceTest.cs" />
+    <Compile Include="Utilities\ExtensionMethods\CompareExtensionTests.cs" />
+    <Compile Include="Utilities\ExtensionMethods\CopyPropertyExtensionTests.cs" />
+    <Compile Include="Utilities\MailMessages\ZapotrzebowanieMailItemTests.cs" />
+    <Compile Include="Utilities\MailSenders\GmailSenderTests.cs" />
+    <Compile Include="Utilities\Printers\PrinterServiceTests.cs" />
+    <Compile Include="Utilities\ScaleService\ScaleLP7510ReaderTests.cs" />
+    <Compile Include="Utilities\ScaleService\ScalePortRadWagWPT3C1ReaderTests.cs" />
+    <Compile Include="Utilities\ScaleService\ScaleServiceTests.cs" />
+    <Compile Include="Utilities\WebScraper\DaneKontrahentaZGUSWebScraperTests.cs" />
+    <Compile Include="Utilities\WebScraper\PobierzDaneKontrahentaZGUSTests.cs" />
+    <Compile Include="Utilities\ZebraPrinter\S4M\ZebraS4MPrinterTests.cs" />
+    <Compile Include="Utilities\ZebraPrinter\S4M\ZebraS4MServiceTests.cs" />
+    <Compile Include="Utilities\ZebraPrinter\ZebraLabelGeneratorTests.cs" />
+    <Compile Include="Utilities\ZebraPrinter\ZebraLabelPrinterTests.cs" />
+    <Compile Include="ViewModels\Badania\Geowlokniny\SprawdzenieWynikowBadan\WeryfikacjaGramaturyGeowlokninHelperTests.cs" />
+    <Compile Include="ViewModels\Badania\Geowlokniny\SprawdzenieWynikowBadan\WeryfikacjaWynikowBadanTests.cs" />
+    <Compile Include="ViewModels\Finanse\Banki\StanKont\DodajStanKonta\DodajStanKontaViewModelTests.cs" />
+    <Compile Include="ViewModels\Finanse\Banki\StanKont\Ewidencja\EwidencjaStanKontViewModelTests.cs" />
+    <Compile Include="ViewModels\Finanse\NaleznosciIZobowiazania\FinanseZobowiazaniaNaleznosciViewModelTests.cs" />
+    <Compile Include="ViewModels\Finanse\PodsumowanieWDatach\Helpers\PodsumowanieKontBankowychHelperTests.cs" />
+    <Compile Include="ViewModels\Finanse\PodsumowanieWDatach\Helpers\PodsumowanieMagazynyHelperTests.cs" />
+    <Compile Include="ViewModels\Finanse\PodsumowanieWDatach\Helpers\PodsumowanieNaleznosciIZobowiazaniaHelperTests.cs" />
+    <Compile Include="ViewModels\Finanse\PodsumowanieWDatach\Helpers\PodsumowanieProdukcjaHelperTests.cs" />
+    <Compile Include="ViewModels\Finanse\PodsumowanieWDatach\Helpers\PodsumowanieSprzedazHelperTests.cs" />
+    <Compile Include="ViewModels\Finanse\PodsumowanieWDatach\Helpers\PodsumowanieZamowieniaOdKlientowHelperTests.cs" />
+    <Compile Include="ViewModels\Finanse\PodsumowanieWDatach\PodsumowanieFinansoweViewModelTests.cs" />
+    <Compile Include="ViewModels\Finanse\Sprzedaz\Ewidencja\SprzedazEwidencjaViewModelTests.cs" />
+    <Compile Include="ViewModels\Konfiguracja\DrukarkaEtykiet\KonfiguracjaUrzadzenViewModelTests.cs" />
+    <Compile Include="ViewModels\Kontrahent\Dodaj\DodajKontrahentaViewModelTests.cs" />
+    <Compile Include="ViewModels\Kontrahent\Ewidencja\EwidencjaKontrahentowViewModelTests.cs" />
+    <Compile Include="ViewModels\Magazyn\Ewidencje\RuchTowaru\MagazynRuchTowaruViewModelTests.cs" />
+    <Compile Include="ViewModels\Magazyn\Ewidencje\SubiektGT\MagazynEwidencjaSubiektUCViewModelTests.cs" />
+    <Compile Include="ViewModels\Magazyn\Helpers\TblRuchNaglowekHelperTests.cs" />
+    <Compile Include="ViewModels\MainMenu\MainMenuViewModelTests.cs" />
+    <Compile Include="ViewModels\MainMenu\Menubar\MainMenuBarViewModelTests.cs" />
+    <Compile Include="ViewModels\MainMenu\Zapotrzebowanie\MainMenuZapotrzebowanieViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\CenyTransferowe\DodajCenyTransferoweViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\CenyTransferowe\Ewidencja\EwidencjaCenTransferowychViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\Ewidencja\LiniaWlokninProdukcjaEwidencjaSQLStateTests.cs" />
+    <Compile Include="ViewModels\Produkcja\Ewidencja\ProdukcjaEwidencjaViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\Ewidencja\State\ProdukcjaEwidencjaStateBaseInstance.cs" />
+    <Compile Include="ViewModels\Produkcja\Ewidencja\State\LiniaWlokninProdukcjaEwidencjaStateTests.cs" />
+    <Compile Include="ViewModels\Produkcja\Geokomorka\Przerob\Dodaj\DodajPrzerobProdukcjaGeokomorkaViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\Geokomorka\Przerob\Ewidencja\EwidencjaPrzerobProdukcjaGeokomorkaViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\Dodaj\GniazdaProdukcyjneDodajViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\Ewidencja\GniazdaProdukcyjneEwidencjaViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\Helpers\Tolerancje\WeryfikacjaTolerancjiTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\Konfekcja\DrukEtykiet\DrukEtykietViewModelTests.cs" />
+    <Compile Include="ViewModels\Kontrahent\Dodaj\DodajKontrahentaViewModelTests_old.cs" />
+    <Compile Include="ViewModels\Login\LoginViewModelTests.cs" />
+    <Compile Include="ViewModels\Magazyn\Ewidencje\StanTowaru\MagazynStanTowaruViewModelTests.cs" />
+    <Compile Include="ViewModels\Magazyn\Ewidencje\StanTowaru\TestFixtrueAttribute.cs" />
+    <Compile Include="ViewModels\Magazyn\Helpers\TblRuchTowarHelperTests.cs" />
+    <Compile Include="ViewModels\Magazyn\RuchTowaru\Dodaj\RozchodWewnetrznyDodajViewModelTests.cs" />
+    <Compile Include="ViewModels\Magazyn\RuchTowaru\KodKreskowy\RuchTowaruKodKreskowyDodajViewModelTests.cs" />
+    <Compile Include="ViewModels\Magazyn\RuchTowaru\RuchTowaruViewModelTests.cs" />
+    <Compile Include="ViewModels\Magazyn\Towar\Ewidencja\TowarEwidencjaViewModelTests.cs" />
+    <Compile Include="ViewModels\Magazyn\Towar\Szczegoly\TowarSzczegolyViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\Badania\LiniaWlokninBadaniaViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\GPRuchNaglowekViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\GPRuchNaglowekViewModel_oldTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\Helpers\GPRuchTowar_RolkaHelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\Helpers\NazwaTowaruGeneratorTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Badania\GPRuchTowarBadaniaViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\Palety\Adapters\ProdukcjaRuchPaletyAdapterTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\ProdukcjaRuchEwidencjaUCViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\ProdukcjaRuchEwidencjaViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\MsAccessImport\MsAccessImportGniazdDoSqlTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\MsAccessImport\MsAccessImportZlecenProdukcyjnychDoSqlTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\State\GPRuchNaglowekKalanderStateTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\State\GPRuchNaglowekStateFactoryTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\State\LiniaWlokninProdukcjaEwidencjaStateTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\GPRuchTowarPWViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Dodaj\GPRuchTowarDodajViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\GPRuchTowar_PW_KonfekcjaHelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\GPRuchTowar_PW_PodsumowanieHelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Strategy\GPRuchTowar_PW_PodsumowanieWlokninaIKalanderStrategyTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\GPRuchTowar_PW_RolkaBazowaHelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\GPRuchTowar_PW_RolkaBazowa_HelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\GPRuchTowar_PW_ZaawansowanieHelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\RW\GPRuchTowarRWViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Dane\RozliczenieMsAccessDaneViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Dictionaries\SurowceDictionaryTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Ewidencja\Helpers\RozliczenieMsAccessEwidencjaDeleteHelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Ewidencja\Helpers\RozliczenieMsAccessEwidencjaFiltrHelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Ewidencja\RozliczenieMsAccessEwidencjaViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Helpers\DirectoryHelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Helpers\KonfekcjaSQLHelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Helpers\NazwaTowaruSubiektHelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Helpers\PlikKatalogHelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Helpers\PW\RozliczenieMsAcces_PW_HelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Helpers\RozliczenieMsAccesHelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Helpers\RW\RozliczenieMsAcces_RW_HelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Helpers\RW\RozliczenieSQL_RW_HelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Helpers\Strategies\SurowiecSubiektDictionaryMsAccessStrategyTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Helpers\Strategies\SurowiecSubiektZNazwyMsAccessStrategyTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Modele\PodsumowanieRozliczenieMsAccessModel.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\Modele\RozliczenieMsAccessFiltr.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\RozliczenieMsAccessViewModeDbTests.cs" />
+    <Compile Include="ViewModels\Produkcja\RozliczenieMsAccess\RozliczenieMsAccessViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZamowienieOdKlienta\Pakowanie\PakowanieViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZamowienieOdKlienta\TowarGeokomorka\Dodaj\TowarGeokomorkaDodajViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZamowienieOdKlienta\TowarGeokomorka\TowarGeokomorkaViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZamowienieOdKlienta\ZamowienieOdKlientaViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieCiecia\Dodaj\DodajTowar\ZlecenieDodajTowarViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieCiecia\Dodaj\Naglowek\ZlecenieCieciaNaglowekViewModelTests_new.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieCiecia\Dodaj\Naglowek\ZlecenieCieciaNaglowekViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieCiecia\Dodaj\Towar\ZlecenieCieciaTowarViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieCiecia\Dodaj\Towar\ZlecenieCieciaTowarViewModel_newTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieCiecia\Ewidencja\ZlecenieCieciaEwidencjaViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieProdukcyjne\Dodaj\Mieszanka\Helpers\MieszankaKalkulatorCenyHelperTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieProdukcyjne\Dodaj\Naglowek\ZlecenieProdukcyjneNaglowekViewModelTests_old.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieProdukcyjne\Dodaj\Naglowek\ZlecenieProdukcyjneNaglowekViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieProdukcyjne\Dodaj\Towar\LiniaWloknin\ZlecenieProdukcyjneTowarLiniaWlokninViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieProdukcyjne\Ewidencja\ZlecenieProdukcyjneEwidencjaViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieProdukcyjne\Mieszanka\Dodaj\MieszankaDodajViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieProdukcyjne\Mieszanka\Dodaj\MieszankaDodajViewTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieProdukcyjne\Mieszanka\Ewidencja\MieszankaEwidencjaViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieProdukcyjne\Dodaj\Towar\ZlecenieProdukcyjneTowarViewModelTests.cs" />
+    <Compile Include="ViewModels\Produkcja\ZlecenieProdukcyjne\Dodaj\Mieszanka\ZlecenieProdukcyjneMieszankaViewModelTests.cs" />
+    <Compile Include="ViewModels\test.cs" />
+    <Compile Include="ViewModels\ZamowienieOdKlienta\Helper\ZamOdKlientaFiltrHelperTests.cs" />
+    <Compile Include="ViewModels\ZamowienieOdKlienta\Szczegoly\ZamowienieOdKlientaEwidencjaSzczegolyUCViewModelTests.cs" />
+    <Compile Include="ViewModels\ZamowienieOdKlienta\ZamowienieOdKlientaEwidencjaViewModelTests.cs" />
+    <Compile Include="ViewModels\Zapotrzebowanie\Dodaj\DodajPozycje\DodajPozycjeZapotrzebowaniaViewModelTests.cs" />
+    <Compile Include="ViewModels\Zapotrzebowanie\Dodaj\ZapotrzebowanieDodajViewModelTests.cs" />
+    <Compile Include="ViewModels\Zapotrzebowanie\Ewidencja\ZapotrzebowanieEwidencjaViewModelTests.cs" />
+    <Compile Include="ViewModels\Zapotrzebowanie\RozliczenieFV\Szczegoly\ZapotrzebowanieRozliczenieFVSzczegolyViewModelTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GAT_Produkcja.dbComarch\GAT_Produkcja.dbComarch.csproj">
+      <Project>{75465B36-E1F7-433C-BB3E-2612AE46FD2F}</Project>
+      <Name>GAT_Produkcja.dbComarch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GAT_Produkcja.dbMsAccess\GAT_Produkcja.dbMsAccess.csproj">
+      <Project>{D30B254E-4B2B-4300-B796-A99603665C47}</Project>
+      <Name>GAT_Produkcja.dbMsAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GAT_Produkcja.db\GAT_Produkcja.db.csproj">
+      <Project>{adffb0e2-06d8-4be6-8a88-8fab32d7d669}</Project>
+      <Name>GAT_Produkcja.db</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GAT_Produkcja\GAT_Produkcja.UI.csproj">
+      <Project>{db6f7429-65e5-41c7-8925-87e1569378de}</Project>
+      <Name>GAT_Produkcja.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Outlook">
+      <Guid>{00062FFF-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Dodaj\" />
+    <Folder Include="ViewModels\Produkcja\RozliczenieMsAccess\Helpers\DirectoryHelper\" />
+    <Folder Include="ViewModels\Produkcja\ZamowienieOdKlienta\TowarGeowloknina\" />
+    <Folder Include="ViewModels\Produkcja\Zlecenia\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Ten projekt zawiera odwołania do pakietów NuGet, których nie ma na tym komputerze. Użyj przywracania pakietów NuGet, aby je pobrać. Aby uzyskać więcej informacji, zobacz http://go.microsoft.com/fwlink/?LinkID=322105. Brakujący plik: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\PropertyChanged.Fody.3.0.1\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PropertyChanged.Fody.3.0.1\build\PropertyChanged.Fody.props'))" />
+    <Error Condition="!Exists('..\packages\Fody.5.0.6\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.5.0.6\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\NUnit3TestAdapter.3.16.1\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.3.16.1\build\net35\NUnit3TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.12.0\build\NUnit.props'))" />
+  </Target>
+  <Import Project="..\packages\Fody.5.0.6\build\Fody.targets" Condition="Exists('..\packages\Fody.5.0.6\build\Fody.targets')" />
+</Project>

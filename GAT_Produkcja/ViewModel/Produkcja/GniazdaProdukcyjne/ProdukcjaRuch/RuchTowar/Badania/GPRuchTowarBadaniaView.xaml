@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="GAT_Produkcja.ViewModel.Produkcja.GniazdaProdukcyjne.ProdukcjaRuch.RuchTowar.Badania.GPRuchTowarBadaniaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.GniazdaProdukcyjne.ProdukcjaRuch.RuchTowar.Badania"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="12"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             
+             xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+             startUp:ViewModelLocator.AutoWireViewModel="True"
+             >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel
+                HorizontalAlignment="Center"
+                >
+            <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            >
+                <TextBox Text="{Binding Gramatura1 , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Gramatura 1"
+                             ToolTip="Podaj gramaturę dla próbki"
+                             Margin="10"
+                             TextAlignment="Center"
+                             />
+                <TextBox Text="{Binding Gramatura2 , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Gramatura 2"
+                             ToolTip="Podaj gramaturę dla próbki"
+                             Margin="10"
+                             TextAlignment="Center"
+                             />
+                <TextBox Text="{Binding Gramatura3 , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Gramatura 3"
+                             ToolTip="Podaj gramaturę dla próbki"
+                             Margin="10"
+                             TextAlignment="Center"
+                             />
+            </StackPanel>
+
+            <TextBox Text="{Binding VMEntity.GramaturaSrednia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="Gramatura średnia"
+                         ToolTip="Gramatura średnia dla podanych próbek"
+                         Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                         Margin="5"
+                         TextAlignment="Center"
+                         IsReadOnly="True"
+                         />
+
+            <TextBox Text="{Binding VMEntity.UwagiGramatura, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="Uwagi"
+                         ToolTip="Uwagi dot. gramatury"        
+                         Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                         Margin="5"
+                         TextAlignment="Center"
+                         />
+
+            <StackPanel Orientation="Horizontal"
+                  Grid.Row="1"
+                    >
+                <TextBlock Text="Czy gramatura w tolerancjach?"
+                           VerticalAlignment="Center"
+                           Margin="10"
+                           />
+                <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+
+                    <ToggleButton Content="X"
+                              Style="{StaticResource MaterialDesignActionLightToggleButton}"
+                              IsChecked="{Binding VMEntity.CzySredniaGramaturaWTolerancjach, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ToolTip="MaterialDesignActionLightToggleButton" 
+                              Width="40"
+                              Height="40"
+                              Padding="0 0 0 0"
+                              FontSize="20"
+                              />
+                </StackPanel>
+
+            </StackPanel>
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>

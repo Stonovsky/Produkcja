@@ -1,0 +1,1498 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\SourceLink.Create.CommandLine.2.8.3\build\SourceLink.Create.CommandLine.props" Condition="Exists('..\packages\SourceLink.Create.CommandLine.2.8.3\build\SourceLink.Create.CommandLine.props')" />
+  <Import Project="..\packages\PropertyChanged.Fody.3.0.1\build\PropertyChanged.Fody.props" Condition="Exists('..\packages\PropertyChanged.Fody.3.0.1\build\PropertyChanged.Fody.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DB6F7429-65E5-41C7-8925-87E1569378DE}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>GAT_Produkcja</RootNamespace>
+    <AssemblyName>GTEX_Produkcja</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>\\192.168.34.57\gtex\10. PRODUKCJA\Program\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <PublisherName>Tomasz Strączek</PublisherName>
+    <MinimumRequiredVersion>1.0.0.47</MinimumRequiredVersion>
+    <ApplicationRevision>48</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>GTEXico.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>F983A9601B9ED5DE465561E9B26D2BBD87B524B3</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>GAT_Produkcja.UI_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.9.3.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.3\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Extras.CommonServiceLocator, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Extras.CommonServiceLocator.5.0.0\lib\net45\Autofac.Extras.CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="BespokeFusion, Version=1.0.1.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialMessageBox.1.0.0.11\lib\BespokeFusion.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.2.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.8.2\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.94.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.94.2\lib\net46\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net47\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="Csv, Version=1.0.31.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Csv.1.0.31\lib\net40\Csv.dll</HintPath>
+    </Reference>
+    <Reference Include="DataGridExtensions, Version=1.0.41.0, Culture=neutral, PublicKeyToken=43de855f87de903a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataGridExtensions.1.0.41\lib\net45\DataGridExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetKit.Wpf.AutoCompleteComboBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetKit.Wpf.AutoCompleteComboBox.1.2.0\lib\net45\DotNetKit.Wpf.AutoCompleteComboBox.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.3.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.3\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.1.3.0\lib\net45\FastMember.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentFTP, Version=19.2.2.0, Culture=neutral, PublicKeyToken=f4af092b1d8df44f, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentFTP.19.2.2\lib\net45\FluentFTP.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="HidLibrary, Version=3.3.28.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\hidlibrary.3.3.28\lib\net45\HidLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=4.65.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
+      <HintPath>..\packages\CompareNETObjects.4.65.0\lib\net472\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="MailKit, Version=2.2.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
+      <HintPath>..\packages\MailKit.2.2.0\lib\net45\MailKit.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.2.0.325, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.2.0\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignExtensions, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignExtensions.2.7.0\lib\net45\MaterialDesignExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.6.0.325, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.6.0\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bot.Connector, Version=4.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bot.Connector.4.7.2\lib\netstandard2.0\Microsoft.Bot.Connector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bot.Schema, Version=4.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bot.Schema.4.7.2\lib\netstandard2.0\Microsoft.Bot.Schema.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DotNet.PlatformAbstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DotNet.PlatformAbstractions.2.1.0\lib\net45\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyModel, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyModel.2.1.0\lib\net451\Microsoft.Extensions.DependencyModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.5.2.4\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.6.0\lib\net461\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.6.0\lib\net461\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.5.6.0\lib\net461\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.5.6.0\lib\net461\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.6.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.21\lib\net461\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="MimeKit, Version=2.2.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.2.2.0\lib\net45\MimeKit.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmDialogs, Version=5.3.0.0, Culture=neutral, PublicKeyToken=3d3b9708589bc73e, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmDialogs.5.3.0\lib\net45\MvvmDialogs.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmDialogs.Contrib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=48042e6b35f3918a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmDialogs.Contrib.1.0.0\lib\net45\MvvmDialogs.Contrib.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.6.7\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="PropertyChanged, Version=3.0.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyChanged.Fody.3.0.1\lib\net452\PropertyChanged.dll</HintPath>
+    </Reference>
+    <Reference Include="SdkApi.Core, Version=2.15.2634.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zebra.Printer.SDK.2.15.2634\lib\net471\SdkApi.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SdkApi.Desktop, Version=2.15.2634.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zebra.Printer.SDK.2.15.2634\lib\net471\SdkApi.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="SdkApi.Desktop.Usb, Version=2.15.2634.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zebra.Printer.SDK.2.15.2634\lib\net471\SdkApi.Desktop.Usb.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpSnmpLib, Version=10.0.9.0, Culture=neutral, PublicKeyToken=4c00852d3788e005, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lextm.SharpSnmpLib.10.0.9\lib\net452\SharpSnmpLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Specialized, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Specialized.4.3.0\lib\net46\System.Collections.Specialized.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.6.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.0\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Net.NameResolution, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.NameResolution.4.3.0\lib\net46\System.Net.NameResolution.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.XmlDocument, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.XmlDocument.4.3.0\lib\net46\System.Xml.XmlDocument.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WPFTextBoxAutoComplete, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFTextBoxAutoComplete.1.0.5\lib\net40\WPFTextBoxAutoComplete.dll</HintPath>
+    </Reference>
+    <Reference Include="ZebraPrinterSdk, Version=2.15.2634.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zebra.Printer.SDK.2.15.2634\lib\net471\ZebraPrinterSdk.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Connected Services\GUSServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\ApplicationWindowConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\DostepKierownikProdukcjiVisibilityConverter.cs" />
+    <Compile Include="Converters\DostepMagazynVisibilityConverter.cs" />
+    <Compile Include="Converters\DostepOperatorVisibilityConverter.cs" />
+    <Compile Include="Converters\DostepProdukcjaVisibilityConverter.cs" />
+    <Compile Include="Converters\DostepFinanseVisibilityConverter.cs" />
+    <Compile Include="Converters\DostepDyrektorVisibilityConverter.cs" />
+    <Compile Include="Converters\DostepSzefVisibilityConverter.cs" />
+    <Compile Include="Converters\NotHunderetPercentRedRGBConverter.cs" />
+    <Compile Include="Converters\ZapotrzebowanieBlokadaFormularzaConverter.cs" />
+    <Compile Include="Converters\PercentToIntConverter.cs" />
+    <Compile Include="Converters\StatusZapotrzebowaniaIsReadOnlyBoolConverter.cs" />
+    <Compile Include="Converters\StatusZapotrzebowaniaVisibilityConverter.cs" />
+    <Compile Include="Converters\TextToPasswordCharConverter.cs" />
+    <Compile Include="Helpers\Geokomórka\GeokomorkaHelper.cs" />
+    <Compile Include="Helpers\Geokomórka\IGeokomorkaHelper.cs" />
+    <Compile Include="Helpers\Geowloknina\GeowlokninaHelper.cs" />
+    <Compile Include="Helpers\Geowloknina\IGeowlokninaHelper.cs" />
+    <Compile Include="Helpers\Interfaces\IButtonActive.cs" />
+    <Compile Include="Helpers\Theme\IThemeChangerHelper.cs" />
+    <Compile Include="Helpers\Theme\ThemeChangerHelper.cs" />
+    <Compile Include="Helpers\Theme\ThemeColorEnum.cs" />
+    <Compile Include="Services\CustomMessageBox\MaterialMessageBoxCustomizedGTex.cs" />
+    <Compile Include="Services\CustomPinMessageBox\CustomPinMessageBoxView.xaml.cs">
+      <DependentUpon>CustomPinMessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\CustomPinMessageBox\CustomPinMessageBoxViewModel.cs" />
+    <Compile Include="Services\IOpenSaveDialogService.cs" />
+    <Compile Include="Services\IViewModelService.cs" />
+    <Compile Include="Services\IViewService.cs" />
+    <Compile Include="Services\MyViewModelBase.cs" />
+    <Compile Include="Services\OpenSaveDialogService.cs" />
+    <Compile Include="Services\ViewModelService.cs" />
+    <Compile Include="Services\ViewService.cs" />
+    <Compile Include="Startup\IoC.cs" />
+    <Compile Include="Startup\StartUpView.cs" />
+    <Compile Include="Utilities\BarCodeGenerator\BarCodeGenerator.cs" />
+    <Compile Include="Utilities\BarCodeScanner\BarCodeScanner.cs" />
+    <Compile Include="Utilities\BarCodeScanner\IBarCodeScanner.cs" />
+    <Compile Include="Converters\BaseValueConverter.cs" />
+    <Compile Include="Utilities\BaseClasses\DetailViewModelBase.cs" />
+    <Compile Include="Utilities\BaseClasses\ICommandDetailViewModel.cs" />
+    <Compile Include="Utilities\BaseClasses\IDetailViewModel.cs" />
+    <Compile Include="Utilities\BaseClasses\IMethodDetailViewModel.cs" />
+    <Compile Include="Utilities\BaseClasses\IMyViewModelBase.cs" />
+    <Compile Include="Utilities\BaseClasses\ListAddEditDeleteCommandStates\IListSelectionState.cs" />
+    <Compile Include="Utilities\BaseClasses\ListAddEditDeleteCommandStates\SelectListSelectionState.cs" />
+    <Compile Include="Utilities\BaseClasses\ListAddEditDeleteMethodGenericViewModelBase.cs" />
+    <Compile Include="Utilities\BaseClasses\ListAddEditDeleteCommandGenericViewModelBase.cs" />
+    <Compile Include="Utilities\BaseClasses\ListAddEditDeleteCommandViewModelBase.cs" />
+    <Compile Include="Utilities\BaseClasses\ListMethodViewModelBase.cs" />
+    <Compile Include="Utilities\BaseClasses\ListCommandViewModelBase.cs" />
+    <Compile Include="Utilities\BaseClasses\AddEditCommandGenericViewModelBase.cs" />
+    <Compile Include="Utilities\BaseClasses\Messages\RefreshListMessage.cs" />
+    <Compile Include="Utilities\BaseClasses\SaveDeleteCommandViewModelBase.cs" />
+    <Compile Include="Utilities\BaseClasses\SaveDeleteMessangerViewModelBase.cs" />
+    <Compile Include="Utilities\BaseClasses\SaveDeleteMethodViewModelBase.cs" />
+    <Compile Include="Utilities\BaseClasses\SaveDeleteMethodGenericViewModelBase.cs" />
+    <Compile Include="Utilities\BaseClasses\ViewModelServiceBase.cs" />
+    <Compile Include="Utilities\Behaviors\BindableSelectedItemBehavior.cs" />
+    <Compile Include="Utilities\ComputerData\ComputerService.cs" />
+    <Compile Include="Utilities\CurrencyService\NBP\INBPService.cs" />
+    <Compile Include="Utilities\CurrencyService\NBP\Model\CurrencyShorcutEnum.cs" />
+    <Compile Include="Utilities\CurrencyService\NBP\Model\NbpCurrencyModel.cs" />
+    <Compile Include="Utilities\CurrencyService\NBP\Model\NbpRateModel.cs" />
+    <Compile Include="Utilities\CurrencyService\NBP\NBPService.cs" />
+    <Compile Include="Utilities\Enums\ApplicationWindowsEnum.cs" />
+    <Compile Include="Utilities\EppFile\EppFileGenerator.cs" />
+    <Compile Include="Utilities\EppFile\IEppFileGenerator.cs" />
+    <Compile Include="Utilities\EppFile\WartoscDokumentuModel.cs" />
+    <Compile Include="Utilities\EppFile\WartoscPozycjiModel.cs" />
+    <Compile Include="Utilities\ExcelReportGenerator\IXlsNewService.cs" />
+    <Compile Include="Utilities\ExcelReportGenerator\IXlsServiceBuilder.cs" />
+    <Compile Include="Utilities\ExcelReportGenerator\XlsService.cs" />
+    <Compile Include="Utilities\ExcelReportGenerator\IXlsService.cs" />
+    <Compile Include="Utilities\ExcelReportGenerator\XlsServiceBuilder.cs" />
+    <Compile Include="Utilities\ExcelReportGenerator\XlsNewService.cs" />
+    <Compile Include="Utilities\ExtensionMethods\CastExtension.cs" />
+    <Compile Include="Utilities\ExtensionMethods\CloneExtension.cs" />
+    <Compile Include="Utilities\ExtensionMethods\CopyPropertyExtension.cs" />
+    <Compile Include="Utilities\Dostep\DostepEnum.cs" />
+    <Compile Include="Utilities\Dostep\Uzytkownik.cs" />
+    <Compile Include="Utilities\ExtensionMethods\CompareExtension.cs" />
+    <Compile Include="Utilities\ExtensionMethods\DateTimeExtensions.cs" />
+    <Compile Include="Utilities\ExtensionMethods\RemoveAllChildObjectsExtension.cs" />
+    <Compile Include="Utilities\FilesManipulations\FilesManipulation.cs" />
+    <Compile Include="Utilities\FilesManipulations\IFilesManipulation.cs" />
+    <Compile Include="Utilities\GUS\GUSApi.cs" />
+    <Compile Include="Utilities\Helpers\FocusExtension.cs" />
+    <Compile Include="Utilities\Printers\IPrinterService.cs" />
+    <Compile Include="Utilities\Printers\PrinterService.cs" />
+    <Compile Include="Utilities\ScaleService\Exceptions\ScaleException.cs" />
+    <Compile Include="Utilities\ScaleService\IScaleLP7510Reader.cs" />
+    <Compile Include="Utilities\ScaleService\IScalePortRadWagWPT3C1Reader.cs" />
+    <Compile Include="Utilities\ScaleService\IScaleReader.cs" />
+    <Compile Include="Utilities\ScaleService\Model\ScaleModel.cs" />
+    <Compile Include="Utilities\ScaleService\Scale.cs" />
+    <Compile Include="Utilities\ScaleService\ScaleLP7510Reader.cs" />
+    <Compile Include="Utilities\ScaleService\ScalePortRadWagWPT3C1Reader.cs" />
+    <Compile Include="Utilities\ScaleService\ScaleReader.cs" />
+    <Compile Include="Utilities\ScaleService\ScaleReaderBase.cs" />
+    <Compile Include="Utilities\Wrappers\HttpClientWrapper\HttpClientWrapper.cs" />
+    <Compile Include="Utilities\Wrappers\HttpClientWrapper\IHttpClientWrapper.cs" />
+    <Compile Include="Utilities\Logger\ActivityLogger.cs" />
+    <Compile Include="Utilities\Logger\IActivityLogger.cs" />
+    <Compile Include="Utilities\MailSenders\IGmailSender.cs" />
+    <Compile Include="Utilities\MailSenders\IOutlookMailSender.cs" />
+    <Compile Include="Utilities\MailSenders\MailAddresses\MailAddressesFromTo.cs" />
+    <Compile Include="Utilities\MailSenders\MailMessages\ZapotrzebowanieMailItem.cs" />
+    <Compile Include="Utilities\MailSenders\MailMessages\ZapotrzebowanieMailMessage.cs" />
+    <Compile Include="Utilities\MailSenders\OutlookMailSender.cs" />
+    <Compile Include="Utilities\MailSenders\GmailSender.cs" />
+    <Compile Include="Utilities\MailSenders\SmtpClientWrapper\ISmtpClientWrapper.cs" />
+    <Compile Include="Utilities\MailSenders\SmtpClientWrapper\SmtpClientWrapper.cs" />
+    <Compile Include="Utilities\MailSenders\SmtpMailSenderMailKit.cs" />
+    <Compile Include="Utilities\WebScraper\DaneKontrahentaZGUSWebScraper.cs" />
+    <Compile Include="Utilities\WebScraper\IDaneKontrahentaZGUSWebScraper.cs" />
+    <Compile Include="Utilities\WebScraper\IPobierzDaneKontrahentaZGUS.cs" />
+    <Compile Include="Utilities\Wrappers\DirecitoryInfoWrapper\DirectoryInfoWrapper.cs" />
+    <Compile Include="Utilities\Wrappers\DirecitoryInfoWrapper\IDirectoryInfoWrapper.cs" />
+    <Compile Include="Utilities\ZebraPrinter\Exceptions\ZebraException.cs" />
+    <Compile Include="Utilities\ZebraPrinter\IZebraLabelPrinter.cs" />
+    <Compile Include="Utilities\ZebraPrinter\LabelModel.cs" />
+    <Compile Include="Utilities\WPFControls\DataGridControl\DataGridSingleClickHelper.cs" />
+    <Compile Include="Utilities\WPFControls\DataGridControl\EditCellOnSingleClick.cs" />
+    <Compile Include="Utilities\ZebraPrinter\RawPrinterHelper.cs" />
+    <Compile Include="Utilities\ZebraPrinter\S4M\IZebraS4MPrinter.cs" />
+    <Compile Include="Utilities\ZebraPrinter\S4M\IZebraS4MService.cs" />
+    <Compile Include="Utilities\ZebraPrinter\S4M\IZebraZLPLabelGenerator.cs" />
+    <Compile Include="Utilities\ZebraPrinter\S4M\IZebraZPLCELabelGenerator.cs" />
+    <Compile Include="Utilities\ZebraPrinter\S4M\ZebraS4MPrinter.cs" />
+    <Compile Include="Utilities\ZebraPrinter\S4M\ZebraS4MService.cs" />
+    <Compile Include="Utilities\ZebraPrinter\S4M\ZebraZLPLabelGenerator.cs" />
+    <Compile Include="Utilities\ZebraPrinter\S4M\ZebraZPLCELabelGenerator.cs" />
+    <Compile Include="Utilities\ZebraPrinter\ZebraLabelGenerator.cs" />
+    <Compile Include="Utilities\ZebraPrinter\ZebraLabelPrinter.cs" />
+    <Compile Include="ViewModel\Konfiguracja\KonfiguracjaUrzadzen\KonfiguracjaUrzadzenView.xaml.cs">
+      <DependentUpon>KonfiguracjaUrzadzenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Konfiguracja\KonfiguracjaUrzadzen\KonfiguracjaUrzadzenViewModel.cs" />
+    <Compile Include="ViewModel\Kontrahent\Dodaj\DodajKontrahentaViewModel.cs" />
+    <Compile Include="ViewModel\Kontrahent\Ewidencja\EwidencjaKontrahentowViewModel.cs" />
+    <Compile Include="ViewModel\Magazyn\Ewidencje\Adapters\MagazynRuchGTXGroupAdapter.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\BadaniaGeowlokninRepository.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\BadaniaGeowlokninViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\IBadaniaGeowlokninRepository.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\ImportBadanZRaportuXls\ImportBadanZRaportuXlsView.xaml.cs">
+      <DependentUpon>ImportBadanZRaportuXlsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\ImportBadanZRaportuXls\ImportBadanZRaportuXlsViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\ImportBadanZRaportuXls\ImportZPliku\IImportBadanZRaportuZXls.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\ImportBadanZRaportuXls\ImportZPliku\ImportBadanZRaportuZXls.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\ImportBadanZRaportuXls\ImportZPliku\ImportZPlikuModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\PobieranieBadanZPliku\BadaniaGeowloknin.cs" />
+    <Compile Include="Utilities\WebScraper\PobierzDaneKontrahentaZGUS.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\BadaniaGeowlokninView.xaml.cs">
+      <DependentUpon>BadaniaGeowlokninView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\PobieranieBadanZPliku\BadaniaGeowlokninWynikiZPliku.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\PobieranieBadanZPliku\IBadaniaGeowloknin.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\PobieranieBadanZPliku\IBadaniaGeowlokninWynikiZPliku.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\SprawdzenieWynikowBadan\Exceptions\GeowlokninaGramaturaException.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\SprawdzenieWynikowBadan\IWeryfikacjaGramaturyGeowlokninHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\SprawdzenieWynikowBadan\IWeryfikacjaWynikowBadan.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\SprawdzenieWynikowBadan\WeryfikacjaGramaturyGeowlokninHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\Badania\Geowlokniny\SprawdzenieWynikowBadan\WeryfikacjaWynikowBadan.cs" />
+    <Compile Include="ViewModel\Finanse\Banki\StanKont\DodajStanKonta\DodajStanKontaView.xaml.cs">
+      <DependentUpon>DodajStanKontaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Finanse\Banki\StanKont\DodajStanKonta\DodajStanKontaViewModel.cs" />
+    <Compile Include="ViewModel\Finanse\Banki\StanKont\EwidencjaStanKont\EwidencjaStanKontView.xaml.cs">
+      <DependentUpon>EwidencjaStanKontView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Finanse\Banki\StanKont\EwidencjaStanKont\Messages\OdswiezEwidencjeStanuKontModel.cs" />
+    <Compile Include="ViewModel\Finanse\Banki\StanKont\EwidencjaStanKont\EwidencjaStanKontViewModel.cs" />
+    <Compile Include="ViewModel\Finanse\NaleznosciIZobowiazania\FinanseZobowiazaniaNaleznosciView.xaml.cs">
+      <DependentUpon>FinanseZobowiazaniaNaleznosciView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Finanse\NaleznosciIZobowiazania\FinanseZobowiazaniaNaleznosciViewModel.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\IPodsumowanieFinansoweHelper.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\IPodsumowanieKontaBankoweHelper.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\IPodsumowanieMagazynyHelper.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\IPodsumowanieNaleznosciIZobowiazaniaHelper.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\IPodsumowanieProdukcjaHelper.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\IPodsumowanieSprzedazHelper.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\IPodsumowanieZamowieniaOdKlientowHelper.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\PodsumowanieKontBankowychHelper.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\PodsumowanieFinansoweHelper.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\PodsumowanieMagazynyHelper.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\PodsumowanieNaleznosciIZobowiazaniaHelper.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\PodsumowanieProdukcjaHelper.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\PodsumowanieSprzedazHelper.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\PodsumowanieZamowieniaOdKlientowHelper_ZreazliowaneNiezrealizowane.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Helpers\PodsumowanieZamowieniaOdKlientowHelper.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Modele\PodsFinans_KontaBankoweModel.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Modele\PodsFinans_MagazynyModel.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Modele\PodsFinans_NaleznosciIZobowiazaniaModel.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Modele\PodsFinans_ProdukcjaModel.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Modele\PodsFinans_SprzedazAGGModel.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Modele\PodsFinans_StanyKontModel.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\Modele\PodsFinans_ZamowienieOdKlientowModel.cs" />
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\PodsumowanieFinansoweViewl.xaml.cs">
+      <DependentUpon>PodsumowanieFinansoweViewl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Finanse\PodsumowanieFinansowe\PodsumowanieFinansoweViewModel.cs" />
+    <Compile Include="ViewModel\Finanse\Sprzedaz\Ewidencja\Models\PodsumowanieSprzedazyModel.cs" />
+    <Compile Include="ViewModel\Finanse\Sprzedaz\Ewidencja\SprzedazEwidencjaView.xaml.cs">
+      <DependentUpon>SprzedazEwidencjaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Finanse\Sprzedaz\Ewidencja\SprzedazEwidencjaViewModel.cs" />
+    <Compile Include="ViewModel\Magazyn\Ewidencje\SubiektGT\Ewidencja\Decorators\GrupowanieTowarowDecorator.cs" />
+    <Compile Include="ViewModel\Magazyn\Ewidencje\SubiektGT\Ewidencja\IMagazynEwidencjaSubiektUCViewModel.cs" />
+    <Compile Include="ViewModel\Magazyn\Ewidencje\SubiektGT\Ewidencja\MagazynEwidencjaSubiektUCView.xaml.cs">
+      <DependentUpon>MagazynEwidencjaSubiektUCView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Magazyn\Ewidencje\SubiektGT\Ewidencja\MagazynEwidencjaSubiektUCViewModel.cs" />
+    <Compile Include="ViewModel\Magazyn\Ewidencje\SubiektGT\Ewidencja\MagazynEwidencjaSubiektView.xaml.cs">
+      <DependentUpon>MagazynEwidencjaSubiektView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Magazyn\Ewidencje\SubiektGT\Ewidencja\MagazynEwidencjaSubiektViewModel.cs" />
+    <Compile Include="ViewModel\Magazyn\Helpers\ITblRuchNaglowekHelper.cs" />
+    <Compile Include="ViewModel\Magazyn\Helpers\ITblRuchTowarHelper.cs" />
+    <Compile Include="ViewModel\Magazyn\Helpers\NrDokumentuRuchNaglowek.cs" />
+    <Compile Include="ViewModel\Magazyn\Helpers\TblRuchNaglowekHelper.cs" />
+    <Compile Include="ViewModel\Magazyn\RuchTowaru\Messages\StanTowaruMessage.cs" />
+    <Compile Include="ViewModel\MainMenu\MenuBar\MainMenuBarView.xaml.cs">
+      <DependentUpon>MainMenuBarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\MainMenu\MenuBar\MainMenuBarViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Messages\OdswiezMainMenuMessage.cs" />
+    <Compile Include="ViewModel\MainMenu\Models\KursyWalutModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Zapotrzebowanie\IMainMenuZapotrzebowanieViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\CenyTransferowe\Dodaj\DodajCenyTransferoweView.xaml.cs">
+      <DependentUpon>DodajCenyTransferoweView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\CenyTransferowe\Dodaj\DodajCenyTransferoweViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\CenyTransferowe\Ewidencja\EwidencjaCenTransferowychView.xaml.cs">
+      <DependentUpon>EwidencjaCenTransferowychView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\CenyTransferowe\Ewidencja\EwidencjaCenTransferowychViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\CenyTransferowe\Message\ZmianaCenTrasferowychMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\Helpers\ProdukcjaEwidencjaHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\Factory\IProdukcjaEwidencjaSQLStateFactory.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\Factory\ProdukcjaEwidencjaSQLStateFactory.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\IKalanderProdukcjaEwidencjaSQLState.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\IKonfekcjaProdukcjaEwidencjaSQLState.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\ILiniaWlokninProdukcjaEwidencjaSQLState.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\KalanderProdukcjaEwidencjaSQLState.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\KonfekcjaProdukcjaEwidencjaSQLState.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\LiniaWlokninProdukcjaEwidencjaSQLState.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\CenyTransferoweHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\ICenyTransferoweHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\IRozliczenieSQLHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\PW\IRozliczenieSQL_PW_Helper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\PW\RozliczenieSQL_PW_Helper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\RozliczenieSQLHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\IProdukcjaEwidencjaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\Models\ProdukcjaEwidencjaPodsumowanieModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\ProdukcjaEwidencjaView.xaml.cs">
+      <DependentUpon>ProdukcjaEwidencjaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Ewidencja\ProdukcjaEwidencjaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\Factory\IProdukcjaEwidencjaStateFactory.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\Factory\ProdukcjaEwidencjaStateFactory.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\MsAccess\IKalanderProdukcjaEwidencjaState.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\MsAccess\IKonfekcjaProdukcjaEwidencjaState.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\MsAccess\ILiniaWlokninProdukcjaEwidencjaState.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\IProdukcjaEwidencjaSQLState.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\MsAccess\IProdukcjaEwidencjaState.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\MsAccess\KalanderProdukcjaEwidencjaState.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\MsAccess\KonfekcjaProdukcjaEwidencjaState.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\MsAccess\LiniaWlokninProdukcjaEwidencjaState.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\ProdukcjaEwidencjaSQLStateBase.cs" />
+    <Compile Include="ViewModel\Produkcja\Ewidencja\State\MsAccess\ProdukcjaEwidencjaStateBase.cs" />
+    <Compile Include="ViewModel\Produkcja\Geokomorka\Przerob\DodajPrzerob\DodajPrzerobProdukcjaGeokomorkaView.xaml.cs">
+      <DependentUpon>DodajPrzerobProdukcjaGeokomorkaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Geokomorka\Przerob\DodajPrzerob\DodajPrzerobProdukcjaGeokomorkaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Geokomorka\Przerob\Ewidencja\EwidencjaPrzerobProdukcjaGeokomorkaView.xaml.cs">
+      <DependentUpon>EwidencjaPrzerobProdukcjaGeokomorkaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Geokomorka\Przerob\Ewidencja\EwidencjaPrzerobProdukcjaGeokomorkaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\Dodaj\GniazdaProdukcyjneDodajView.xaml.cs">
+      <DependentUpon>GniazdaProdukcyjneDodajView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\Dodaj\GniazdaProdukcyjneDodajViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\Ewidencja\GniazdaProdukcyjneEwidencjaView.xaml.cs">
+      <DependentUpon>GniazdaProdukcyjneEwidencjaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\Helpers\IMagazynRuchNaglowekSaveHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\Helpers\IMagazynRuchTowarSaveHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\Helpers\MagazynRuchNaglowekSaveHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\Helpers\MagazynRuchTowarSaveHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\Helpers\Tolerancje\GeowlokninaParametryEnum.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\Helpers\Tolerancje\IWeryfikacjaTolerancji.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\Helpers\Tolerancje\WeryfikacjaTolerancji.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\Helpers\Tolerancje\WeryfikacjaTolerancjiResult.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\Konfekcja\DrukEtykiet\DrukEtykietView.xaml.cs">
+      <DependentUpon>DrukEtykietView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\Konfekcja\DrukEtykiet\DrukEtykietViewModel.cs" />
+    <Compile Include="ViewModel\Kontrahent\Dodaj\DodajKontrahentaView.xaml.cs">
+      <DependentUpon>DodajKontrahentaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Kontrahent\Dodaj\DodajKontrahentaViewModel_old.cs" />
+    <Compile Include="ViewModel\Kontrahent\Ewidencja\EwidencjaKontrahentowView.xaml.cs">
+      <DependentUpon>EwidencjaKontrahentowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Kontrahent\Ewidencja\EwidencjaKontrahentowViewModel_old.cs" />
+    <Compile Include="ViewModel\Login\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Login\LoginViewModel.cs" />
+    <Compile Include="ResourceDictionaries\DataGridExtension\FilterDataWithPopupControl.xaml.cs">
+      <DependentUpon>FilterDataWithPopupControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceDictionaries\DataGridExtension\FilterWithPopupControl.xaml.cs">
+      <DependentUpon>FilterWithPopupControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\CustomMessageBox\MaterialMessageBoxCustomized.cs" />
+    <Compile Include="Services\DialogService.cs" />
+    <Compile Include="Services\IDialogService.cs" />
+    <Compile Include="Startup\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\Magazyn\Ewidencje\RuchTowaru\MagazynRuchTowaruView.xaml.cs">
+      <DependentUpon>MagazynRuchTowaruView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Magazyn\Ewidencje\RuchTowaru\MagazynRuchTowaruViewModel.cs" />
+    <Compile Include="ViewModel\Magazyn\Ewidencje\StanTowaru\MagazynStanTowaruView.xaml.cs">
+      <DependentUpon>MagazynStanTowaruView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Magazyn\Ewidencje\StanTowaru\MagazynStanTowaruViewModel.cs" />
+    <Compile Include="ViewModel\Magazyn\Helpers\TblRuchTowarHelper.cs" />
+    <Compile Include="ViewModel\Magazyn\RuchTowaru\Dodaj\RozchodWewnetrznyDodajViewModel.cs" />
+    <Compile Include="ViewModel\Magazyn\RuchTowaru\KodKreskowy\RuchTowaruKodKreskowyDodajView.xaml.cs">
+      <DependentUpon>RuchTowaruKodKreskowyDodajView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Magazyn\RuchTowaru\KodKreskowy\RuchTowaruKodKreskowyDodajViewModel.cs" />
+    <Compile Include="ViewModel\Magazyn\RuchTowaru\Messages\MagazynMessage.cs" />
+    <Compile Include="ViewModel\Magazyn\RuchTowaru\RuchTowaruViewModel.cs" />
+    <Compile Include="ViewModel\Magazyn\PrzyjecieZewnetrzne\DodajTowarDoMagazynu\DodajTowarDoMagazynuView.xaml.cs">
+      <DependentUpon>DodajTowarDoMagazynuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Magazyn\PrzyjecieZewnetrzne\DodajTowarDoMagazynu\DodajTowarDoMagazynuViewModel.cs" />
+    <Compile Include="ViewModel\Magazyn\PrzyjecieZewnetrzne\PrzyjecieZewnetrzneView.xaml.cs">
+      <DependentUpon>PrzyjecieZewnetrzneView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Magazyn\PrzyjecieZewnetrzne\PrzyjecieZewnetrzneViewModel.cs" />
+    <Compile Include="ViewModel\Magazyn\RuchTowaru\RuchTowaruView.xaml.cs">
+      <DependentUpon>RuchTowaruView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Magazyn\Towar\Ewidencja\TowarEwidencjaView.xaml.cs">
+      <DependentUpon>TowarEwidencjaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Magazyn\Towar\Ewidencja\TowarEwidencjaViewModel.cs" />
+    <Compile Include="ViewModel\Magazyn\Towar\Szczegoly\TowarSzczegolyView.xaml.cs">
+      <DependentUpon>TowarSzczegolyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Magazyn\Towar\Szczegoly\TowarSzczegolyViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Dostep\Converters\BadaniaDostepBooleanToVisibilityConverter.cs" />
+    <Compile Include="ViewModel\MainMenu\MainMenuView.xaml.cs">
+      <DependentUpon>MainMenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\MainMenu\MainMenuViewModel.cs" />
+    <Compile Include="ViewModel\MainMenu\Zapotrzebowanie\MainMenuZapotrzebowanieView.xaml.cs">
+      <DependentUpon>MainMenuZapotrzebowanieView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\MainMenu\Zapotrzebowanie\MainMenuZapotrzebowanieViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\Badania\ILiniaWlokninBadaniaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\Badania\LiniaWlokninBadaniaView.xaml.cs">
+      <DependentUpon>LiniaWlokninBadaniaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\Badania\LiniaWlokninBadaniaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\Palety\Adapters\ProdukcjaRuchPaletyAdapter.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\Palety\ProdukcjaRuchEwidencjaPaletView.xaml.cs">
+      <DependentUpon>ProdukcjaRuchEwidencjaPaletView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\Palety\ProdukcjaRuchEwidencjaPaletViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Messages\RozchodCalkowityRolkiRWMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\MsAccessImport\MsAccessImportZlecenProdukcyjnychDoSql.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Decorator\RolkaPWDecorator.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Messages\GPAddOnRWButtonMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Messages\GPSaveMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Badania\GPRuchTowarBadaniaView.xaml.cs">
+      <DependentUpon>GPRuchTowarBadaniaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Badania\GPRuchTowarBadaniaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Badania\IGPRuchTowarBadaniaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Dodaj\GPRuchTowarDodajView.xaml.cs">
+      <DependentUpon>GPRuchTowarDodajView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Dodaj\GPRuchTowarDodajViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\ProdukcjaRuch\IProdukcjaRuchEwidencjaUCViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\ProdukcjaRuch\ProdukcjaRuchEwidencjaUCView.xaml.cs">
+      <DependentUpon>ProdukcjaRuchEwidencjaUCView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\ProdukcjaRuch\ProdukcjaRuchEwidencjaUCViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\ProdukcjaRuch\ProdukcjaRuchEwidencjaUCViewModel_old.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\ProdukcjaRuch\ProdukcjaRuchEwidencjaView.xaml.cs">
+      <DependentUpon>ProdukcjaRuchEwidencjaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\ProdukcjaRuch\ProdukcjaRuchEwidencjaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\MsAccessImport\MsAccessImportGniazdDoSql.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\GPRuchNaglowekView.xaml.cs">
+      <DependentUpon>GPRuchNaglowekView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\GPRuchNaglowekViewModel_old.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\Helpers\IGPRuchTowar_Naglowek_Helper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\Helpers\GPRuchTowar_Naglowek_Helper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\Helpers\NazwaTowaruGenerator.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\Messages\ProdukcjaRuchNaglowekMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\Messages\ProdukcjaRuchTowaruMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\Messages\ProdukcjaRuchZlecenieProdukcyjneMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\Messages\RwProdukcjaRuchTowaruMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Messages\DodajProdukcjaRuchTowarMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Messages\DodajEdytujGPRuchTowarPWMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Messages\ZaawansowanieRozchoduRolkiRwMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\GPRuchNaglowekViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\IGPRuchNaglowekViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\States\GPRuchNaglowekKonfekcjaState.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\States\GPRuchNaglowekKalanderState.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\States\GPRuchNaglowekLiniaWlokninState.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\States\GPRuchNaglowekStateBase.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\States\GPRuchNaglowekStateFactory.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\States\IGPRuchNaglowekState.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\States\IGPRuchNaglowekStateFactory.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\GPRuchTowarPWViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\GPRuchTowar_PW_KonfekcjaHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Strategy\GPRuchTowar_PW_PodsumowanieKonfekcjaStrategy.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Strategy\GPRuchTowar_PW_PodsumowanieStrategyFactory.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Strategy\GPRuchTowar_PW_PodsumowanieWlokninaIKalanderStrategy.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\GPRuchTowar_PW_PodsumowanieHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\GPRuchTowarPWView.xaml.cs">
+      <DependentUpon>GPRuchTowarPWView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Helpers\GPRuchTowar_RolkaHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\GPRuchTowar_PW_RolkaBazowaHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\IGPRuchTowar_PW_Helper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Helpers\IGPRuchTowar_RolkaHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\IGPRuchTowar_PW_KonfekcjaHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\IGPRuchTowar_PW_PodsumowanieHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\IGPRuchTowar_PW_RolkaBazowaHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\IGPRuchTowar_PW_ZaawansowanieHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\GPRuchTowar_PW_ZaawansowanieHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Helpers\GPRuchTowar_PW_Helper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\IGPRuchTowarPWViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Models\PodsumowaniePWModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Strategy\IGPRuchTowar_PW_PodsumowanieStrategyFactory.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\RW\Decorators\RolkaRWDecorator.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\RW\GPRuchTowarRWView.xaml.cs">
+      <DependentUpon>GPRuchTowarRWView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\RW\GPRuchTowarRWViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\RW\Helpers\GPRuchTowar_RW_Helper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\RW\Helpers\IGPRuchTowar_RW_Helper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\RW\Helpers\PWChildObjectHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\RW\IGPRuchTowarRWViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Ewidencja\Helpers\RozliczenieMsAccessEwidencjaFiltrHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Ewidencja\Models\RozliczenieEwidencjaFiltrModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Ewidencja\Models\RozliczenieEwidencjaPodsumowanieModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Ewidencja\Helpers\IRozliczenieMsAccessEwidencjaDeleteHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Ewidencja\Helpers\RozliczenieMsAccessEwidencjaDeleteHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\DirectoryHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\IDirectoryHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\IKonfekcjaHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\KonfekcjaMsAccessHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\KonfekcjaHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\PW\Adapters\PodsumujPWPodzialTowarAdapter.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\PW\IRozliczenieMsAcces_PW_Helper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\PW\NazwaTowaru.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Ewidencja\RozliczenieMsAccessEwidencjaView.xaml.cs">
+      <DependentUpon>RozliczenieMsAccessEwidencjaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Ewidencja\RozliczenieMsAccessEwidencjaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\Adapters\ProdukcjaRozliczenieRWAdapter.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\IRozliczenieMsAccesHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\NazwaTowaruSubiektHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\PW\RozliczenieMsAcces_PW_Helper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\RozliczenieMsAccesHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\RozliczenieMsAccessAdapterHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\RW\IRozliczenieMsAcces_RW_Helper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\RW\IRozliczenieSQL_RW_Helper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\RW\RozliczenieMsAcces_RW_Helper.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\Strategy\Factory\ISurowiecSubiektStrategyFactory.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\Strategy\Factory\SurowiecSubiektFactoryEnum.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\Strategy\Factory\SurowiecSubiektStrategyFactory.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\Strategy\ISurowiecSubiektDictionaryMsAccessStrategy.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\Strategy\ISurowiecSubiektStrategy.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\Strategy\ISurowiecSubiektZNazwyMsAccessStrategy.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\Strategy\SurowiecSubiektDictionaryMsAccessStrategy.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\Strategy\SurowiecSubiektZNazwyMsAccessStrategy.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Modele\RozliczenieMsAccessFiltr.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Naglowek\RozliczenieMsAccessNaglowekViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Dictionaries\SurowceDictionary.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Modele\PwPodsumowanieModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Modele\RMA_DaneWejscioweModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Modele\RwPodsumowanieModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\PodsumowanieRozliczenieMsAccessModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\PW\IRozliczenieMsAccessPWViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\PW\RozliczenieMsAccessPWViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\RozliczenieMsAccessView.xaml.cs">
+      <DependentUpon>RozliczenieMsAccessView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\RozliczenieMsAccessViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Modele\RozliczenieSurowcaModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Modele\RozliczenieWyrobuGotowegoModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\RW\IRozliczenieMsAccessRWViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\RW\RozliczenieMsAccessRWViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\RozliczenieMsAccess\Helpers\RW\RozliczenieSQL_RW_Helper.cs" />
+    <Compile Include="ViewModel\Produkcja\ZamowieniaOdKlienta\Messages\TabTablesMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\ZamowieniaOdKlienta\Pakowanie\IPakowanieViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\ZamowieniaOdKlienta\Pakowanie\PakowanieView.xaml.cs">
+      <DependentUpon>PakowanieView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\ZamowieniaOdKlienta\Pakowanie\PakowanieViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\ZamowieniaOdKlienta\TowarGeokomorka\Dodaj\TowarGeokomorkaDodajView.xaml.cs">
+      <DependentUpon>TowarGeokomorkaDodajView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\ZamowieniaOdKlienta\TowarGeokomorka\Dodaj\TowarGeokomorkaDodajViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\ZamowieniaOdKlienta\TowarGeokomorka\ITowarGeokomorkaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\ZamowieniaOdKlienta\TowarGeokomorka\TowarGeokomorkaView.xaml.cs">
+      <DependentUpon>TowarGeokomorkaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\ZamowieniaOdKlienta\TowarGeokomorka\TowarGeokomorkaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\ZamowieniaOdKlienta\TowarGeowloknina\ITowarGeowlokninaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\ZamowieniaOdKlienta\TowarGeowloknina\TowarGeowlokninaView.xaml.cs">
+      <DependentUpon>TowarGeowlokninaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\ZamowieniaOdKlienta\TowarGeowloknina\TowarGeowlokninaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\ZamowieniaOdKlienta\ZamowienieOdKlientaView.xaml.cs">
+      <DependentUpon>ZamowienieOdKlientaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\ZamowieniaOdKlienta\ZamowienieOdKlientaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\GniazdaProdukcyjne\Ewidencja\GniazdaProdukcyjneEwidencjaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Dodaj\Messages\DodajTowarMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Dodaj\Messages\EdytujTowarMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Dodaj\Naglowek\ZlecenieCieciaNaglowekViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Dodaj\Towar\ZlecenieCieciaTowarViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieDodajTowar\Messages\ProdukcjaZlecenieDodajTowarMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Dodaj\Messages\UsunTowarMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Dodaj\Naglowek\ZlecenieCieciaNaglowekView.xaml.cs">
+      <DependentUpon>ZlecenieCieciaNaglowekView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Dodaj\Naglowek\ZlecenieCieciaNaglowekViewModel_old.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieDodajTowar\ZlecenieDodajTowarView.xaml.cs">
+      <DependentUpon>ZlecenieDodajTowarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieDodajTowar\ZlecenieDodajTowarViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Dodaj\Towar\IZlecenieCieciaTowarViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Dodaj\Towar\ZlecenieCieciaTowarView.xaml.cs">
+      <DependentUpon>ZlecenieCieciaTowarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Dodaj\Towar\ZlecenieCieciaTowarViewModel_old.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Ewidencja\ZlecenieCieciaEwidencjaView.xaml.cs">
+      <DependentUpon>ZlecenieCieciaEwidencjaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Ewidencja\ZlecenieCieciaEwidencjaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Mieszanka\Helpers\MieszankaKalkulatorCenyHelper.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Mieszanka\IZlecenieProdukcyjneMieszankaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Naglowek\ZlecenieProdukcyjneNaglowekView.xaml.cs">
+      <DependentUpon>ZlecenieProdukcyjneNaglowekView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Naglowek\ZlecenieProdukcyjneNaglowekViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Naglowek\ZlecenieProdukcyjneNaglowekViewModel_old.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Towar\BaseClass\IZlecenieProdukcyjneTowarBase.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Towar\LiniaKalandra\IZlecenieProdukcyjneTowarLiniaKalandraViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Towar\LiniaKalandra\ZlecenieProdukcyjneTowarLiniaKalandraView.xaml.cs">
+      <DependentUpon>ZlecenieProdukcyjneTowarLiniaKalandraView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Towar\LiniaKalandra\ZlecenieProdukcyjneTowarLiniaKalandraViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Towar\LiniaWloknin\IZlecenieProdukcyjneTowarLiniaWlokninViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Towar\LiniaWloknin\ZlecenieProdukcyjneTowarLiniaWlokninView.xaml.cs">
+      <DependentUpon>ZlecenieProdukcyjneTowarLiniaWlokninView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Towar\BaseClass\ZlecenieProdukcyjneTowarBase.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Towar\LiniaWloknin\ZlecenieProdukcyjneTowarLiniaWlokninViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Ewidencja\ZlecenieProdukcyjneEwidencjaView.xaml.cs">
+      <DependentUpon>ZlecenieProdukcyjneEwidencjaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Ewidencja\ZlecenieProdukcyjneEwidencjaViewModel_old.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Ewidencja\ZlecenieProdukcyjneEwidencjaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Messages\PoUsunieciuMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Messages\PoZapisieMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Messages\NrZleceniaMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Messages\ZamknijZlecenieMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Messages\ZmianaIlosciMieszankiMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Messages\UsunietoZlecenieProdukcyjneMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Messages\ZapiszZlecenieProdukcyjneMessage.cs" />
+    <Compile Include="ViewModel\Produkcja\Mieszanka\Dodaj\MieszankaDodajView.xaml.cs">
+      <DependentUpon>MieszankaDodajView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Mieszanka\Dodaj\MieszankaDodajViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Mieszanka\Ewidencja\MieszankaEwidencjaView.xaml.cs">
+      <DependentUpon>MieszankaEwidencjaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Mieszanka\Ewidencja\MieszankaEwidencjaViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Towar\IZlecenieProdukcyjneTowarViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Towar\ZlecenieProdukcyjneTowarView.xaml.cs">
+      <DependentUpon>ZlecenieProdukcyjneTowarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Towar\ZlecenieProdukcyjneTowarViewModel.cs" />
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Mieszanka\ZlecenieProdukcyjneMieszankaView.xaml.cs">
+      <DependentUpon>ZlecenieProdukcyjneMieszankaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Mieszanka\ZlecenieProdukcyjneMieszankaViewModel.cs" />
+    <Compile Include="ViewModel\ZamowienieOdKlienta\Helper\IZamOdKlientaFiltrHelper.cs" />
+    <Compile Include="ViewModel\ZamowienieOdKlienta\Helper\ZamOdKlientaFiltrHelper.cs" />
+    <Compile Include="ViewModel\ZamowienieOdKlienta\Message\ViewModelMessage.cs" />
+    <Compile Include="ViewModel\ZamowienieOdKlienta\Models\ZK_Filtr.cs" />
+    <Compile Include="ViewModel\ZamowienieOdKlienta\Models\ZK_Podsumowanie.cs" />
+    <Compile Include="ViewModel\ZamowienieOdKlienta\States\IZKUCState.cs" />
+    <Compile Include="ViewModel\ZamowienieOdKlienta\States\FiltrujZKUCState.cs" />
+    <Compile Include="ViewModel\ZamowienieOdKlienta\States\OdswiezZKUCState.cs" />
+    <Compile Include="ViewModel\ZamowienieOdKlienta\Szczegoly\IZamowienieOdKlientaEwidencjaSzczegolyUCViewModel.cs" />
+    <Compile Include="ViewModel\ZamowienieOdKlienta\Szczegoly\ZamowienieOdKlientaEwidencjaSzczegolyUCView.xaml.cs">
+      <DependentUpon>ZamowienieOdKlientaEwidencjaSzczegolyUCView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\ZamowienieOdKlienta\Szczegoly\ZamowienieOdKlientaEwidencjaSzczegolyUCViewModel.cs" />
+    <Compile Include="ViewModel\ZamowienieOdKlienta\ZamowienieOdKlientaEwidencjaView.xaml.cs">
+      <DependentUpon>ZamowienieOdKlientaEwidencjaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\ZamowienieOdKlienta\ZamowienieOdKlientaEwidencjaViewModel.cs" />
+    <Compile Include="ViewModel\Zapotrzebowanie\Analiza\AnalizaZapotrzebowanView.xaml.cs">
+      <DependentUpon>AnalizaZapotrzebowanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Zapotrzebowanie\Analiza\AnalizaZapotrzebowanViewModel.cs" />
+    <Compile Include="ViewModel\Zapotrzebowanie\Dodaj\Converters\StatusZapotrzebowaniaTrueFalseConverter.cs" />
+    <Compile Include="ViewModel\Zapotrzebowanie\Dodaj\Converters\StatusZapotrzebowaniaVisibilityConverter.cs" />
+    <Compile Include="Converters\OdDostepuDyrektorTrueConverter.cs" />
+    <Compile Include="ViewModel\Zapotrzebowanie\Dodaj\DodajPozycje\DodajPozycjeZapotrzebowaniaView.xaml.cs">
+      <DependentUpon>DodajPozycjeZapotrzebowaniaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Zapotrzebowanie\Dodaj\DodajPozycje\DodajPozycjeZapotrzebowaniaViewModel.cs" />
+    <Compile Include="ViewModel\Zapotrzebowanie\Helpers\ZapotrzebowanieEwidencjaHelper.cs" />
+    <Compile Include="ViewModel\Zapotrzebowanie\Messages\DodajPozycjeIsChangedMessage.cs" />
+    <Compile Include="ViewModel\Zapotrzebowanie\Pliki\IPlikiCRUD.cs" />
+    <Compile Include="ViewModel\Zapotrzebowanie\Pliki\PlikiCRUD.cs" />
+    <Compile Include="ViewModel\Zapotrzebowanie\Dodaj\ZapotrzebowanieDodajView.xaml.cs">
+      <DependentUpon>ZapotrzebowanieDodajView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Zapotrzebowanie\Dodaj\ZapotrzebowanieDodajViewModel.cs" />
+    <Compile Include="ViewModel\Zapotrzebowanie\Ewidencja\Converter\ZapotrzebowanieEwidencjaRedGreenGrayConverter.cs" />
+    <Compile Include="ViewModel\Zapotrzebowanie\Ewidencja\ZapotrzebowanieEwidencjaView.xaml.cs">
+      <DependentUpon>ZapotrzebowanieEwidencjaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Zapotrzebowanie\Ewidencja\ZapotrzebowanieEwidencjaViewModel.cs" />
+    <Compile Include="ViewModel\Zapotrzebowanie\RozliczenieFV\Ewidencja\ZapotrzebowanieRozliczenieFVEwidencjaView.xaml.cs">
+      <DependentUpon>ZapotrzebowanieRozliczenieFVEwidencjaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Zapotrzebowanie\RozliczenieFV\Ewidencja\ZapotrzebowanieRozliczenieFVEwidencjaViewModel.cs" />
+    <Compile Include="ViewModel\Zapotrzebowanie\RozliczenieFV\Szczegoly\ZapotrzebowanieRozliczenieFVSzczegolyView.xaml.cs">
+      <DependentUpon>ZapotrzebowanieRozliczenieFVSzczegolyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Zapotrzebowanie\RozliczenieFV\Szczegoly\ZapotrzebowanieRozliczenieFVSzczegolyViewModel.cs" />
+    <Compile Include="ViewModel\_Test\TestowyView.xaml.cs">
+      <DependentUpon>TestowyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\_Test\TestowyViewModel.cs" />
+    <Page Include="ResourceDictionaries\MaterialDesign\MaterialDesignThemes.Overrides.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\StyleDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Services\CustomPinMessageBox\CustomPinMessageBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Konfiguracja\KonfiguracjaUrzadzen\KonfiguracjaUrzadzenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Badania\Geowlokniny\BadaniaGeowlokninView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Badania\Geowlokniny\ImportBadanZRaportuXls\ImportBadanZRaportuXlsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Finanse\Banki\StanKont\DodajStanKonta\DodajStanKontaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Finanse\Banki\StanKont\EwidencjaStanKont\EwidencjaStanKontView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Finanse\NaleznosciIZobowiazania\FinanseZobowiazaniaNaleznosciView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Finanse\PodsumowanieFinansowe\PodsumowanieFinansoweViewl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Finanse\Sprzedaz\Ewidencja\SprzedazEwidencjaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Magazyn\Ewidencje\SubiektGT\Ewidencja\MagazynEwidencjaSubiektUCView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Magazyn\Ewidencje\SubiektGT\Ewidencja\MagazynEwidencjaSubiektView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\MainMenu\MenuBar\MainMenuBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\CenyTransferowe\Dodaj\DodajCenyTransferoweView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\CenyTransferowe\Ewidencja\EwidencjaCenTransferowychView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Ewidencja\ProdukcjaEwidencjaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Geokomorka\Przerob\DodajPrzerob\DodajPrzerobProdukcjaGeokomorkaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Geokomorka\Przerob\Ewidencja\EwidencjaPrzerobProdukcjaGeokomorkaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\GniazdaProdukcyjne\Dodaj\GniazdaProdukcyjneDodajView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\GniazdaProdukcyjne\Ewidencja\GniazdaProdukcyjneEwidencjaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\GniazdaProdukcyjne\Konfekcja\DrukEtykiet\DrukEtykietView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Kontrahent\Dodaj\DodajKontrahentaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Kontrahent\Ewidencja\EwidencjaKontrahentowView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewModel\Login\LoginView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="ResourceDictionaries\DataGridExtension\FilterDataWithPopupControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceDictionaries\DataGridExtension\FilterWithPopupControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewModel\Magazyn\Ewidencje\RuchTowaru\MagazynRuchTowaruView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Magazyn\Ewidencje\StanTowaru\MagazynStanTowaruView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Magazyn\PrzyjecieZewnetrzne\DodajTowarDoMagazynu\DodajTowarDoMagazynuView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewModel\Magazyn\PrzyjecieZewnetrzne\PrzyjecieZewnetrzneView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewModel\Magazyn\RuchTowaru\KodKreskowy\RuchTowaruKodKreskowyDodajView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Magazyn\RuchTowaru\RuchTowaruView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Magazyn\Towar\Ewidencja\TowarEwidencjaView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewModel\Magazyn\Towar\Szczegoly\TowarSzczegolyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewModel\MainMenu\MainMenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\MainMenu\Zapotrzebowanie\MainMenuZapotrzebowanieView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\Badania\LiniaWlokninBadaniaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Badania\GPRuchTowarBadaniaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Dodaj\GPRuchTowarDodajView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\Palety\ProdukcjaRuchEwidencjaPaletView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\ProdukcjaRuch\ProdukcjaRuchEwidencjaUCView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Ewidencja\ProdukcjaRuch\ProdukcjaRuchEwidencjaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\Naglowek\GPRuchNaglowekView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\GPRuchTowarPWView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\RW\GPRuchTowarRWView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\RozliczenieMsAccess\Ewidencja\RozliczenieMsAccessEwidencjaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\RozliczenieMsAccess\RozliczenieMsAccessView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\ZamowieniaOdKlienta\Pakowanie\PakowanieView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\ZamowieniaOdKlienta\TowarGeokomorka\Dodaj\TowarGeokomorkaDodajView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\ZamowieniaOdKlienta\TowarGeokomorka\TowarGeokomorkaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\ZamowieniaOdKlienta\TowarGeowloknina\TowarGeowlokninaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\ZamowieniaOdKlienta\ZamowienieOdKlientaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Mieszanka\Dodaj\MieszankaDodajView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Mieszanka\Ewidencja\MieszankaEwidencjaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Dodaj\Naglowek\ZlecenieCieciaNaglowekView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Zlecenia\ZlecenieDodajTowar\ZlecenieDodajTowarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Dodaj\Towar\ZlecenieCieciaTowarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Zlecenia\ZlecenieCiecia\Ewidencja\ZlecenieCieciaEwidencjaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Naglowek\ZlecenieProdukcyjneNaglowekView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Towar\LiniaKalandra\ZlecenieProdukcyjneTowarLiniaKalandraView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Towar\LiniaWloknin\ZlecenieProdukcyjneTowarLiniaWlokninView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Ewidencja\ZlecenieProdukcyjneEwidencjaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Towar\ZlecenieProdukcyjneTowarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Produkcja\Zlecenia\ZlecenieProdukcyjne\Dodaj\Mieszanka\ZlecenieProdukcyjneMieszankaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\ZamowienieOdKlienta\Szczegoly\ZamowienieOdKlientaEwidencjaSzczegolyUCView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\ZamowienieOdKlienta\ZamowienieOdKlientaEwidencjaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Zapotrzebowanie\Analiza\AnalizaZapotrzebowanView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Zapotrzebowanie\Dodaj\DodajPozycje\DodajPozycjeZapotrzebowaniaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Zapotrzebowanie\Dodaj\ZapotrzebowanieDodajView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Zapotrzebowanie\Ewidencja\ZapotrzebowanieEwidencjaView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewModel\Zapotrzebowanie\RozliczenieFV\Ewidencja\ZapotrzebowanieRozliczenieFVEwidencjaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\Zapotrzebowanie\RozliczenieFV\Szczegoly\ZapotrzebowanieRozliczenieFVSzczegolyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModel\_Test\TestowyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Connected Services\GUSServiceReference\GAT_Produkcja.GUSServiceReference.DanePobierzPelnyRaportResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\GUSServiceReference\GAT_Produkcja.GUSServiceReference.DanePobierzRaportZbiorczyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\GUSServiceReference\GAT_Produkcja.GUSServiceReference.DaneSzukajPodmiotyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\GUSServiceReference\GAT_Produkcja.GUSServiceReference.GetValueResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\GUSServiceReference\GAT_Produkcja.GUSServiceReference.WylogujResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\GUSServiceReference\GAT_Produkcja.GUSServiceReference.ZalogujResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\GUSServiceReference\UslugaBIRzewnPubl.wsdl" />
+    <None Include="GAT_Produkcja.UI_TemporaryKey.pfx" />
+    <Resource Include="Images\GTEX logo horizontal.png" />
+    <Resource Include="GTEXico.ico" />
+    <None Include="Connected Services\GUSServiceReference\configuration91.svcinfo" />
+    <None Include="Connected Services\GUSServiceReference\configuration.svcinfo" />
+    <None Include="Connected Services\GUSServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Resource Include="Images\LoginPage_clear.png" />
+    <Resource Include="Images\Main_clear.png" />
+    <Resource Include="Images\EwidencjaProdukcji_clear.png" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Resource Include="Resources\password.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModel\Magazyn\RuchTowaru\TabelaTowarow\" />
+    <Folder Include="ViewModel\Produkcja\CenyTransferowe\Dodaj\Helpers\" />
+    <Folder Include="ViewModel\Produkcja\GniazdaProdukcyjne\ProdukcjaRuch\RuchTowar\PW\Adapters\" />
+    <Folder Include="ViewModel\Produkcja\Helpers\" />
+    <Folder Include="ViewModel\Produkcja\RozliczenieMsAccess\Messages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GAT_Produkcja.dbComarch\GAT_Produkcja.dbComarch.csproj">
+      <Project>{75465B36-E1F7-433C-BB3E-2612AE46FD2F}</Project>
+      <Name>GAT_Produkcja.dbComarch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GAT_Produkcja.dbMsAccess\GAT_Produkcja.dbMsAccess.csproj">
+      <Project>{D30B254E-4B2B-4300-B796-A99603665C47}</Project>
+      <Name>GAT_Produkcja.dbMsAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GAT_Produkcja.db\GAT_Produkcja.db.csproj">
+      <Project>{adffb0e2-06d8-4be6-8a88-8fab32d7d669}</Project>
+      <Name>GAT_Produkcja.db</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Outlook">
+      <Guid>{00062FFF-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Gprod_up.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 i x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\GUSServiceReference\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Ten projekt zawiera odwołania do pakietów NuGet, których nie ma na tym komputerze. Użyj przywracania pakietów NuGet, aby je pobrać. Aby uzyskać więcej informacji, zobacz http://go.microsoft.com/fwlink/?LinkID=322105. Brakujący plik: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\PropertyChanged.Fody.3.0.1\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PropertyChanged.Fody.3.0.1\build\PropertyChanged.Fody.props'))" />
+    <Error Condition="!Exists('..\packages\Fody.5.1.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.5.1.1\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\SourceLink.Create.CommandLine.2.8.3\build\SourceLink.Create.CommandLine.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SourceLink.Create.CommandLine.2.8.3\build\SourceLink.Create.CommandLine.props'))" />
+    <Error Condition="!Exists('..\packages\SourceLink.Create.CommandLine.2.8.3\build\SourceLink.Create.CommandLine.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SourceLink.Create.CommandLine.2.8.3\build\SourceLink.Create.CommandLine.targets'))" />
+  </Target>
+  <Import Project="..\packages\Fody.5.1.1\build\Fody.targets" Condition="Exists('..\packages\Fody.5.1.1\build\Fody.targets')" />
+  <Import Project="..\packages\SourceLink.Create.CommandLine.2.8.3\build\SourceLink.Create.CommandLine.targets" Condition="Exists('..\packages\SourceLink.Create.CommandLine.2.8.3\build\SourceLink.Create.CommandLine.targets')" />
+</Project>

@@ -1,0 +1,243 @@
+﻿<UserControl x:Class="GAT_Produkcja.ViewModel.Produkcja.ZamowieniaOdKlienta.TowarGeokomorka.TowarGeokomorkaView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.ZamowieniaOdKlienta.TowarGeokomorka"
+        mc:Ignorable="d"
+             xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+             startUp:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+
+        d:DesignHeight="450" d:DesignWidth="800"
+        Language="pl-PL"
+             >
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="ListaRodzajow" Source="{Binding ListaRodzajowGeokomorek}"/>
+        <CollectionViewSource x:Key="WybranyRodzaj" Source="{Binding WybranyRodzaj}"/>
+        <CollectionViewSource x:Key="ListaZgrzewow" Source="{Binding ListaZgrzewow}"/>
+        <CollectionViewSource x:Key="ListaTowarow" Source="{Binding ListaTowarow}"/>
+        <CollectionViewSource x:Key="ListaTypow" Source="{Binding ListaTypowGeokomorek}"/>
+    </UserControl.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding ZamknijOknoCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding ZaladujPodczasUruchomieniaCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <DataGrid
+            ItemsSource="{Binding ListaPozycjiGeokomorek}"
+            SelectedItem="{Binding WybranaPozycjaGeokomorki, Mode=TwoWay}"
+            IsReadOnly="False"
+            AutoGenerateColumns="False"
+            materialDesign:DataGridAssist.ColumnHeaderPadding="3"
+            materialDesign:DataGridAssist.CellPadding="0"
+            materialDesign:DataGridAssist.EnableEditBoxAssist="True"
+            >
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Usuń" Command="{Binding UsunCommand }"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="CellEditEnding">
+                    <cmd:EventToCommand Command="{Binding PoEdycjiKomorkiCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="AddingNewItem">
+                    <cmd:EventToCommand Command="{Binding OnAddingNewRowCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <DataGrid.Columns>
+                <DataGridComboBoxColumn Header="Rodzaj"
+                                            Width="80"
+                                            ItemsSource="{Binding Source={StaticResource ListaRodzajow}}"
+                                            DisplayMemberPath="Rodzaj"
+                                            SelectedValuePath="IDTowarGeokomorkaParametryRodzaj"
+                                            SelectedValueBinding="{Binding  IDTowarGeokomorkaParametryRodzaj, 
+                                                                            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                                            ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                            IsReadOnly="False"
+                                            >
+                    <!--<DataGridComboBoxColumn.ElementStyle>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="ItemsSource" Value="{Binding ListaRodzajowGeokomorek, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"/>
+                        </Style>
+                        --><!--<Setter Property="SelectedItem" Value="{Binding WybranyRodzaj}"/>--><!--
+                    </DataGridComboBoxColumn.ElementStyle>
+                    <DataGridComboBoxColumn.EditingElementStyle>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="ItemsSource" Value="{Binding ListaRodzajowGeokomorek, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"/>
+                        </Style>
+                        --><!--<Setter Property="SelectedItem" Value="{Binding WybranyRodzaj}"/>--><!--
+                    </DataGridComboBoxColumn.EditingElementStyle>-->
+                </DataGridComboBoxColumn>
+                
+                <DataGridComboBoxColumn Header="Typ"
+                                            Width="80"
+                                            ItemsSource="{Binding Source={StaticResource ListaTypow}}"
+                                            SelectedItemBinding="{Binding WybranyTypGeokomorki, Mode=TwoWay}"
+                                            DisplayMemberPath="Typ"
+                                            SelectedValuePath="IDTowarGeokomorkaParametryTyp"
+                                            SelectedValueBinding="{Binding  IDTowarGeokomorkaParametryTyp, 
+                                                                            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                                            ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                            IsReadOnly="False"
+                                            >
+                </DataGridComboBoxColumn>
+
+                <DataGridComboBoxColumn Header="Zgrzew"
+                                            IsReadOnly="False"
+                                            Width="80"
+                                            ItemsSource="{Binding Source={StaticResource ListaZgrzewow}}"
+                                            SelectedItemBinding="{Binding WybranyZgrzew, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            DisplayMemberPath="KodZgrzewu"
+                                            SelectedValuePath="IDTowarGeokomorkaParametryZgrzew"
+                                            SelectedValueBinding="{Binding  IDTowarGeokomorkaParametryZgrzew, 
+                                                                            Mode=TwoWay, 
+                                                                            UpdateSourceTrigger=PropertyChanged, 
+                                                                            ValidatesOnDataErrors=True, 
+                                                                            NotifyOnValidationError=True}"
+                                            >
+                </DataGridComboBoxColumn>
+
+                <DataGridTextColumn Header="Wysokość&#x0a;sekcji [mm]" Width="80" Binding="{Binding Wysokosc_mm, StringFormat=N0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Szerokość&#x0a;sekcji [mm]" Width="80" Binding="{Binding SzerokoscSekcji_mm, StringFormat=N0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Długość&#x0a;sekcji [mm]" Width="80" Binding="{Binding DlugoscSekcji_mm, StringFormat=N0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Ilość&#x0a;[m2]" Width="80" Binding="{Binding Ilosc_m2, StringFormat=N2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Ilość&#x0a;sekcji [szt.]" Width="80" Binding="{Binding IloscSekcji_szt, StringFormat=N0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Waga&#x0a;[kg]" Width="80" Binding="{Binding Waga_kg, StringFormat=N2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+
+
+        </DataGrid>
+
+    </Grid>
+    <!--#region Combobox Template-->
+    <!--<DataGridTemplateColumn
+                        Header="RodzajSearch"
+                        >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox
+                                    IsEditable="True"
+                                    Width="150"
+                                    ItemsSource="{Binding Source={StaticResource ListaRodzajow}}"
+                                    DisplayMemberPath="Rodzaj"
+                                    SelectedValuePath="IDTowarParametryGeokomorkaRodzaj"
+                                    SelectedValue="{Binding IDTowarParametryGeokomorkaRodzaj, 
+                                                            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                            ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    IsReadOnly="False"
+                                    IsSynchronizedWithCurrentItem="False"
+                                    >
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>-->
+
+
+    <!--#region  DotNetControl_2-->
+    <!--<DataGridTemplateColumn
+                        Header="RodzajSearchAuto2"
+                        >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding WybranyRodzaj.Rodzaj}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <dotNetKitControls:AutoCompleteComboBox
+                                Width="150"
+                                TextSearch.TextPath="Rodzaj"
+                                IsDropDownOpen="False"
+                                ItemsSource="{Binding Source={StaticResource ListaTowarow}}"
+                                DisplayMemberPath="Nazwa"
+                                SelectedValuePath="IDTowar"
+                                SelectedItem="{Binding WybranyTowar, Mode=TwoWay}"
+
+                                SelectedValue="{Binding  IDTowarGeokomorkaParametryRodzaj, 
+                                                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged
+                                }"
+                                IsReadOnly="False"
+                                IsSynchronizedWithCurrentItem="False"
+                                    >
+                                -->
+    <!--SelectedItem="{Binding WybranyRodzaj}"-->
+    <!--, ValidatesOnDataErrors=True, NotifyOnValidationError=True-->
+    <!--
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="KeyUp">
+                                        <i:InvokeCommandAction Command="{Binding PrzyZmianieTekstuComboboxaCommand}"/>
+                                        <cmd:EventToCommand Command="{Binding PrzyZmianieTekstuComboboxaCommand}" PassEventArgsToCommand="True"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </dotNetKitControls:AutoCompleteComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>-->
+    <!--#endregion-->
+
+
+    <!--#region  Combobox-->
+    <!--<DataGridTemplateColumn
+                        Header="Towar"
+                        >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox
+                                Width="150"
+                                IsEditable="True"
+                                IsDropDownOpen="False"
+
+                                ItemsSource="{Binding Source={StaticResource ListaTowarow}}"
+                                DisplayMemberPath="Nazwa"
+                                SelectedValuePath="IDTowar"
+                                SelectedValue="{Binding IDTowarGeokomorkaParametryRodzaj, 
+                                                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsReadOnly="False"
+                                IsSynchronizedWithCurrentItem="False"
+                                    >
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+
+    <!--ItemsSource="{Binding DataContext.ListaTowarow, 
+                                                      RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                      AncestorType=Window}}"-->
+    <!--#endregion-->
+
+    <!--<DataGridTemplateColumn
+                    Header="cb"
+                    >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox
+                                ItemsSource="{Binding DataContext.ListaRodzajow, RelativeSource={RelativeSource AncestorType=local:TowarGeokomorkaView}}"
+                                SelectedValue="{Binding IDTowarGeokomorkaParametryRodzaj, 
+                                                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedValuePath="IDTowarGeokomorkaParametryRodzaj"
+                                IsEditable="True"
+                                >
+                                
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    
+                </DataGridTemplateColumn>-->
+    <!--#region DataGridComboboxColumn-->
+
+</UserControl>

@@ -1,0 +1,832 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProdukcjaPSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProdukcjaPS.dbo.Artykuły' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Artykuły">
+          <Key>
+            <PropertyRef Name="Lp" />
+          </Key>
+          <Property Name="Lp" Type="int" Nullable="false" />
+          <Property Name="Nazwa_art" Type="nvarchar" MaxLength="50" />
+          <Property Name="Opis" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stawka-operator" Type="float" />
+          <Property Name="Stawka-pomoc" Type="float" />
+          <Property Name="Stawka-operato-k" Type="float" />
+          <Property Name="Stawka-pomoc-k" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProdukcjaPS.dbo.Dostawca' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Dostawca">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Nazwa" />
+            <PropertyRef Name="Adres" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Nazwa" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Adres" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProdukcjaPS.dbo.Dyspozycje' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Dyspozycje">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Data" />
+            <PropertyRef Name="Nr zlecenia" />
+            <PropertyRef Name="Zakończ" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
+          <Property Name="Nr zlecenia" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surowiec" Type="nvarchar" MaxLength="50" />
+          <Property Name="Artykuł" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ilość mb" Type="int" />
+          <Property Name="Zakończ" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProdukcjaPS.dbo.Kalander' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Kalander">
+          <Key>
+            <PropertyRef Name="Data" />
+            <PropertyRef Name="Odpad" />
+          </Key>
+          <Property Name="Nr zlecenia" Type="int" />
+          <Property Name="Nr sztuki" Type="nvarchar" MaxLength="50" />
+          <Property Name="Szer igł" Type="nvarchar" MaxLength="50" />
+          <Property Name="Waga igł" Type="int" />
+          <Property Name="Długość igł" Type="int" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
+          <Property Name="Godz" Type="datetime" />
+          <Property Name="Artykuł" Type="nvarchar" MaxLength="50" />
+          <Property Name="Operator" Type="int" />
+          <Property Name="Pomoc operatora" Type="int" />
+          <Property Name="Szerokość" Type="nvarchar" MaxLength="50" />
+          <Property Name="Długość" Type="int" />
+          <Property Name="Waga" Type="float" />
+          <Property Name="Waga krajki" Type="float" />
+          <Property Name="Odpad" Type="bit" Nullable="false" />
+          <Property Name="Kod odpadu" Type="nvarchar" MaxLength="50" />
+          <Property Name="Waga odpad" Type="int" />
+          <Property Name="Konfekcja" Type="int" />
+          <Property Name="M2" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProdukcjaPS.dbo.Konfekcja' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Konfekcja">
+          <Key>
+            <PropertyRef Name="Data" />
+            <PropertyRef Name="Odpad" />
+          </Key>
+          <Property Name="Nr zlecenia" Type="int" />
+          <Property Name="Nr sztuki" Type="nvarchar" MaxLength="50" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
+          <Property Name="Godz" Type="datetime" />
+          <Property Name="Artykuł" Type="nvarchar" MaxLength="50" />
+          <Property Name="Numer" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumerMG" Type="nvarchar" MaxLength="255" />
+          <Property Name="Operator" Type="int" />
+          <Property Name="Pomoc operatora" Type="int" />
+          <Property Name="Szerokość" Type="nvarchar" MaxLength="50" />
+          <Property Name="Długość" Type="int" />
+          <Property Name="Waga" Type="real" />
+          <Property Name="Gatunek" Type="nvarchar" MaxLength="50" />
+          <Property Name="Odpad" Type="bit" Nullable="false" />
+          <Property Name="Waga odpad" Type="real" />
+          <Property Name="M2" Type="float" />
+          <Property Name="DataWG" Type="datetime" />
+          <Property Name="Nr WZ" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProdukcjaPS.dbo.Magazyn' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Magazyn">
+          <Key>
+            <PropertyRef Name="Lp" />
+            <PropertyRef Name="Nazwa surowca" />
+            <PropertyRef Name="BO" />
+            <PropertyRef Name="Zakup" />
+            <PropertyRef Name="Produkcja" />
+            <PropertyRef Name="Operacje" />
+          </Key>
+          <Property Name="Lp" Type="int" Nullable="false" />
+          <Property Name="Nr partii" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nr zlecenia" Type="int" />
+          <Property Name="Data" Type="datetime" />
+          <Property Name="Kontrahent" Type="int" />
+          <Property Name="Nazwa surowca" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BO" Type="int" Nullable="false" />
+          <Property Name="Zakup" Type="int" Nullable="false" />
+          <Property Name="Produkcja" Type="int" Nullable="false" />
+          <Property Name="Operacje" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProdukcjaPS.dbo.MagazynWG' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MagazynWG">
+          <Key>
+            <PropertyRef Name="Data" />
+          </Key>
+          <Property Name="Nr WZ" Type="int" />
+          <Property Name="NumerMG" Type="nvarchar" MaxLength="50" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
+          <Property Name="Godz" Type="datetime" />
+          <Property Name="Artykuł" Type="nvarchar" MaxLength="50" />
+          <Property Name="Operator" Type="int" />
+          <Property Name="Szerokość" Type="nvarchar" MaxLength="50" />
+          <Property Name="Długość" Type="int" />
+          <Property Name="Waga" Type="real" />
+          <Property Name="Gatunek" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProdukcjaPS.dbo.Normy zużycia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Normy zużycia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nr zlecenia" Type="int" />
+          <Property Name="Artykuł" Type="nvarchar" MaxLength="50" />
+          <Property Name="Dostawca" Type="int" />
+          <Property Name="Surowiec" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ilość" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ProdukcjaPS.dbo.Normy zużycie wg kart' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Normy zużycie wg kart">
+          <Property Name="Artykuł" Type="nvarchar" MaxLength="50" />
+          <Property Name="Dostawca" Type="int" />
+          <Property Name="Surowiec" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gramatura" Type="int" />
+          <Property Name="Ilość" Type="float" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProdukcjaPS.dbo.Obsada' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Obsada">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Nazwisko Imie" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ProdukcjaPS.dbo.Plan_mies' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Plan_mies">
+          <Property Name="Miesiąc" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nazwa_art" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ilość" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProdukcjaPS.dbo.Produkcja' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Produkcja">
+          <Key>
+            <PropertyRef Name="Data" />
+            <PropertyRef Name="Odpad" />
+            <PropertyRef Name="Kalandrowanie" />
+          </Key>
+          <Property Name="Nr zlecenia" Type="int" />
+          <Property Name="Nr sztuki" Type="nvarchar" MaxLength="50" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
+          <Property Name="Godz" Type="datetime" />
+          <Property Name="Artykuł" Type="nvarchar" MaxLength="50" />
+          <Property Name="Operator" Type="int" />
+          <Property Name="Pomoc operatora" Type="int" />
+          <Property Name="Szerokość" Type="nvarchar" MaxLength="3" />
+          <Property Name="Długość" Type="int" />
+          <Property Name="Waga" Type="int" />
+          <Property Name="Gramatura 1" Type="int" />
+          <Property Name="Gramatura 2" Type="int" />
+          <Property Name="Gramatura 3" Type="int" />
+          <Property Name="Waga odp" Type="int" />
+          <Property Name="Postój" Type="int" />
+          <Property Name="Odpad" Type="bit" Nullable="false" />
+          <Property Name="Kalandrowanie" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProdukcjaPS.dbo.Surowiec' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Surowiec">
+          <Key>
+            <PropertyRef Name="Lp" />
+            <PropertyRef Name="Nazwa surowca" />
+          </Key>
+          <Property Name="Lp" Type="int" Nullable="false" />
+          <Property Name="Nazwa surowca" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ProdukcjaPS.dbo.Switchboard Items' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Switchboard Items">
+          <Property Name="SwitchboardID" Type="int" />
+          <Property Name="ItemNumber" Type="smallint" />
+          <Property Name="ItemText" Type="nvarchar" MaxLength="255" />
+          <Property Name="Command" Type="smallint" />
+          <Property Name="Argument" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProdukcjaPS.dbo.Szarpak' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Szarpak">
+          <Key>
+            <PropertyRef Name="Data" />
+          </Key>
+          <Property Name="Data" Type="datetime" Nullable="false" />
+          <Property Name="Godz" Type="datetime" />
+          <Property Name="Artykuł" Type="nvarchar" MaxLength="50" />
+          <Property Name="Operator" Type="int" />
+          <Property Name="Waga" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProdukcjaPS.dbo.Szerokość' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Szerokość">
+          <Key>
+            <PropertyRef Name="LP" />
+          </Key>
+          <Property Name="LP" Type="int" Nullable="false" />
+          <Property Name="Szerokość" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="ProdukcjaPSModelStoreContainer">
+          <EntitySet Name="Artykuły" EntityType="Self.Artykuły" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Artykuły].[Lp] AS [Lp], 
+    [Artykuły].[Nazwa_art] AS [Nazwa_art], 
+    [Artykuły].[Opis] AS [Opis], 
+    [Artykuły].[Stawka-operator] AS [Stawka-operator], 
+    [Artykuły].[Stawka-pomoc] AS [Stawka-pomoc], 
+    [Artykuły].[Stawka-operato-k] AS [Stawka-operato-k], 
+    [Artykuły].[Stawka-pomoc-k] AS [Stawka-pomoc-k]
+    FROM [dbo].[Artykuły] AS [Artykuły]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Dostawca" EntityType="Self.Dostawca" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Dostawca].[ID] AS [ID], 
+    [Dostawca].[Nazwa] AS [Nazwa], 
+    [Dostawca].[Adres] AS [Adres]
+    FROM [dbo].[Dostawca] AS [Dostawca]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Dyspozycje" EntityType="Self.Dyspozycje" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Dyspozycje].[ID] AS [ID], 
+    [Dyspozycje].[Data] AS [Data], 
+    [Dyspozycje].[Nr zlecenia] AS [Nr zlecenia], 
+    [Dyspozycje].[Surowiec] AS [Surowiec], 
+    [Dyspozycje].[Artykuł] AS [Artykuł], 
+    [Dyspozycje].[Ilość mb] AS [Ilość mb], 
+    [Dyspozycje].[Zakończ] AS [Zakończ]
+    FROM [dbo].[Dyspozycje] AS [Dyspozycje]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Kalander" EntityType="Self.Kalander" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Kalander].[Nr zlecenia] AS [Nr zlecenia], 
+    [Kalander].[Nr sztuki] AS [Nr sztuki], 
+    [Kalander].[Szer igł] AS [Szer igł], 
+    [Kalander].[Waga igł] AS [Waga igł], 
+    [Kalander].[Długość igł] AS [Długość igł], 
+    [Kalander].[Data] AS [Data], 
+    [Kalander].[Godz] AS [Godz], 
+    [Kalander].[Artykuł] AS [Artykuł], 
+    [Kalander].[Operator] AS [Operator], 
+    [Kalander].[Pomoc operatora] AS [Pomoc operatora], 
+    [Kalander].[Szerokość] AS [Szerokość], 
+    [Kalander].[Długość] AS [Długość], 
+    [Kalander].[Waga] AS [Waga], 
+    [Kalander].[Waga krajki] AS [Waga krajki], 
+    [Kalander].[Odpad] AS [Odpad], 
+    [Kalander].[Kod odpadu] AS [Kod odpadu], 
+    [Kalander].[Waga odpad] AS [Waga odpad], 
+    [Kalander].[Konfekcja] AS [Konfekcja], 
+    [Kalander].[M2] AS [M2]
+    FROM [dbo].[Kalander] AS [Kalander]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Konfekcja" EntityType="Self.Konfekcja" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Konfekcja].[Nr zlecenia] AS [Nr zlecenia], 
+    [Konfekcja].[Nr sztuki] AS [Nr sztuki], 
+    [Konfekcja].[Data] AS [Data], 
+    [Konfekcja].[Godz] AS [Godz], 
+    [Konfekcja].[Artykuł] AS [Artykuł], 
+    [Konfekcja].[Numer] AS [Numer], 
+    [Konfekcja].[NumerMG] AS [NumerMG], 
+    [Konfekcja].[Operator] AS [Operator], 
+    [Konfekcja].[Pomoc operatora] AS [Pomoc operatora], 
+    [Konfekcja].[Szerokość] AS [Szerokość], 
+    [Konfekcja].[Długość] AS [Długość], 
+    [Konfekcja].[Waga] AS [Waga], 
+    [Konfekcja].[Gatunek] AS [Gatunek], 
+    [Konfekcja].[Odpad] AS [Odpad], 
+    [Konfekcja].[Waga odpad] AS [Waga odpad], 
+    [Konfekcja].[M2] AS [M2], 
+    [Konfekcja].[DataWG] AS [DataWG], 
+    [Konfekcja].[Nr WZ] AS [Nr WZ]
+    FROM [dbo].[Konfekcja] AS [Konfekcja]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Magazyn" EntityType="Self.Magazyn" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Magazyn].[Lp] AS [Lp], 
+    [Magazyn].[Nr partii] AS [Nr partii], 
+    [Magazyn].[Nr zlecenia] AS [Nr zlecenia], 
+    [Magazyn].[Data] AS [Data], 
+    [Magazyn].[Kontrahent] AS [Kontrahent], 
+    [Magazyn].[Nazwa surowca] AS [Nazwa surowca], 
+    [Magazyn].[BO] AS [BO], 
+    [Magazyn].[Zakup] AS [Zakup], 
+    [Magazyn].[Produkcja] AS [Produkcja], 
+    [Magazyn].[Operacje] AS [Operacje]
+    FROM [dbo].[Magazyn] AS [Magazyn]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MagazynWG" EntityType="Self.MagazynWG" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MagazynWG].[Nr WZ] AS [Nr WZ], 
+    [MagazynWG].[NumerMG] AS [NumerMG], 
+    [MagazynWG].[Data] AS [Data], 
+    [MagazynWG].[Godz] AS [Godz], 
+    [MagazynWG].[Artykuł] AS [Artykuł], 
+    [MagazynWG].[Operator] AS [Operator], 
+    [MagazynWG].[Szerokość] AS [Szerokość], 
+    [MagazynWG].[Długość] AS [Długość], 
+    [MagazynWG].[Waga] AS [Waga], 
+    [MagazynWG].[Gatunek] AS [Gatunek]
+    FROM [dbo].[MagazynWG] AS [MagazynWG]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Normy zużycia" EntityType="Self.Normy zużycia" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Normy zużycia].[Id] AS [Id], 
+    [Normy zużycia].[Nr zlecenia] AS [Nr zlecenia], 
+    [Normy zużycia].[Artykuł] AS [Artykuł], 
+    [Normy zużycia].[Dostawca] AS [Dostawca], 
+    [Normy zużycia].[Surowiec] AS [Surowiec], 
+    [Normy zużycia].[Ilość] AS [Ilość]
+    FROM [dbo].[Normy zużycia] AS [Normy zużycia]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Obsada" EntityType="Self.Obsada" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Obsada].[ID] AS [ID], 
+    [Obsada].[Nazwisko Imie] AS [Nazwisko Imie]
+    FROM [dbo].[Obsada] AS [Obsada]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Produkcja" EntityType="Self.Produkcja" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Produkcja].[Nr zlecenia] AS [Nr zlecenia], 
+    [Produkcja].[Nr sztuki] AS [Nr sztuki], 
+    [Produkcja].[Data] AS [Data], 
+    [Produkcja].[Godz] AS [Godz], 
+    [Produkcja].[Artykuł] AS [Artykuł], 
+    [Produkcja].[Operator] AS [Operator], 
+    [Produkcja].[Pomoc operatora] AS [Pomoc operatora], 
+    [Produkcja].[Szerokość] AS [Szerokość], 
+    [Produkcja].[Długość] AS [Długość], 
+    [Produkcja].[Waga] AS [Waga], 
+    [Produkcja].[Gramatura 1] AS [Gramatura 1], 
+    [Produkcja].[Gramatura 2] AS [Gramatura 2], 
+    [Produkcja].[Gramatura 3] AS [Gramatura 3], 
+    [Produkcja].[Waga odp] AS [Waga odp], 
+    [Produkcja].[Postój] AS [Postój], 
+    [Produkcja].[Odpad] AS [Odpad], 
+    [Produkcja].[Kalandrowanie] AS [Kalandrowanie]
+    FROM [dbo].[Produkcja] AS [Produkcja]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Surowiec" EntityType="Self.Surowiec" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Surowiec].[Lp] AS [Lp], 
+    [Surowiec].[Nazwa surowca] AS [Nazwa surowca]
+    FROM [dbo].[Surowiec] AS [Surowiec]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Szarpak" EntityType="Self.Szarpak" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Szarpak].[Data] AS [Data], 
+    [Szarpak].[Godz] AS [Godz], 
+    [Szarpak].[Artykuł] AS [Artykuł], 
+    [Szarpak].[Operator] AS [Operator], 
+    [Szarpak].[Waga] AS [Waga]
+    FROM [dbo].[Szarpak] AS [Szarpak]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Szerokość" EntityType="Self.Szerokość" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Szerokość].[LP] AS [LP], 
+    [Szerokość].[Szerokość] AS [Szerokość]
+    FROM [dbo].[Szerokość] AS [Szerokość]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProdukcjaPSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Artykuły">
+          <Key>
+            <PropertyRef Name="Lp" />
+          </Key>
+          <Property Name="Lp" Type="Int32" Nullable="false" />
+          <Property Name="Nazwa_art" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Opis" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stawka_operator" Type="Double" />
+          <Property Name="Stawka_pomoc" Type="Double" />
+          <Property Name="Stawka_operato_k" Type="Double" />
+          <Property Name="Stawka_pomoc_k" Type="Double" />
+        </EntityType>
+        <EntityType Name="Dostawca">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Nazwa" />
+            <PropertyRef Name="Adres" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Nazwa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adres" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dyspozycje">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Data" />
+            <PropertyRef Name="Nr_zlecenia" />
+            <PropertyRef Name="Zakończ" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Nr_zlecenia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surowiec" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Artykuł" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ilość_mb" Type="Int32" />
+          <Property Name="Zakończ" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kalander">
+          <Key>
+            <PropertyRef Name="Data" />
+            <PropertyRef Name="Odpad" />
+          </Key>
+          <Property Name="Nr_zlecenia" Type="Int32" />
+          <Property Name="Nr_sztuki" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Szer_igł" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Waga_igł" Type="Int32" />
+          <Property Name="Długość_igł" Type="Int32" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Godz" Type="DateTime" Precision="3" />
+          <Property Name="Artykuł" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Operator" Type="Int32" />
+          <Property Name="Pomoc_operatora" Type="Int32" />
+          <Property Name="Szerokość" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Długość" Type="Int32" />
+          <Property Name="Waga" Type="Double" />
+          <Property Name="Waga_krajki" Type="Double" />
+          <Property Name="Odpad" Type="Boolean" Nullable="false" />
+          <Property Name="Kod_odpadu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Waga_odpad" Type="Int32" />
+          <Property Name="Konfekcja" Type="Int32" />
+          <Property Name="M2" Type="Double" />
+        </EntityType>
+        <EntityType Name="Konfekcja">
+          <Key>
+            <PropertyRef Name="Data" />
+            <PropertyRef Name="Odpad" />
+          </Key>
+          <Property Name="Nr_zlecenia" Type="Int32" />
+          <Property Name="Nr_sztuki" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Godz" Type="DateTime" Precision="3" />
+          <Property Name="Artykuł" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Numer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumerMG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Operator" Type="Int32" />
+          <Property Name="Pomoc_operatora" Type="Int32" />
+          <Property Name="Szerokość" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Długość" Type="Int32" />
+          <Property Name="Waga" Type="Single" />
+          <Property Name="Gatunek" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Odpad" Type="Boolean" Nullable="false" />
+          <Property Name="Waga_odpad" Type="Single" />
+          <Property Name="M2" Type="Double" />
+          <Property Name="DataWG" Type="DateTime" Precision="3" />
+          <Property Name="Nr_WZ" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Magazyn">
+          <Key>
+            <PropertyRef Name="Lp" />
+            <PropertyRef Name="Nazwa_surowca" />
+            <PropertyRef Name="BO" />
+            <PropertyRef Name="Zakup" />
+            <PropertyRef Name="Produkcja" />
+            <PropertyRef Name="Operacje" />
+          </Key>
+          <Property Name="Lp" Type="Int32" Nullable="false" />
+          <Property Name="Nr_partii" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nr_zlecenia" Type="Int32" />
+          <Property Name="Data" Type="DateTime" Precision="3" />
+          <Property Name="Kontrahent" Type="Int32" />
+          <Property Name="Nazwa_surowca" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BO" Type="Int32" Nullable="false" />
+          <Property Name="Zakup" Type="Int32" Nullable="false" />
+          <Property Name="Produkcja" Type="Int32" Nullable="false" />
+          <Property Name="Operacje" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MagazynWG">
+          <Key>
+            <PropertyRef Name="Data" />
+          </Key>
+          <Property Name="Nr_WZ" Type="Int32" />
+          <Property Name="NumerMG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Godz" Type="DateTime" Precision="3" />
+          <Property Name="Artykuł" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Operator" Type="Int32" />
+          <Property Name="Szerokość" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Długość" Type="Int32" />
+          <Property Name="Waga" Type="Single" />
+          <Property Name="Gatunek" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Normy_zużycia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nr_zlecenia" Type="Int32" />
+          <Property Name="Artykuł" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dostawca" Type="Int32" />
+          <Property Name="Surowiec" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ilość" Type="Double" />
+        </EntityType>
+        <EntityType Name="Obsada">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Nazwisko_Imie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Produkcja">
+          <Key>
+            <PropertyRef Name="Data" />
+            <PropertyRef Name="Odpad" />
+            <PropertyRef Name="Kalandrowanie" />
+          </Key>
+          <Property Name="Nr_zlecenia" Type="Int32" />
+          <Property Name="Nr_sztuki" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Godz" Type="DateTime" Precision="3" />
+          <Property Name="Artykuł" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Operator" Type="Int32" />
+          <Property Name="Pomoc_operatora" Type="Int32" />
+          <Property Name="Szerokość" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="Długość" Type="Int32" />
+          <Property Name="Waga" Type="Int32" />
+          <Property Name="Gramatura_1" Type="Int32" />
+          <Property Name="Gramatura_2" Type="Int32" />
+          <Property Name="Gramatura_3" Type="Int32" />
+          <Property Name="Waga_odp" Type="Int32" />
+          <Property Name="Postój" Type="Int32" />
+          <Property Name="Odpad" Type="Boolean" Nullable="false" />
+          <Property Name="Kalandrowanie" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Surowiec">
+          <Key>
+            <PropertyRef Name="Lp" />
+            <PropertyRef Name="Nazwa_surowca" />
+          </Key>
+          <Property Name="Lp" Type="Int32" Nullable="false" />
+          <Property Name="Nazwa_surowca" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Szarpak">
+          <Key>
+            <PropertyRef Name="Data" />
+          </Key>
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Godz" Type="DateTime" Precision="3" />
+          <Property Name="Artykuł" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Operator" Type="Int32" />
+          <Property Name="Waga" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Szerokość">
+          <Key>
+            <PropertyRef Name="LP" />
+          </Key>
+          <Property Name="LP" Type="Int32" Nullable="false" />
+          <Property Name="Szerokość1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="ProdukcjaPSDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Artykuły" EntityType="Self.Artykuły" />
+          <EntitySet Name="Dostawca" EntityType="Self.Dostawca" />
+          <EntitySet Name="Dyspozycje" EntityType="Self.Dyspozycje" />
+          <EntitySet Name="Kalander" EntityType="Self.Kalander" />
+          <EntitySet Name="Konfekcja" EntityType="Self.Konfekcja" />
+          <EntitySet Name="Magazyn" EntityType="Self.Magazyn" />
+          <EntitySet Name="MagazynWG" EntityType="Self.MagazynWG" />
+          <EntitySet Name="Normy_zużycia" EntityType="Self.Normy_zużycia" />
+          <EntitySet Name="Obsada" EntityType="Self.Obsada" />
+          <EntitySet Name="Produkcja" EntityType="Self.Produkcja" />
+          <EntitySet Name="Surowiec" EntityType="Self.Surowiec" />
+          <EntitySet Name="Szarpak" EntityType="Self.Szarpak" />
+          <EntitySet Name="Szerokość" EntityType="Self.Szerokość" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProdukcjaPSModelStoreContainer" CdmEntityContainer="ProdukcjaPSDbContext">
+          <EntitySetMapping Name="Artykuły">
+            <EntityTypeMapping TypeName="ProdukcjaPSModel.Artykuły">
+              <MappingFragment StoreEntitySet="Artykuły">
+                <ScalarProperty Name="Lp" ColumnName="Lp" />
+                <ScalarProperty Name="Nazwa_art" ColumnName="Nazwa_art" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Stawka_operator" ColumnName="Stawka-operator" />
+                <ScalarProperty Name="Stawka_pomoc" ColumnName="Stawka-pomoc" />
+                <ScalarProperty Name="Stawka_operato_k" ColumnName="Stawka-operato-k" />
+                <ScalarProperty Name="Stawka_pomoc_k" ColumnName="Stawka-pomoc-k" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dostawca">
+            <EntityTypeMapping TypeName="ProdukcjaPSModel.Dostawca">
+              <MappingFragment StoreEntitySet="Dostawca">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dyspozycje">
+            <EntityTypeMapping TypeName="ProdukcjaPSModel.Dyspozycje">
+              <MappingFragment StoreEntitySet="Dyspozycje">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Nr_zlecenia" ColumnName="Nr zlecenia" />
+                <ScalarProperty Name="Surowiec" ColumnName="Surowiec" />
+                <ScalarProperty Name="Artykuł" ColumnName="Artykuł" />
+                <ScalarProperty Name="Ilość_mb" ColumnName="Ilość mb" />
+                <ScalarProperty Name="Zakończ" ColumnName="Zakończ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kalander">
+            <EntityTypeMapping TypeName="ProdukcjaPSModel.Kalander">
+              <MappingFragment StoreEntitySet="Kalander">
+                <ScalarProperty Name="Nr_zlecenia" ColumnName="Nr zlecenia" />
+                <ScalarProperty Name="Nr_sztuki" ColumnName="Nr sztuki" />
+                <ScalarProperty Name="Szer_igł" ColumnName="Szer igł" />
+                <ScalarProperty Name="Waga_igł" ColumnName="Waga igł" />
+                <ScalarProperty Name="Długość_igł" ColumnName="Długość igł" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Godz" ColumnName="Godz" />
+                <ScalarProperty Name="Artykuł" ColumnName="Artykuł" />
+                <ScalarProperty Name="Operator" ColumnName="Operator" />
+                <ScalarProperty Name="Pomoc_operatora" ColumnName="Pomoc operatora" />
+                <ScalarProperty Name="Szerokość" ColumnName="Szerokość" />
+                <ScalarProperty Name="Długość" ColumnName="Długość" />
+                <ScalarProperty Name="Waga" ColumnName="Waga" />
+                <ScalarProperty Name="Waga_krajki" ColumnName="Waga krajki" />
+                <ScalarProperty Name="Odpad" ColumnName="Odpad" />
+                <ScalarProperty Name="Kod_odpadu" ColumnName="Kod odpadu" />
+                <ScalarProperty Name="Waga_odpad" ColumnName="Waga odpad" />
+                <ScalarProperty Name="Konfekcja" ColumnName="Konfekcja" />
+                <ScalarProperty Name="M2" ColumnName="M2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Konfekcja">
+            <EntityTypeMapping TypeName="ProdukcjaPSModel.Konfekcja">
+              <MappingFragment StoreEntitySet="Konfekcja">
+                <ScalarProperty Name="Nr_zlecenia" ColumnName="Nr zlecenia" />
+                <ScalarProperty Name="Nr_sztuki" ColumnName="Nr sztuki" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Godz" ColumnName="Godz" />
+                <ScalarProperty Name="Artykuł" ColumnName="Artykuł" />
+                <ScalarProperty Name="Numer" ColumnName="Numer" />
+                <ScalarProperty Name="NumerMG" ColumnName="NumerMG" />
+                <ScalarProperty Name="Operator" ColumnName="Operator" />
+                <ScalarProperty Name="Pomoc_operatora" ColumnName="Pomoc operatora" />
+                <ScalarProperty Name="Szerokość" ColumnName="Szerokość" />
+                <ScalarProperty Name="Długość" ColumnName="Długość" />
+                <ScalarProperty Name="Waga" ColumnName="Waga" />
+                <ScalarProperty Name="Gatunek" ColumnName="Gatunek" />
+                <ScalarProperty Name="Odpad" ColumnName="Odpad" />
+                <ScalarProperty Name="Waga_odpad" ColumnName="Waga odpad" />
+                <ScalarProperty Name="M2" ColumnName="M2" />
+                <ScalarProperty Name="DataWG" ColumnName="DataWG" />
+                <ScalarProperty Name="Nr_WZ" ColumnName="Nr WZ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Magazyn">
+            <EntityTypeMapping TypeName="ProdukcjaPSModel.Magazyn">
+              <MappingFragment StoreEntitySet="Magazyn">
+                <ScalarProperty Name="Lp" ColumnName="Lp" />
+                <ScalarProperty Name="Nr_partii" ColumnName="Nr partii" />
+                <ScalarProperty Name="Nr_zlecenia" ColumnName="Nr zlecenia" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Kontrahent" ColumnName="Kontrahent" />
+                <ScalarProperty Name="Nazwa_surowca" ColumnName="Nazwa surowca" />
+                <ScalarProperty Name="BO" ColumnName="BO" />
+                <ScalarProperty Name="Zakup" ColumnName="Zakup" />
+                <ScalarProperty Name="Produkcja" ColumnName="Produkcja" />
+                <ScalarProperty Name="Operacje" ColumnName="Operacje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MagazynWG">
+            <EntityTypeMapping TypeName="ProdukcjaPSModel.MagazynWG">
+              <MappingFragment StoreEntitySet="MagazynWG">
+                <ScalarProperty Name="Nr_WZ" ColumnName="Nr WZ" />
+                <ScalarProperty Name="NumerMG" ColumnName="NumerMG" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Godz" ColumnName="Godz" />
+                <ScalarProperty Name="Artykuł" ColumnName="Artykuł" />
+                <ScalarProperty Name="Operator" ColumnName="Operator" />
+                <ScalarProperty Name="Szerokość" ColumnName="Szerokość" />
+                <ScalarProperty Name="Długość" ColumnName="Długość" />
+                <ScalarProperty Name="Waga" ColumnName="Waga" />
+                <ScalarProperty Name="Gatunek" ColumnName="Gatunek" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Normy_zużycia">
+            <EntityTypeMapping TypeName="ProdukcjaPSModel.Normy_zużycia">
+              <MappingFragment StoreEntitySet="Normy zużycia">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nr_zlecenia" ColumnName="Nr zlecenia" />
+                <ScalarProperty Name="Artykuł" ColumnName="Artykuł" />
+                <ScalarProperty Name="Dostawca" ColumnName="Dostawca" />
+                <ScalarProperty Name="Surowiec" ColumnName="Surowiec" />
+                <ScalarProperty Name="Ilość" ColumnName="Ilość" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Obsada">
+            <EntityTypeMapping TypeName="ProdukcjaPSModel.Obsada">
+              <MappingFragment StoreEntitySet="Obsada">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nazwisko_Imie" ColumnName="Nazwisko Imie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produkcja">
+            <EntityTypeMapping TypeName="ProdukcjaPSModel.Produkcja">
+              <MappingFragment StoreEntitySet="Produkcja">
+                <ScalarProperty Name="Nr_zlecenia" ColumnName="Nr zlecenia" />
+                <ScalarProperty Name="Nr_sztuki" ColumnName="Nr sztuki" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Godz" ColumnName="Godz" />
+                <ScalarProperty Name="Artykuł" ColumnName="Artykuł" />
+                <ScalarProperty Name="Operator" ColumnName="Operator" />
+                <ScalarProperty Name="Pomoc_operatora" ColumnName="Pomoc operatora" />
+                <ScalarProperty Name="Szerokość" ColumnName="Szerokość" />
+                <ScalarProperty Name="Długość" ColumnName="Długość" />
+                <ScalarProperty Name="Waga" ColumnName="Waga" />
+                <ScalarProperty Name="Gramatura_1" ColumnName="Gramatura 1" />
+                <ScalarProperty Name="Gramatura_2" ColumnName="Gramatura 2" />
+                <ScalarProperty Name="Gramatura_3" ColumnName="Gramatura 3" />
+                <ScalarProperty Name="Waga_odp" ColumnName="Waga odp" />
+                <ScalarProperty Name="Postój" ColumnName="Postój" />
+                <ScalarProperty Name="Odpad" ColumnName="Odpad" />
+                <ScalarProperty Name="Kalandrowanie" ColumnName="Kalandrowanie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Surowiec">
+            <EntityTypeMapping TypeName="ProdukcjaPSModel.Surowiec">
+              <MappingFragment StoreEntitySet="Surowiec">
+                <ScalarProperty Name="Lp" ColumnName="Lp" />
+                <ScalarProperty Name="Nazwa_surowca" ColumnName="Nazwa surowca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Szarpak">
+            <EntityTypeMapping TypeName="ProdukcjaPSModel.Szarpak">
+              <MappingFragment StoreEntitySet="Szarpak">
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Godz" ColumnName="Godz" />
+                <ScalarProperty Name="Artykuł" ColumnName="Artykuł" />
+                <ScalarProperty Name="Operator" ColumnName="Operator" />
+                <ScalarProperty Name="Waga" ColumnName="Waga" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Szerokość">
+            <EntityTypeMapping TypeName="ProdukcjaPSModel.Szerokość">
+              <MappingFragment StoreEntitySet="Szerokość">
+                <ScalarProperty Name="LP" ColumnName="LP" />
+                <ScalarProperty Name="Szerokość1" ColumnName="Szerokość" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

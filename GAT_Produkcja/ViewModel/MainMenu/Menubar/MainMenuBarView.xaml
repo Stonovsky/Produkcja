@@ -1,0 +1,491 @@
+﻿<UserControl x:Class="GAT_Produkcja.ViewModel.MainMenu.MenuBar.MainMenuBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GAT_Produkcja.ViewModel.MainMenu.MenuBar"
+             
+             xmlns:converters="clr-namespace:GAT_Produkcja.UI.Converters"
+            mc:Ignorable="d"
+        xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+        startUp:ViewModelLocator.AutoWireViewModel="True"
+
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:dgx="clr-namespace:DataGridExtensions;assembly=DataGridExtensions"
+        xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="12"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Language="pl-PL"
+        d:DesignHeight="50" d:DesignWidth="600"
+        >
+    <Grid>
+        <Menu   
+                Height="30"
+                IsMainMenu="True"
+                FontSize="12"
+                VerticalAlignment="Top"
+                >
+            <!--#region  Plik -->
+
+            <MenuItem Header="Plik" VerticalAlignment="Center" >
+                <MenuItem Header="Ustawienia">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Settings"
+                                                 HorizontalAlignment="Left" />
+                    </MenuItem.Icon>
+                    <MenuItem Header="Urządzenia"
+                              Command="{Binding OtworzKonfiguracjeUrzadzenCommand}"
+                        >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Devices"
+                                                     HorizontalAlignment="Left" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Motyw aplikacji">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Colorize"
+                                                     HorizontalAlignment="Left" />
+                        </MenuItem.Icon>
+
+                        <MenuItem Header="Motyw jasny"
+                                  Command="{Binding ZmienKolorCommand}"
+                                  CommandParameter="{Binding Header, RelativeSource={RelativeSource Self}}">
+                        </MenuItem>
+                        <MenuItem Header="Motyw ciemny"
+                                  Command="{Binding ZmienKolorCommand}"
+                                  CommandParameter="{Binding Header, RelativeSource={RelativeSource Self}}">
+                        </MenuItem>
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem Header="Zamknij"
+                          Command="{Binding ZamknijAplikacjeCommand}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Close" HorizontalAlignment="Left"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <!--#endregion-->
+
+            <MenuItem Header="Menu" VerticalAlignment="Center" HorizontalAlignment="Right">
+
+                <!--#region Zapotrzebowania-->
+                <MenuItem Header="Zapotrzebowania" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <MenuItem Header="Dodaj zapotrzebowanie"
+                              Command="{Binding DodajZapotrzebowanieCommand}"
+                            >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Add" HorizontalAlignment="Left"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Ewidencja zapotrzebowań"
+                              Command="{Binding OtworzZapotrzebowanieEwidencjaCommand}"
+                              >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Euro" HorizontalAlignment="Left"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Analiza zapotrzebowań"
+                              Command="{Binding OtworzAnalizeZapotrzebowanCommand}"
+                              >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="ChartAreaspline" HorizontalAlignment="Left"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+
+                    <MenuItem Header="Ewidencja rozliczeń zapotrzebowań"
+                              Command="{Binding OtworzEwidencjeRozliczenZapotrzebowanCommand}"
+                              >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Euro" HorizontalAlignment="Left"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <!--#endregion-->
+
+                <!--#region Kontrahent-->
+                <MenuItem Header="Kontrahent" VerticalAlignment="Center" HorizontalAlignment="Right"
+                          >
+                    <MenuItem Header="Dodaj Kontrahenta"
+                              Command="{Binding DodajKontrahentaCommand}"
+                            >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="PersonAdd" HorizontalAlignment="Left"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Ewidencja Kontrahentów"
+                              Command="{Binding PokazEwidencjeKontrahentowCommand}"
+                              >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="People" HorizontalAlignment="Left"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                </MenuItem>
+                <!--#endregion-->
+
+            </MenuItem>
+
+            <!--#region  Magazyn-->
+
+            <MenuItem Header="Magazyn" VerticalAlignment="Center" HorizontalAlignment="Right"
+                      Visibility="{Binding Path=ZalogowanyUzytkownik, Converter={converters:DostepMagazynVisibilityConverter}}"
+                      >
+                <!--#region Magazyn Subiekt GT -->
+                <MenuItem Header="Subiekt GT"
+                          ToolTip="Ewidencja magazynów w programie Subiekt GT"
+                          Command="{Binding OtowrzMagazynEwidencjaSubiektCommand}"
+                          >
+
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Store" HorizontalAlignment="Left"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <!--#endregion-->
+
+                <!-- #region Ruch magazynowy -->
+                <MenuItem Header="Ruch magazynowy" VerticalAlignment="Center" HorizontalAlignment="Right"
+                          Visibility="Collapsed">
+                    <MenuItem Header="PZ"
+                              ToolTip="Przyjęcie zewnętrzne"
+                              Command="{Binding OtworzRuchTowaruCommand}"
+                              CommandParameter="PZ"
+                            >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Add" HorizontalAlignment="Left"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="RW"
+                              ToolTip="Wydanie na produkcję / Rozchód wewnętrzny"
+                              Command="{Binding OtworzRuchTowaruCommand}"
+                              CommandParameter="RW"
+                              >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Arrow" HorizontalAlignment="Left"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="MM"
+                              ToolTip="Przesunięcie międzymagazynowe"
+                              Command="{Binding OtworzRuchTowaruCommand}"
+                              CommandParameter="MM"
+                              >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Rotate3d" HorizontalAlignment="Left"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="WZ"
+                              ToolTip="Wydanie zewnętrzne"
+                              Command="{Binding OtworzRuchTowaruCommand}"
+                                CommandParameter="WZ"
+                              >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="ArrowTopRightThick" HorizontalAlignment="Left"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <!--#endregion-->
+
+                <!--#region Ewidencje-->
+                <MenuItem Header="Ewidencje" VerticalAlignment="Center" HorizontalAlignment="Right"
+                          Visibility="Collapsed">
+
+                    <MenuItem Header="Stan magazynu"
+                              Command="{Binding OtworzStanMagazynowyCommand}"
+                            >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="GoogleAnalytics" HorizontalAlignment="Left"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Ruch na magazynie"
+                              Command="{Binding OtworzEwidencjeRuchuTowarowCommand}"
+                            >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Rotate3d" HorizontalAlignment="Left"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+
+                <!--#endregion-->
+
+            </MenuItem>
+            <!--#endregion-->
+
+            <!--#region Produkcja -->
+            <MenuItem Header="Produkcja" VerticalAlignment="Center" HorizontalAlignment="Right"
+                      Visibility="{Binding Converter={converters:DostepProdukcjaVisibilityConverter}}"
+                      >
+
+                <!--#region ZK -->
+                <MenuItem
+                    Header="Zamówienia od Klienta"
+                    Command="{Binding OtworzZamowienieOdKlientowCommand}"
+                    
+                    >
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="UserMultipleCheck"
+                                                 HorizontalAlignment="Left" />
+                    </MenuItem.Icon>
+
+                </MenuItem>
+                <!--#endregion-->
+                <MenuItem
+                        Header="Geowłóknina"
+                        >
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="RecordCircle"
+                                                 HorizontalAlignment="Left" />
+                    </MenuItem.Icon>
+
+
+                    <!--#region Zlecenia -->
+
+                    <MenuItem
+                    Header="Zlecenia"
+                    Visibility="{Binding Converter={converters:DostepKierownikProdukcjiVisibilityConverter}}"
+                    >
+
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="CalendarToday"
+                                                 HorizontalAlignment="Left" />
+                        </MenuItem.Icon>
+
+                        <MenuItem
+                        Header="Zlecenie produkcyjne"
+                        Command="{Binding OtworzZlecenieCommand}"
+                        CommandParameter="{Binding Header, RelativeSource={RelativeSource Self}}"  
+                            
+                        >
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="Manufacturing"
+                                                 HorizontalAlignment="Left" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <!--<MenuItem
+                        Header="Zlecenie cięcia"
+                        Command="{Binding OtworzZlecenieCommand}"
+                        CommandParameter="{Binding Header, RelativeSource={RelativeSource Self}}"           
+                        >
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="ContentCut"
+                                                 HorizontalAlignment="Left" />
+                            </MenuItem.Icon>
+
+                        </MenuItem>-->
+                    </MenuItem>
+
+                    <!--#endregion-->
+
+
+
+                    <!--#region Rejestracja produkcji -->
+
+                    <MenuItem
+                        Header="Rejestracja produkcji"
+                        Visibility="Visible"
+                        >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Add"
+                                                 HorizontalAlignment="Left" />
+                        </MenuItem.Icon>
+                        <MenuItem Header="Linia włóknin"
+                                            Command="{Binding RejestracjaProdukcjiOtworOknoCommand}"
+                                            CommandParameter="{Binding Header, RelativeSource={RelativeSource Self}}"           
+                              />
+                        <MenuItem Header="Linia do kalandrowania"
+                                        Command="{Binding RejestracjaProdukcjiOtworOknoCommand}"
+                                        CommandParameter="{Binding Header,RelativeSource={RelativeSource Self}}"
+                                        />
+                        <MenuItem Header="Linia do konfekcji"
+                                    Command="{Binding RejestracjaProdukcjiOtworOknoCommand}"
+                                    CommandParameter="{Binding Header, RelativeSource={RelativeSource Self}}"           
+                                    />
+                    </MenuItem>
+
+                    <!--#endregion-->
+
+
+                    <!--#region Ewidencja produkcji -->
+                    <MenuItem
+                    Header="Ewidencja produkcji"
+                    Command="{Binding OtworzEwidencjeProdukcjiCommand}"
+                    
+                    >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Assignment"
+                                                 HorizontalAlignment="Left" />
+                        </MenuItem.Icon>
+
+                    </MenuItem>
+                    <!--#endregion-->
+
+                    <!--#region Rozliczenie produkcji -->
+                    <MenuItem Header="Rozliczenie produkcji"
+                                  Visibility="{Binding Converter={converters:DostepFinanseVisibilityConverter}}"
+                                  
+                                  >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Calculator"
+                                                 HorizontalAlignment="Left" />
+                        </MenuItem.Icon>
+
+                        <MenuItem
+                            Header="Ewidencja rozliczeń produkcji"
+                            Command="{Binding OtworzEwidencjeRozliczenProdukcjiCommand}"
+                            >
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="BallotRecountOutline"
+                                                 HorizontalAlignment="Left" />
+                            </MenuItem.Icon>
+
+                        </MenuItem>
+                        <MenuItem
+                            Header="Ewidencja cen transferowych"
+                            Command="{Binding OtworzEwidencjeCenTransfeorwychCommand}"
+                            >
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="BankTransfer"
+                                                 HorizontalAlignment="Left" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+
+                    <!--#endregion-->
+
+                </MenuItem>
+                <MenuItem
+                    Header="Geokomórka"
+                    Visibility="{Binding Converter={converters:DostepKierownikProdukcjiVisibilityConverter}}"
+                        >
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Grid"
+                                                 HorizontalAlignment="Left" />
+                    </MenuItem.Icon>
+                    <!--#region Ewidencja produkcji -->
+                    <MenuItem
+                            Header="Ewidencja przerobu"
+                            Command="{Binding OtworzEwidencjePrzerobuGokomorkiCommand}"
+                            >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Assignment"
+                                                 HorizontalAlignment="Left" />
+                        </MenuItem.Icon>
+
+                    </MenuItem>
+                    <!--#endregion-->
+
+
+                </MenuItem>
+
+                <!--#region Badania-->
+                <MenuItem Header="Badania" VerticalAlignment="Center" HorizontalAlignment="Right"
+                          >
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="TestTube"
+                                                 HorizontalAlignment="Left" />
+                    </MenuItem.Icon>
+
+                    <MenuItem Header="Dodaj badanie"
+                              Command="{Binding DodajBadanieCommand}"
+                            >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Add" HorizontalAlignment="Left"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Ewidencja badań"
+                              Command="{Binding OtworzEwidencjeBadanCommand}"
+                              >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Assignment" HorizontalAlignment="Left"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+
+                </MenuItem>
+                <!--#endregion-->
+
+
+
+                <!--#region Konfekcja-->
+                <!--<MenuItem Header="Konfekcja" VerticalAlignment="Center" HorizontalAlignment="Right">
+
+                    -->
+                <!--#region Drukowanie Etykiet-->
+                <!--
+                    <MenuItem Header="Drukowanie etykiet"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Stretch"
+                          Command="{Binding OtworzDrukowanieEtykietCommand}"
+                          >
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Printer"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    -->
+                <!--#endregion-->
+                <!--
+                </MenuItem>-->
+                <!--#endregion-->
+            </MenuItem>
+            <!--#endregion-->
+
+            <!--#region Finanse -->
+            <MenuItem Header="Finanse" VerticalAlignment="Center" HorizontalAlignment="Right"
+                      Visibility="{Binding Converter={converters:DostepSzefVisibilityConverter}}"
+                >
+                <MenuItem Header="Należności i zobowiązania"
+                          Command="{Binding OtworzNaleznosciIZobowiazaniaCommand}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Money100" HorizontalAlignment="Left"/>
+                    </MenuItem.Icon>
+
+
+                </MenuItem>
+
+                <MenuItem Header="Stan kont"
+                          Command="{Binding OtworzEwidencjeStanuKontCommand}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Bank" HorizontalAlignment="Left"/>
+                    </MenuItem.Icon>
+
+                </MenuItem>
+
+                <MenuItem Header="Sprzedaż"
+                          Command="{Binding OtworzEwidencjeSprzedazyAGGCommand}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Sale" HorizontalAlignment="Left"/>
+                    </MenuItem.Icon>
+
+                </MenuItem>
+
+                <MenuItem Header="Podsumowanie finansowe"
+                          Command="{Binding OtworzPodsumowanieFinansoweCommand}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="AttachMoney" HorizontalAlignment="Left"/>
+                    </MenuItem.Icon>
+
+                </MenuItem>
+            </MenuItem>
+            <!--#endregion-->
+
+        </Menu>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,451 @@
+﻿<Window x:Class="GAT_Produkcja.ViewModel.Produkcja.GniazdaProdukcyjne.ProdukcjaRuch.RuchTowar.Dodaj.GPRuchTowarDodajView"
+
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.GniazdaProdukcyjne.ProdukcjaRuch.RuchTowar.Dodaj"
+        mc:Ignorable="d"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:converters="clr-namespace:GAT_Produkcja.UI.Converters"
+
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:vmBadania ="clr-namespace:GAT_Produkcja.ViewModel.Produkcja.GniazdaProdukcyjne.ProdukcjaRuch.RuchTowar.Badania"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="12"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        MinHeight="100"
+        MinWidth="100"
+        Height="650"
+        Width="430"
+
+        xmlns:startUp="clr-namespace:GAT_Produkcja.Startup"
+        startUp:ViewModelLocator.AutoWireViewModel="True"
+        Title="{Binding Tytul, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        WindowStartupLocation="CenterScreen"
+        >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SaveCommand}" />
+        <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding ScaleReadCommand}" />
+        <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding PrintInternalLabelCommand}" />
+        <KeyBinding Key="D" Modifiers="Ctrl+Shift"   Command="{Binding PrintCEUVCommand}" />
+        <KeyBinding Key="D" Modifiers="Shift"   Command="{Binding PrintCECommand}" />
+    </Window.InputBindings>
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding LoadCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <!--#region Buttony -->
+        <Grid
+            Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel
+                Orientation="Horizontal"
+                Grid.Column="2"
+                >
+                <!--<Button Content="Usuń"
+                        Command="{Binding UsunCommand}"
+                        Margin="5"/>-->
+                <Button 
+                        Command="{Binding SaveCommand}"
+                        Margin="5"
+                        ToolTip="{Binding SaveButtonToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        ToolTipService.ShowOnDisabled="True"
+                    >
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ContentSave" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    </StackPanel>
+
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+
+        <TabControl
+            Grid.Row="1"
+            >
+            <TabItem Header="Rejestracja"
+                     >
+                <GroupBox
+                        Header="Identyfikacja"
+                        Margin="5"
+                        BorderThickness="0"
+                        Padding="5"
+                        Foreground="{DynamicResource MaterialDesignBody}"
+                        >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Left"
+                                        >
+
+                            <TextBox    Text="{Binding RuchTowar.NrZlecenia,  
+                                                   Mode=TwoWay, 
+                                                   UpdateSourceTrigger=PropertyChanged, 
+                                                   ValidatesOnDataErrors=True, 
+                                                   NotifyOnValidationError=True}"
+                                materialDesign:HintAssist.Hint="Nr zlec"
+                                VerticalAlignment="Center"
+                                MinWidth="40"
+                                MaxWidth="60"
+                                Margin="5 5 5 5"/>
+                            <ComboBox ItemsSource="{Binding StronyRolki, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                      SelectedItem="{Binding WybranaStronaRolki, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      materialDesign:HintAssist.Hint="Strona"
+                                      VerticalAlignment="Center"
+                                      Width="50"
+                                      Margin="5" 
+                                      Visibility="{Binding CzyStronaRolkiWidoczna, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={converters:BooleanToVisibilityConverter}}"
+                                      />
+
+                            <TextBox Text="{Binding RuchTowar.NrRolki,  
+                                                Mode=TwoWay, 
+                                                UpdateSourceTrigger=PropertyChanged, 
+                                                ValidatesOnDataErrors=True, 
+                                                NotifyOnValidationError=True}"
+                                materialDesign:HintAssist.Hint="Nr rolki"
+                                VerticalAlignment="Center"
+                                Width="60"
+                                Margin="5"
+                                 />
+                            <TextBox Text="{Binding RuchTowar.NrRolkiPelny,  
+                                                Mode=TwoWay, 
+                                                UpdateSourceTrigger=PropertyChanged, 
+                                                ValidatesOnDataErrors=True, 
+                                                NotifyOnValidationError=True}"
+                                materialDesign:HintAssist.Hint="Nr pełny rolki"
+                                VerticalAlignment="Center"
+                                Width="80"
+                                Margin="5"
+                                 />
+                            <TextBox Text="{Binding RuchTowar.KodKreskowy,  
+                                                Mode=TwoWay, 
+                                                UpdateSourceTrigger=PropertyChanged, 
+                                                ValidatesOnDataErrors=True, 
+                                                NotifyOnValidationError=True}"
+                                            ToolTip="Zeskanuj kod kreskowy"
+                                            materialDesign:HintAssist.Hint="Kod kreskowy"
+                                            VerticalAlignment="Center"
+                                            Width="100"
+                                            Margin="5"
+                                 />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                Grid.Row="1"
+                                VerticalAlignment="Center" 
+                                HorizontalAlignment="Left"
+                                Margin="0 0 0 0"
+                                    
+                                >
+                            <ComboBox ItemsSource="{Binding ListaGramatur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                      SelectedItem="{Binding WybranaGramatura, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      DisplayMemberPath="Gramatura"
+                                      SelectedValuePath="IDTowarGeowlokninaParametryGramatura"
+                                      SelectedValue="{Binding RuchTowar.IDGramatura, 
+                                                              Mode=TwoWay, 
+                                                              UpdateSourceTrigger=PropertyChanged, 
+                                                              ValidatesOnDataErrors=True, 
+                                                              NotifyOnValidationError=True}"    
+                                      materialDesign:HintAssist.Hint="Gramatura"
+                                      VerticalAlignment="Center"
+                                      Width="75"
+                                      Margin="5" 
+                                      />
+                            <ComboBox ItemsSource="{Binding ListaRodzajowSurowca, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                      SelectedItem="{Binding WybranySurowiec, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                      DisplayMemberPath="Skrot"
+                                      SelectedValuePath="IDTowarGeowlokninaParametrySurowiec"
+                                      SelectedValue="{Binding RuchTowar.IDTowarGeowlokninaParametrySurowiec, 
+                                                              Mode=TwoWay, 
+                                                              UpdateSourceTrigger=PropertyChanged, 
+                                                              ValidatesOnDataErrors=True, 
+                                                              NotifyOnValidationError=True}"
+                                      materialDesign:HintAssist.Hint="Surowiec"
+                                      VerticalAlignment="Center"
+                                      Width="70"
+                                      Margin="5" 
+                                      />
+                            <TextBox    
+                                    Text="{Binding RuchTowar.Szerokosc_m, StringFormat=N2, 
+                                                    Mode=TwoWay, 
+                                                    UpdateSourceTrigger=PropertyChanged, 
+                                                    ValidatesOnDataErrors=True, 
+                                                    NotifyOnValidationError=True}"
+                                                 ToolTip="Podaj szerokość rolki w metrach"
+                                                 materialDesign:HintAssist.Hint="Szer. [m]"
+                                                 TextAlignment="Right"
+                                                 VerticalAlignment="Center"
+                                                 Width="50"
+                                                 Margin="5"
+                                        />
+                            <TextBox    Text="{Binding RuchTowar.Dlugosc_m, StringFormat=N2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    ToolTip="Podaj długość rolki w metrach"
+                                    materialDesign:HintAssist.Hint="Dł. [m]"
+                                    TextAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Width="50"
+                                    Margin="5"
+                                        />
+                            <TextBox    
+                                    Text="{Binding RuchTowar.Ilosc_m2, StringFormat=N2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                    materialDesign:HintAssist.Hint="Ilość [m2]"
+                                    VerticalAlignment="Center"
+                                    TextAlignment="Right"
+                                    Width="60"
+                                    Margin="5" 
+                                    />
+
+                        </StackPanel>
+
+                        <StackPanel 
+                                Orientation="Horizontal"
+                                Grid.Row="2"
+                                HorizontalAlignment="Left"
+                                >
+                            <TextBox
+                                    Text="{Binding RuchTowar.Waga_kg, StringFormat=N2, Mode=TwoWay, 
+                                                   UpdateSourceTrigger=PropertyChanged, 
+                                                   ValidatesOnDataErrors=True, 
+                                                   NotifyOnValidationError=True,
+                                                   NotifyOnSourceUpdated=True,
+                                                   Delay=1000
+                                    }"
+                                        ToolTip="Zważ i podaj wagę rolki w kilogramach [kg]"
+                                        materialDesign:HintAssist.Hint="Waga [kg]"
+                                        VerticalAlignment="Center"
+                                        Width="60"
+                                        TextAlignment="Right"
+                                        >
+                                <!--SourceUpdated Occurs when a value is transferred from the binding target to the binding source, 
+                                    but only for bindings with the NotifyOnSourceUpdated value set to true. -->
+
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SourceUpdated">
+                                        <i:InvokeCommandAction Command="{Binding ZmianaWagiCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
+                            </TextBox>
+                            <Button
+                                    Command="{Binding ScaleReadCommand}"
+                                    ToolTip="Kliknij aby pobrać dane z wagi.&#x0a;[CTRL + W]"
+                                    VerticalAlignment="Center"
+                                    IsDefault="True"
+                                    Width="40"
+                                    Padding="0"
+                                    Margin="0 0 10 0"
+                                    >
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Scale" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                </StackPanel>
+                            </Button>
+
+
+                            <TextBox    
+                                    Text="{Binding RuchTowar.WagaOdpad_kg, StringFormat=N2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ToolTip="Zważ odpad i podaj wagę w kilogramach [kg]"
+                                    materialDesign:HintAssist.Hint="Odpad [kg]"
+                                    VerticalAlignment="Center"
+                                    Width="60"
+                                    TextAlignment="Right"
+                                    Margin="5"/>
+
+                            <TextBox    
+                                    Text="{Binding GramaturaSrednia, StringFormat=N2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ToolTip="Gramatura średnia obliczana automatycznie"
+                                    materialDesign:HintAssist.Hint="Gram. śr."
+                                    VerticalAlignment="Center"
+                                    Width="80"
+                                    Margin="100 5, 5, 5"
+                                    IsReadOnly="True"
+                                    TextAlignment="Right"
+                                    FontWeight="Bold"
+                                    Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                            />
+
+                        </StackPanel>
+
+                        <StackPanel 
+                                Orientation="Horizontal"
+                                Grid.Row="3"
+                                    HorizontalAlignment="Center"
+
+                                >
+                            <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            >
+                                <TextBlock Text="Kalandorwana? "
+                                                VerticalAlignment="Center"
+                                                ToolTip="Czy rolka jest kalandrowana?"
+                                                Margin="5"/>
+
+                                <ToggleButton Content="X"
+                                                    Style="{StaticResource MaterialDesignActionLightToggleButton}"
+                                                    IsChecked="{Binding RuchTowar.CzyKalandrowana, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    ToolTip="MaterialDesignActionLightToggleButton" 
+                                                    Width="35"
+                                                    Height="35"
+                                                    Padding="0 0 0 0"
+                                                    FontSize="20"
+                                                Margin="20 0 0  0"
+                                    />
+                            </StackPanel>
+                        </StackPanel>
+
+                    </Grid>
+                </GroupBox>
+            </TabItem>
+            <TabItem Header="Próbki">
+                <vmBadania:GPRuchTowarBadaniaView DataContext="{Binding BadaniaViewModel}"/>
+            </TabItem>
+        </TabControl>
+
+
+        <GroupBox
+            Grid.Row="2"
+            Header="Drukowanie"
+            BorderThickness="0"
+            Margin="5"
+            Padding="5"
+            >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+
+                <TextBox
+                        Text="{Binding NazwaDrukarki, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        materialDesign:HintAssist.Hint="Nazwa drukarki"
+                        ToolTip="Wpisz ilość etykiet do druku"
+                        MinWidth="150"
+                        MaxWidth="250"
+                        TextAlignment="Left"
+                        />
+                <TextBox
+                        Grid.Column="1"
+                        Text="{Binding IloscEtykietDoDruku, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        materialDesign:HintAssist.Hint="Ilość etykiet"
+                        ToolTip="Wpisz ilość etykiet do druku"
+                        HorizontalAlignment="Right"
+                        Margin="20 5"
+                        TextAlignment="Right"
+                        />
+                <!--<Button 
+                    Grid.Column="2"
+                    Command="{Binding PrintCommand}"
+                    ToolTip="Drukuj etykietę towaru"
+                    >
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Printer" 
+                                                 Width="30" 
+                                                 Height="30" 
+                                                 Padding="0"
+                                                 />
+                    </StackPanel>
+
+                </Button>-->
+
+
+                <materialDesign:PopupBox
+                        Grid.Column="2"
+                        Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                        PlacementMode="LeftAndAlignBottomEdges"
+                        ToolTipService.Placement="Right"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                        materialDesign:ShadowAssist.ShadowEdges="All"
+                        >
+                    <materialDesign:PopupBox.ToggleContent
+                            >
+                        <materialDesign:PackIcon Kind="Printer"
+                                                    Width="30"
+                                                    Height="30"
+                                                    Padding="0"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Left" 
+
+                                    />
+
+                    </materialDesign:PopupBox.ToggleContent>
+                    <StackPanel>
+                        <Button
+                            Command="{Binding PrintCECommand}"
+                            Content="CE"
+                            ToolTip="Drukuj etykietę CE (konfekcja).&#x0a;[SHIFT + D]"
+                            ToolTipService.ShowOnDisabled="True"
+                            >
+
+                        </Button>
+                        <Button
+                            Command="{Binding PrintCEUVCommand}"
+                            Content="CE z UV"
+                            ToolTip="Drukuj etykietę CE z UV (konfekcja).&#x0a;[CTRL + SHIFT + D]"
+                            ToolTipService.ShowOnDisabled="True"
+
+                            >
+
+                        </Button>
+                        <Button
+                            Command="{Binding PrintInternalLabelCommand}"
+                            Content="bez CE"
+                            ToolTip="Drukuj etykietę wewnętrzną.&#x0a;[CTRL + D]"
+                            ToolTipService.ShowOnDisabled="True"
+                            >
+                        </Button>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Informacje dodatkowe"
+                  Grid.Row="4"
+                  Margin="5"
+                  >
+            <TextBlock Text="{Binding Info, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        </GroupBox>
+    </Grid>
+</Window>
