@@ -65,3 +65,4 @@ Main page:
 
 List of manufatured goods in given dates:
 ![Production](https://github.com/Stonovsky/GAT_Produkcja/blob/master/GAT_Produkcja/Images/EwidencjaProdukcji_clear.png)
+# Produkcja
